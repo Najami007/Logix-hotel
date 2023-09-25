@@ -26,6 +26,7 @@ export class RoomComponent implements OnInit {
     
     ){}
   ngOnInit(): void {
+    this.globaldata.setHeaderTitle('Add Room');
     this.getRoom();
   }
 

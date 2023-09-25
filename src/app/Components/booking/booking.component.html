@@ -1,0 +1,226 @@
+<mat-tab-group>
+    <mat-tab label="Booking Form">
+
+
+       <div class="container p-3">
+
+
+
+        <mat-form-field appearance="outline" class="w-50 p-2"> 
+            <mat-label>Select Room</mat-label>
+            <mat-select [(ngModel)]="RoomID" (selectionChange)="onRoomSelected()">
+                <mat-option><ngx-mat-select-search [(ngModel)]="searchRoom"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of RoomList" [value]="item.roomID">{{item.roomTitle}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-50 p-2"> 
+            <mat-label>Select Customer</mat-label>
+            <mat-select [(ngModel)]="partyID">
+                <mat-option><ngx-mat-select-search [(ngModel)]="searchParty"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of partyList" [value]="item.partyID">{{item.partyName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field class="w-50 p-2" appearance="outline">
+            <mat-label>Select Booking Date</mat-label>
+            <input readonly="true" matInput   [(ngModel)]="bookingDate"
+                [matDatepicker]="bdate" >
+            <mat-datepicker-toggle matSuffix [for]="bdate"></mat-datepicker-toggle>
+            <mat-datepicker #bdate></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" class="w-50 p-2"> 
+            <mat-label>Rent</mat-label>
+            <input matInput type="text" [(ngModel)]="rentPerDay">
+        </mat-form-field>
+
+
+        <mat-form-field class="w-50 p-2" appearance="outline">
+            <mat-label>Select Arrival Date</mat-label>
+            <input readonly="true" matInput [min]="curDate"  [(ngModel)]="arrivalDate"
+                [matDatepicker]="ADate" >
+            <mat-datepicker-toggle matSuffix [for]="ADate"></mat-datepicker-toggle>
+            <mat-datepicker #ADate></mat-datepicker>
+        </mat-form-field>
+
+
+          <mat-form-field appearance="outline" class="w-50 p-2">
+            <mat-label>Arrival time</mat-label>
+            <input type="time"    matInput [(ngModel)]="arrivalTime" name="week" min="00:00:00" max="24:00:00" />
+            
+          </mat-form-field>
+
+         
+
+
+
+          <mat-form-field class="w-50 p-2" appearance="outline">
+            <mat-label>Select Departure Date</mat-label>
+            <input readonly="true" matInput   [(ngModel)]="DepartureDate"
+                [matDatepicker]="DDate" >
+            <mat-datepicker-toggle matSuffix [for]="DDate"></mat-datepicker-toggle>
+            <mat-datepicker #DDate></mat-datepicker>
+        </mat-form-field>
+
+
+          <mat-form-field appearance="outline" class="w-50 p-2">
+            <mat-label>Departure time</mat-label>
+            <input type="time"    matInput [(ngModel)]="DepartureTime" name="week" min="00:00:00" max="24:00:00"  />
+            
+          </mat-form-field>
+
+
+
+
+          <mat-form-field appearance="outline" class="w-50 p-2">
+            <mat-label>Total Days</mat-label>
+            <input type="number"    matInput [(ngModel)]="TotalDays" />
+            
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-50 p-2">
+            <mat-label>Booking Channel</mat-label>
+            <mat-select type="Text"  [(ngModel)]="bookingThrough" >
+                <mat-option *ngFor="let item of bookingChannelList" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-50 p-2">
+            <mat-label>Description</mat-label>
+            <textarea type="Text"    matInput [(ngModel)]="bookingDescription"></textarea>
+            
+          </mat-form-field>
+
+
+
+
+          <div class="text-center"> 
+            <Button class="btn btn-success btn-rpt w-25 me-3"(click)="save()" >Save</Button>
+            <Button class="btn btn-danger btn-rpt w-25" (click)="reset()">Reset</Button>
+          </div>
+
+
+
+       </div>
+
+
+
+
+
+
+
+
+
+
+
+    </mat-tab>
+
+    <mat-tab label="Saved Record">
+
+        <div class="container-fluid bg-light ">
+            <div>
+                <mat-form-field appearance="outline" class="w-75 pt-2">
+                    <mat-label>Search.....</mat-label>
+                    <input type="text" matInput [(ngModel)]="searchBooking">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-25 ps-2">
+                    <mat-label>Select Booking Status</mat-label>
+                    <mat-select [(ngModel)]="bookingStaus" (selectionChange)="filterBookings()">
+                        <mat-option *ngFor="let item of StatusList" [value]="item.title">{{item.title}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <hr>
+            <div class="text-center">
+                <table class="table table-hover">
+                    <thead>
+                        <th>S#</th>
+                        <th>Booking ID</th>
+                        <th>Booking Date</th>
+                        <th>Room No</th>
+                        <th>Customer Name</th>
+                        <th>Rent</th>
+                        <th>Arrival</th>
+                        <th>Departure</th> 
+                        <th>Confirmation Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        <!-- <th>Cancel Booking</th> -->
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of SavedData | filter: searchBooking ; index as index">
+                            <td>{{index+1}}</td>
+                            <td>{{item.bookingID}}</td>
+                            <td>{{item.bookingDate |date:'yyyy-MM-dd'}}</td>
+                            <td>{{item.roomTitle}}</td>
+                            <td>{{item.partyName}}</td>
+                            <td>{{item.rentPerDay |number}}</td>
+                            <td>{{item.dateOfArrival | date:'yyyy-MM-dd'}} </td>
+                            <td>{{item.dateOfDeparture | date:'yyyy-MM-dd'}} </td>
+                            <td>{{item.confirmationDate | date:'yyyy-MM-dd'}} </td>
+                            <td>{{item.bookingStatus}} </td>
+
+                            <td  class="cursorPointer " >
+                                <button class="btn btn-success me-2" (click)="confirmBooking(item)" *ngIf="item.bookingStatus == 'Pending' ">Confirm</button>
+                                <button class="btn btn-warning me-2"  *ngIf="item.bookingStatus == 'Confirmed' ">Refund</button>
+
+                              
+    
+                                <button class="btn btn-danger " (click)="cancel(item)" *ngIf="item.bookingStatus == 'Pending' " 
+                                data-bs-toggle="modal" data-bs-target="#cancelBookingModel"   >Cancel</button>
+                                <span class="text-danger" *ngIf="item.bookingStatus == 'Cancelled' ">Bill Cancelled</span>
+                                <span class="text-danger" *ngIf="item.bookingStatus == 'Refunded' ">Bill Refunded</span>
+                            </td>
+                           
+            
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+         
+        </div>
+
+
+        <!---------------------- Model Window for entering Advance Amount ------------------>
+
+        <div class="modal fade h-100 bg-light " id="cancelBookingModel" tabindex="-1" aria-labelledby="cancelBookingLabel" aria-hidden="true" data-bs-backdrop="false">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" id="cancelBookingLabel">Cancel Booking</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+               
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Cancellation Remarks</mat-label>
+                        <textarea matInput type="number" [(ngModel)]="cancelRemarks"></textarea>
+                    </mat-form-field>
+                   
+        
+        
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="cancelBooking()" data-bs-dismiss="modal">Cancel Booking</button>
+                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+
+
+    </mat-tab>
+</mat-tab-group>

@@ -64,6 +64,12 @@ import { CategoryComponent } from './Components/settings/category/category.compo
 import { AddCategoryComponent } from './Components/settings/category/add-category/add-category.component';
 import { RoomComponent } from './Components/room/room.component';
 import { AddRoomComponent } from './Components/room/add-room/add-room.component';
+import { BookingComponent } from './Components/booking/booking.component';
+
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { ConfirmBookingComponent } from './Components/booking/confirm-booking/confirm-booking.component';
+
+
 
 
 
@@ -131,6 +137,9 @@ import { AddRoomComponent } from './Components/room/add-room/add-room.component'
     AddCategoryComponent,
     RoomComponent,
     AddRoomComponent,
+    BookingComponent,
+    ConfirmBookingComponent,
+    
     
     
 
@@ -170,6 +179,8 @@ import { AddRoomComponent } from './Components/room/add-room/add-room.component'
     MatProgressBarModule,
     NgxMatSelectSearchModule,
     MaterialModule,
+    NgxMaterialTimepickerModule
+   
     
   
 

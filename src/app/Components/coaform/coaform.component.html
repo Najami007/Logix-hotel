@@ -187,7 +187,7 @@
                             <tr  *ngFor="let item of ChartsofAccountsData | filter : txtSearch; let i=index" >
                                 <td>{{i+1}}</td>
                                 <td class="cursorPointer" (click)="updateCoa(item)">{{item.accountCode}}</td>
-                                <td>{{item.coaTitle}}</td>
+                                <td>{{item.coaTitle}} </td>
                                 <td>{{item.coaTypeTitle}}</td>  
                                 <td>{{item.noteID}}</td>  
 
