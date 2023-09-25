@@ -25,10 +25,17 @@
                     <input [(ngModel)]="partyCNIC" maxlength="15" (keyup)="setCnicData()"  matInput type="text">
                 </mat-form-field>
                 
-           
+                <mat-form-field class="col-lg-5 me-5" appearance="outline">
+                    <mat-label>Passport no.</mat-label>
+                    <input [(ngModel)]="passportNo"   matInput type="text">
+                </mat-form-field>
                 <mat-form-field class="col-lg-5 me-5" appearance="outline">
                     <mat-label>Mobile no.</mat-label>
                     <input [(ngModel)]="partyMobileno" (keyup)="mobileNoFormate()" maxlength="12" matInput type="text">
+                </mat-form-field>
+                <mat-form-field class="col-lg-5 me-5" appearance="outline">
+                    <mat-label>Telephone no.</mat-label>
+                    <input  [(ngModel)]="partyTelephoneno" (keyup)="setPhoneno()" maxlength="11" matInput type="text">
                 </mat-form-field>
                 <mat-form-field class="col-lg-5 me-5" appearance="outline"> 
                     <mat-label>City</mat-label>
@@ -36,18 +43,7 @@
                         <mat-option *ngFor="let item of CitiesNames" value="{{item.cityID}}">{{item.cityName}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field class="col-lg-5 me-5" appearance="outline">
-                    <mat-label>Bank Name</mat-label>
-                    <input [(ngModel)]="bankName"  matInput type="text">
-                </mat-form-field>
-                <mat-form-field class="col-lg-5 me-5" appearance="outline">
-                    <mat-label>Bank Account Title</mat-label>
-                    <input [(ngModel)]="bankAccountTitle"  matInput type="text">
-                </mat-form-field>
-                <mat-form-field class="col-lg-5 me-5" appearance="outline">
-                    <mat-label>Bank Account No</mat-label>
-                    <input [(ngModel)]="bankAccountNo"  matInput type="text">
-                </mat-form-field>
+               
                 
                 <mat-form-field class="col-lg-5 me-5" appearance="outline">
                     <mat-label>Address</mat-label>

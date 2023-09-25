@@ -1,80 +1,74 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/Shared/service/notification.service';
-import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
-import { AddcityformComponent } from './addcityform/addcityform.component';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
-import { error } from 'jquery';
+import { NotificationService } from 'src/app/Shared/service/notification.service';
+import { AddCountryComponent } from './add-country/add-country.component';
+import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
 import { AppComponent } from 'src/app/app.component';
 
-
 @Component({
-  selector: 'app-city',
-  templateUrl: './city.component.html',
-  styleUrls: ['./city.component.scss']
+  selector: 'app-country',
+  templateUrl: './country.component.html',
+  styleUrls: ['./country.component.scss']
 })
-export class CityComponent implements OnInit{
+export class CountryComponent implements OnInit{
 
   constructor(private http:HttpClient,
     private msg:NotificationService,
     private dialogue: MatDialog,
     private globaldata:GlobalDataModule,
-    private app:AppComponent
+    private app:AppComponent,
     
     ){}
-
   ngOnInit(): void {
-    this.getCity();
-   
+    
+    this.getCountry();
   }
 
-
-  citiesData:any;
+  countryList:any;
 
 
   OpenDialogue(){
-    this.dialogue.open(AddcityformComponent,{
+    this.dialogue.open(AddCountryComponent,{
       width:"40%",
 
     }).afterClosed().subscribe(val=>{
-      this.getCity();
-    })
-  }
-
-
-  getCity(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe({
-      next:value=>{
-    
-        this.citiesData = value;
-      },
-      error:error=>{
-        console.log(error);
+      if(val == 'Update'){
+        this.getCountry();
       }
     })
   }
 
 
- 
 
-  updateCity(row:any){
 
-    this.dialogue.open(AddcityformComponent,{
+  getCountry(){
+    this.http.get(environment.mainApi+'getcountry').subscribe(
+      (Response)=>{
+        this.countryList = Response;
+      },
+      (Error)=>{
+        this.msg.WarnNotify('Error Occured while Loading Countries List')
+      }
+    )
+  }
+
+
+  editCountry(row:any){
+    this.dialogue.open(AddCountryComponent,{
       width:"40%",
       data:row
-    }).afterClosed().subscribe( {
-      next:value=>{
-        if(value == "Update"){
-          this.getCity();
-        }
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getCountry();
       }
     })
   }
 
 
-  deleteCity(row:any){
+  deleteCountry(row:any){
     Swal.fire({
       title:'Alert!',
       text:'Confirm to Delete the Data',
@@ -86,18 +80,19 @@ export class CityComponent implements OnInit{
       confirmButtonText: 'Confirm',
     }).then((result)=>{
       if(result.isConfirmed){
-
         this.app.startLoaderDark();
+
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deletecity',{
-          CityID:row.cityID,
+        this.http.post(environment.mallApiUrl+'deletecountry',{
+          CountryID:row.countryID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(
           (Response:any)=>{
             if(Response.msg == 'Data Deleted Successfully'){
               this.msg.SuccessNotify(Response.msg);
+              
+              this.getCountry();
               this.app.stopLoaderDark();
-              this.getCity();
             }else{
               this.msg.WarnNotify(Response.msg);
               this.app.stopLoaderDark();
@@ -107,8 +102,5 @@ export class CityComponent implements OnInit{
       }
     });
   }
-
-
-
 
 }

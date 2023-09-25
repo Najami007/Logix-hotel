@@ -26,11 +26,12 @@ export class AddcityformComponent implements OnInit{
 
   ngOnInit(): void {
    
-
+    this.getCountry();
 
     if(this.editData){
       this.actionbtn = "Update";
       this.cityName = this.editData.cityName;
+      this.countryID = this.editData.countryID;
     }
 
   }
@@ -38,6 +39,22 @@ export class AddcityformComponent implements OnInit{
 
   actionbtn = 'Save';
   cityName :any;
+  countryID:any;
+
+  countryList:any;
+
+
+
+  getCountry(){
+    this.http.get(environment.mainApi+'getcountry').subscribe(
+      (Response)=>{
+        this.countryList = Response;
+      },
+      (Error)=>{
+        this.msg.WarnNotify('Error Occured while Loading Countries List')
+      }
+    )
+  }
 
 
   addCity(){
@@ -45,31 +62,41 @@ export class AddcityformComponent implements OnInit{
       this.msg.WarnNotify("Please Eneter the City Name");
     }else{
       if(this.actionbtn == 'Save'){
-        this.http.post(environment.mallApiUrl+'insertcity',{
-          CityName:this.cityName,
-          UserID:this.global.getUserID(),
-        }).subscribe(
-          (Response:any)=>{
-            if(Response.msg == 'Data Saved Successfully'){
-              this.msg.SuccessNotify(Response.msg);
-              this.reset();
-              this.dialogRef.close();
-            }else{
-              this.msg.WarnNotify(Response.msg);
-            }
-          }
-        )
+        this.insert();
       }else if(this.actionbtn == 'Update'){
-        this.updateProduct();
+        this.update();
       }
     }
    
   }
 
+  insert(){
+    $('.loaderDark').show();
+    this.http.post(environment.mallApiUrl+'insertcity',{
+      CountryID:this.countryID,
+      CityName:this.cityName,
+      UserID:this.global.getUserID(),
+    }).subscribe(
+      (Response:any)=>{
+        if(Response.msg == 'Data Saved Successfully'){
+          this.msg.SuccessNotify(Response.msg);
+          this.reset();
+          $('.loaderDark').fadeOut(500);
+          this.dialogRef.close();
+        }else{
+          this.msg.WarnNotify(Response.msg);
+          $('.loaderDark').fadeOut(500);
+        }
+      }
+    )
+  }
 
-  updateProduct(){
+  update(){
+    $('.loaderDark').show();
     this.http.post(environment.mallApiUrl+'updatecity',{
+      
       CityID:this.editData.cityID,
+      CountryID:this.countryID,
       CityName : this.cityName,
       UserID:this.global.getUserID(),
     }).subscribe(
@@ -77,9 +104,11 @@ export class AddcityformComponent implements OnInit{
         if(Response.msg == 'Data Updated Successfully'){
           this.msg.SuccessNotify(Response.msg);
           this.reset();
+          $('.loaderDark').fadeOut(500);
           this.dialogRef.close('Update');
         }else{
           this.msg.WarnNotify(Response.msg);
+          $('.loaderDark').fadeOut(500);
         }
       }
     )
@@ -89,6 +118,7 @@ export class AddcityformComponent implements OnInit{
   reset(){
     this.cityName = '';
     this.actionbtn = 'Save';
+    this.countryID = '';
   }
 
   closeDialogue(){

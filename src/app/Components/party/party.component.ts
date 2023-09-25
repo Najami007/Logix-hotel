@@ -9,6 +9,7 @@ import { error, valHooks } from 'jquery';
 import { __values } from 'tslib';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import Swal from 'sweetalert2';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-party',
@@ -20,7 +21,8 @@ export class PartyComponent implements OnInit{
 
   constructor(private globalData: GlobalDataModule,
     private http : HttpClient,
-    private msg : NotificationService
+    private msg : NotificationService,
+    private app:AppComponent
     ){
 
   }
@@ -72,14 +74,14 @@ export class PartyComponent implements OnInit{
   partyType :any;
   partyName :any;
   partyCNIC :any;
+  passportNo:any;
   partyPhoneno:any;
   partyMobileno:any;
+  partyTelephoneno:any;
   City :any;
   partyAddress:any;
   description :any;
-  bankName:any;
-  bankAccountTitle:any;
-  bankAccountNo:any;
+ 
   validate = true;
 
 
@@ -91,12 +93,12 @@ export class PartyComponent implements OnInit{
     {
       next:value =>{
         this.partyData = value;
-        //console.log(value);
+        
       
       },
       error: error=>{
         this.msg.WarnNotify('Error Occured While Loading Data')
-        console.log(error);
+       
       }        
       
       
@@ -113,8 +115,14 @@ export class PartyComponent implements OnInit{
       
     }else if(this.partyCNIC == "" || this.partyCNIC == undefined ){
       this.msg.WarnNotify("Enter Party CNIC")
+    }
+    else if(this.passportNo == "" || this.passportNo == undefined ){
+      this.msg.WarnNotify("Enter PassPort No");
     }else if(this.partyMobileno == "" || this.partyMobileno == undefined){
       this.msg.WarnNotify("Enter Party Mobile Number")
+    }
+    else if(this.partyTelephoneno == "" || this.partyTelephoneno == undefined){
+      this.msg.WarnNotify("Enter Party Telephone Number")
     }else if(this.City == "" || this.City == undefined){
       this.msg.WarnNotify("Select The City")
     }else if(this.partyAddress == "" || this.partyAddress == undefined){
@@ -125,9 +133,13 @@ export class PartyComponent implements OnInit{
     this.msg.WarnNotify("Please Enter the Valid CNIC No.")
   }else if(this.partyMobileno.length < 12){
     this.msg.WarnNotify("Please Enter the Valid Mobile NO.")
+  }
+  else if(this.partyTelephoneno.length < 11){
+    this.msg.WarnNotify("Please Enter the Valid Telephone NO.")
   }else{
 
     if(this.btnType == "Save"){
+      this.app.startLoaderDark();
 
       this.http.post(environment.mallApiUrl+'insertparty',{
         PartyType:this.partyType,
@@ -135,10 +147,9 @@ export class PartyComponent implements OnInit{
         PartyAddress:this.partyAddress,
         PartyCNIC:this.partyCNIC,
         CityID:this.City,
+        PassportNo:this.passportNo,
         PartyMobileNo:this.partyMobileno,
-        BankAccountTitle:this.bankAccountTitle,
-        BankAccountNo:this.bankAccountNo,
-        BankName:this.bankName,
+        TelephoneNo:this.partyTelephoneno,
         PartyDescription:this.description,
         UserID:this.globalData.getUserID(),
    
@@ -147,14 +158,17 @@ export class PartyComponent implements OnInit{
           if(Response.msg == 'Data Saved Successfully'){
             this.msg.SuccessNotify(Response.msg);
             this.getParty();
+            this.app.stopLoaderDark();
             this.reset();
           }else{
-            // console.log(Response.msg);
+           
             this.msg.WarnNotify(Response.msg);
+            this.app.stopLoaderDark();
           }
          }
        )
     }else if(this.btnType == 'Update'){
+      this.app.startLoaderDark();
    
       this.http.post(environment.mallApiUrl+'updateparty',{
   
@@ -164,22 +178,24 @@ export class PartyComponent implements OnInit{
         PartyAddress:this.partyAddress,
         PartyCNIC:this.partyCNIC,
         CityID:this.City,
+        PassportNo:this.passportNo,
         PartyMobileNo:this.partyMobileno,
-        BankAccountTitle:this.bankAccountTitle,
-        BankAccountNo:this.bankAccountNo,
-        BankName:this.bankName,
+        TelephoneNo:this.partyTelephoneno,
         PartyDescription:this.description,
         UserID:this.globalData.getUserID(),
       }).subscribe(
         (Response:any)=>{
+          
       
           if(Response.msg == 'Data Updated Successfully'){
             this.msg.SuccessNotify(Response.msg);
             this.getParty();
+            this.app.stopLoaderDark();
             this.reset();
           }else{
             
             this.msg.WarnNotify(Response.msg);
+            this.app.stopLoaderDark();
           }
          }
       )
@@ -202,8 +218,8 @@ export class PartyComponent implements OnInit{
 
   ////////////////////to Set Phone No field Formate//////////////
   setPhoneno(){
-    if(this.partyPhoneno.length == 3){
-      this.partyPhoneno = this.partyPhoneno + '-';
+    if(this.partyTelephoneno.length == 3){
+      this.partyTelephoneno = this.partyTelephoneno + '-';
     } 
   }
 
@@ -222,11 +238,9 @@ export class PartyComponent implements OnInit{
     this.partyType = item.partyType;
     this.partyName = item.partyName;
     this.partyCNIC = item.partyCNIC;
+    this.passportNo = item.passportNo;
     this.partyMobileno = item.partyMobileNo;
-    this.bankName = item.bankName;
-    this.bankAccountTitle= item.bankAccountTitle;
-    this.bankAccountNo =item.bankAccountNo;
-   
+    this.partyTelephoneno = item.telephoneNo;
     this.partyAddress = item.partyAddress;
     this.City = item.cityID.toString();
     this.description = item.partyDescription;
@@ -278,12 +292,10 @@ export class PartyComponent implements OnInit{
    this.partyType = '';
    this.partyName = '';
    this.partyCNIC = '';
-   this.partyPhoneno = '';
+   this.partyTelephoneno = '';
    this.partyMobileno = '';
    this.City = '';
-   this.bankAccountNo='';
-   this.bankName='';
-   this.bankAccountTitle='';
+   this.passportNo = '';
    this.partyAddress="";
    this.description = '';
    this.btnType = "Save";

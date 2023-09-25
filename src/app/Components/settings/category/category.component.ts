@@ -1,22 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/Shared/service/notification.service';
-import { environment } from 'src/environments/environment.development';
 import { MatDialog } from '@angular/material/dialog';
-import { AddcityformComponent } from './addcityform/addcityform.component';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
-import { error } from 'jquery';
+import { NotificationService } from 'src/app/Shared/service/notification.service';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
 import { AppComponent } from 'src/app/app.component';
 
-
 @Component({
-  selector: 'app-city',
-  templateUrl: './city.component.html',
-  styleUrls: ['./city.component.scss']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.scss']
 })
-export class CityComponent implements OnInit{
-
+export class CategoryComponent implements OnInit{
+  
   constructor(private http:HttpClient,
     private msg:NotificationService,
     private dialogue: MatDialog,
@@ -24,57 +22,54 @@ export class CityComponent implements OnInit{
     private app:AppComponent
     
     ){}
-
   ngOnInit(): void {
-    this.getCity();
-   
+    this.getCategory();
   }
 
-
-  citiesData:any;
+  categoryList:any;
 
 
   OpenDialogue(){
-    this.dialogue.open(AddcityformComponent,{
+    this.dialogue.open(AddCategoryComponent,{
       width:"40%",
 
     }).afterClosed().subscribe(val=>{
-      this.getCity();
-    })
-  }
-
-
-  getCity(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe({
-      next:value=>{
-    
-        this.citiesData = value;
-      },
-      error:error=>{
-        console.log(error);
+      if(val == 'Update'){
+        this.getCategory();
       }
+      
     })
   }
 
 
- 
 
-  updateCity(row:any){
+  getCategory(){
+    this.http.get(environment.mainApi+'GetCatagory').subscribe(
+      (Response)=>{
+        this.categoryList = Response;
+      },
+      (Error)=>{
+        this.msg.WarnNotify('Error Occured while Loading Categories List');
+      }
+    )
+  }
 
-    this.dialogue.open(AddcityformComponent,{
+  editCategory(row:any){
+
+    this.dialogue.open(AddCategoryComponent,{
       width:"40%",
       data:row
-    }).afterClosed().subscribe( {
-      next:value=>{
-        if(value == "Update"){
-          this.getCity();
-        }
+
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getCategory();
       }
+      
     })
+
   }
 
-
-  deleteCity(row:any){
+  deleteCategory(row:any){
     Swal.fire({
       title:'Alert!',
       text:'Confirm to Delete the Data',
@@ -86,18 +81,19 @@ export class CityComponent implements OnInit{
       confirmButtonText: 'Confirm',
     }).then((result)=>{
       if(result.isConfirmed){
-
         this.app.startLoaderDark();
+
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deletecity',{
-          CityID:row.cityID,
+        this.http.post(environment.mallApiUrl+'DeleteCatagory',{
+          CategoryID:row.categoryID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(
           (Response:any)=>{
             if(Response.msg == 'Data Deleted Successfully'){
               this.msg.SuccessNotify(Response.msg);
+              
+              this.getCategory();
               this.app.stopLoaderDark();
-              this.getCity();
             }else{
               this.msg.WarnNotify(Response.msg);
               this.app.stopLoaderDark();

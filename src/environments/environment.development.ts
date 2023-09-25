@@ -6,9 +6,12 @@ export const environment = {
 
    // mallApiUrl: 'http://localhost:50873/',
      
-    // mallApiUrl: 'http://192.168.10.100:2002/',       //// Local Server
+    // mallApiUrl: 'http://192.168.10.100:2005/',       //// Local Server
 
 
-     mallApiUrl: 'http://159.69.174.21:2002/',     ///// live Server
+     mallApiUrl: 'http://159.69.174.21:2005/', ///// live Server
+
+
+     mainApi: 'http://159.69.174.21:2005/',
     
 };

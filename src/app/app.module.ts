@@ -56,6 +56,15 @@ import { BudgettingComponent } from './Components/budgetting/budgetting.componen
 import { BudgetReportComponent } from './Reports/budget-report/budget-report.component';
 import { DailyTransactionRptComponent } from './Reports/daily-transaction-rpt/daily-transaction-rpt.component';
 import { VoucherSupervisionComponent } from './Components/voucher-supervision/voucher-supervision.component';
+import { CountryComponent } from './Components/settings/country/country.component';
+import { AddCountryComponent } from './Components/settings/country/add-country/add-country.component';
+import { FloorComponent } from './Components/settings/floor/floor.component';
+import { AddFloorComponent } from './Components/settings/floor/add-floor/add-floor.component';
+import { CategoryComponent } from './Components/settings/category/category.component';
+import { AddCategoryComponent } from './Components/settings/category/add-category/add-category.component';
+import { RoomComponent } from './Components/room/room.component';
+import { AddRoomComponent } from './Components/room/add-room/add-room.component';
+
 
 
 
@@ -114,6 +123,15 @@ import { VoucherSupervisionComponent } from './Components/voucher-supervision/vo
     BudgetReportComponent,
     DailyTransactionRptComponent,
     VoucherSupervisionComponent,
+    CountryComponent,
+    AddCountryComponent,
+    FloorComponent,
+    AddFloorComponent,
+    CategoryComponent,
+    AddCategoryComponent,
+    RoomComponent,
+    AddRoomComponent,
+    
     
 
 

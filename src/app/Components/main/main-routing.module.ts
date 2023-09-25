@@ -26,6 +26,7 @@ import { BudgettingComponent } from '../budgetting/budgetting.component';
 import { BudgetReportComponent } from 'src/app/Reports/budget-report/budget-report.component';
 import { DailyTransactionRptComponent } from 'src/app/Reports/daily-transaction-rpt/daily-transaction-rpt.component';
 import { VoucherSupervisionComponent } from '../voucher-supervision/voucher-supervision.component';
+import { RoomComponent } from '../room/room.component';
 
 
 
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path:'bdgtrpt',component:BudgetReportComponent},
   {path:'Dtranrpt',component:DailyTransactionRptComponent},
   {path:'spvsb',component:VoucherSupervisionComponent},
+  {path:'addRoom',component:RoomComponent},
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
 ];
