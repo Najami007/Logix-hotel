@@ -26,13 +26,18 @@ export class ConfirmBookingComponent implements OnInit{
   ngOnInit(): void {
    
     if(this.editData.bookingStatus == 'Confirmed'){
-      this.actionBtn = 'Refund'
+      this.actionBtn = 'Refund';
+      this.bookingStatus = this.editData.bookingStatus;
+
+      this.advanceAmount = this.editData.advancePaid;
+      this.advancePaidAmount = this.editData.advancePaid;
     }
 
     this.getCoaList();
   }
 
-
+  bookingStatus:any;
+  advancePaidAmount:any;
   advanceAmount:any;
   coaID:any;
   remarks:any;
@@ -44,8 +49,9 @@ export class ConfirmBookingComponent implements OnInit{
   getCoaList(){
     this.http.get(environment.mainApi+'GetCashBankCOA').subscribe(
       (Response)=>{
-
+    
         this.coaList = Response;
+        
       }
     )
   }
@@ -56,9 +62,9 @@ export class ConfirmBookingComponent implements OnInit{
     if(this.advanceAmount == '' || this.advanceAmount == undefined){
       this.msg.WarnNotify('Enter Advance Amount')
     }
-    else if(this.coaID == '' || this.coaID == undefined){
-      this.msg.WarnNotify('Select Payment Head');
-    }
+    // else if(this.coaID == '' || this.coaID == undefined){
+    //   this.msg.WarnNotify('Select Payment Head');
+    // }
     else{
       if(this.remarks == '' || this.remarks == undefined){
         this.remarks == '-';
@@ -67,7 +73,13 @@ export class ConfirmBookingComponent implements OnInit{
       if(this.actionBtn == 'Confirm Booking'){
         this.ConfirmBooking();
       }else if( this.actionBtn == 'Refund'){
-        this.Refund();
+
+        if(this.advanceAmount > this.advancePaidAmount){
+          this.msg.WarnNotify('Can Refund' + this.advancePaidAmount + 'Only!' );
+        }else{
+          this.Refund();
+        }
+
       }
     }
   
@@ -101,7 +113,24 @@ export class ConfirmBookingComponent implements OnInit{
 
 
   Refund(){
-    
+    this.http.post(environment.mainApi + 'RefundBooking',{
+      BookingID:this.editData.bookingID, 
+      PartyID: this.editData.partyID,
+      CoaID: 6,
+      AdvancePaid: this.advanceAmount,
+      Remarks: this.remarks,
+      UserID: this.global.getUserID()
+    }).subscribe(
+      (Response:any)=>{
+        if(Response.msg == 'Data Saved Successfully'){
+          this.msg.SuccessNotify('Booking Confirmed');
+          this.reset();
+          this.dialogRef.close('Update');
+        }else{
+          this.msg.WarnNotify(Response.msg);
+        }
+      }
+    )
   }
 
 

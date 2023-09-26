@@ -20,7 +20,7 @@ import * as b64 from 'base64-js/index.js';
 export class GlobalDataModule  {
 
 
-  public Logo = '../assets/Images/MMA-logo.png'
+  public Logo = '../assets/Images/BlackGold.jpg'
   public Logo1 = '../assets/Images/MT-logo.png'
    
    public currentUserSubject:BehaviorSubject<userInterface>;

@@ -17,6 +17,9 @@ import { ConfirmBookingComponent } from './confirm-booking/confirm-booking.compo
 export class BookingComponent implements OnInit{
   curDate = new Date();
 
+  logo:any;
+  logo1:any;
+
   constructor(
     private http:HttpClient,
     private msg:NotificationService,
@@ -36,6 +39,13 @@ export class BookingComponent implements OnInit{
     this.getRoom();
     this.getParty();
     this.getBookings();
+
+    this.logo = this.global.Logo;
+    this.logo1 = this.global.Logo1;
+
+
+
+
 
 
 
@@ -62,6 +72,26 @@ export class BookingComponent implements OnInit{
   TotalDays:any;
   bookingThrough:any;
   bookingDescription:any;
+
+  ////////////////////////////////////////////////
+
+
+  lblVoucherPrintDate = new Date();
+  lblBookingNo:any;
+  lblBookingDate:any;
+  lblAdvanceJvNo:any;
+  lblRefundJvNo:any;
+  lblBookingStatus:any
+  lblBookingRemarks:any;
+  lblBookingChannel:any;
+  lblCustomerName:any;
+  lblRentPerDay:any;
+  lblRoomTitle:any; //
+  lblTotalDays:any; //
+  lblPaidAmount:any; //
+  lblArrivalDate:any;
+  lblDepartureDate:any;
+  lblConfirmationDate:any;
 
 
 /////////////////////////////////////////////////////////
@@ -169,12 +199,36 @@ export class BookingComponent implements OnInit{
   }
 
 
+  ////////////////////////////////////////////
+
+/////////////////// will give the difference of arrival and departure date
+
+getHours(date1:any, Time1:any, date2:any, Time2:any) {
+  const DateTime1 = new Date(Date.parse(date1 + ' ' + Time1));
+  const DateTime2 = new Date(Date.parse(date2 + ' ' + Time2));
+
+  // Check if the dates and times are valid.
+  if (isNaN(DateTime1.getTime()) || isNaN(DateTime2.getTime())) {
+    return false;
+  }
+
+  // Calculate the difference in seconds.
+  const differenceInSeconds = (DateTime2.getTime() - DateTime1.getTime()) / 1000;
+
+  // Calculate the difference in hours.
+  const differenceInHours = differenceInSeconds / 3600;
+
+  // Return the difference in hours.
+  return differenceInHours;
+}
+
   /////////////////////////////////////////
 
   getBookings(){
     this.http.get(environment.mainApi+'getbooking').subscribe(
     (Response)=>{
       this.savedBookingsData = Response;
+      console.log(Response);
 
       this.SavedData =this.savedBookingsData.filter((e:any)=>e.bookingStatus == 'Pending');
      
@@ -186,6 +240,10 @@ export class BookingComponent implements OnInit{
   //////////////////////////////////////////
 
   save(){
+
+    var curValue = this.getHours(this.global.dateFormater(this.arrivalDate,'-'),this.arrivalTime,
+    this.global.dateFormater(this.DepartureDate,'-'),this.DepartureTime);
+
     if(this.RoomID == '' || this.RoomID == undefined){
       this.msg.WarnNotify('Select Room Number')
     }else if(this.partyID == '' || this.partyID == undefined){
@@ -207,12 +265,13 @@ export class BookingComponent implements OnInit{
       this.msg.WarnNotify('Enter The Days of Stay')
     }else if(this.bookingThrough == '' || this.bookingThrough == undefined){
       this.msg.WarnNotify('Select the Channel of Booking')
-    }else if(this.global.dateFormater(this.arrivalDate,'-') + ''+this.arrivalTime > this.global.dateFormater(this.DepartureDate,'-') +''+ this.DepartureTime){
+    }else if(this.global.dateFormater(this.arrivalDate,'-') + ' '+this.arrivalTime > this.global.dateFormater(this.DepartureDate,'-') +' '+ this.DepartureTime){
       this.msg.WarnNotify('Departure Date is Not Valid');
-    //   console.log(this.global.dateFormater(this.arrivalDate,'-') +'' +this.arrivalTime , this.global.dateFormater(this.DepartureDate,'-') +''+ this.DepartureTime);
-    // console.log((this.arrivalTime > this.DepartureTime));
-    }
-    else {
+
+    }else if(curValue.toString() < '6' ){
+      this.msg.WarnNotify('Departure Time must be more than 6 Hour')
+    }else { 
+
 
       if(this.bookingDescription == '' || this.bookingDescription == undefined){
         this.bookingDescription = '-';
@@ -223,7 +282,6 @@ export class BookingComponent implements OnInit{
       this.http.post(environment.mainApi+'insertbooking',{
         RoomID:this.RoomID,
       PartyID:this.partyID,
-      // BookingStatus: "Pending", 
       BookingDate: this.global.dateFormater(this.bookingDate,'-'),
       DateOfArrival: this.global.dateFormater(this.arrivalDate,'-'),
       TimeOfArrival: this.arrivalTime,
@@ -252,7 +310,7 @@ export class BookingComponent implements OnInit{
         }
       )
 
-    }
+      }
   
   }
 
@@ -332,6 +390,35 @@ export class BookingComponent implements OnInit{
 
     
   }
+
+
+  ///////////////////////////////////////
+
+  printBooking(row:any){
+
+    this.lblBookingNo = row.bookingID;
+    this.lblBookingDate = row.bookingDate;
+    this.lblAdvanceJvNo = row.invoiceNo;
+    this.lblRefundJvNo = row.refundInvNo;
+    this.lblBookingStatus = row.bookingStatus;
+    this.lblBookingRemarks = row.bookingDescription;
+  this.lblBookingChannel = row.bookingThrough;
+  this.lblCustomerName = row.partyName;
+  this.lblRentPerDay = row.rentPerDay;
+  this.lblRoomTitle = row.roomTitle;
+  this.lblTotalDays = row.totalDays;
+  this.lblPaidAmount = row.advancePaid;
+  this.lblArrivalDate  = row.dateOfArrival;
+  this.lblDepartureDate = row.dateOfDeparture;
+  this.lblConfirmationDate = row.confirmationDate;
+
+
+
+   setTimeout(() => {
+    this.global.printData('#printDiv');
+   }, 1000);
+  }
+
 
 
 }
