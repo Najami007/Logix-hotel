@@ -17,6 +17,13 @@ export class CashbookComponent  implements OnInit{
 
   logo:any;
   logo1:any;
+  CompanyName:any;
+  CompanyName2:any;
+   companyAddress :any;
+   companyPhone :any;
+   companyMobileno:any;
+   companyEmail:any;
+  
 
   constructor(
     private http:HttpClient,
@@ -30,7 +37,13 @@ export class CashbookComponent  implements OnInit{
     $('.cashSummary').hide();
     this.logo = this.globalData.Logo;
     this.logo1 = this.globalData.Logo1;
-    this.globalData.setHeaderTitle('cash Book')
+    this.CompanyName = this.globalData.CompanyName;
+    this.CompanyName2 = this.globalData.CompanyName2;
+    this.companyAddress = this.globalData.Address;
+    this.companyPhone = this.globalData.Phone;
+    this.companyMobileno = this.globalData.mobileNo;
+    this.companyEmail = this.globalData.Email;
+    this.globalData.setHeaderTitle('cash Book');
   }
 
 

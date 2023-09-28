@@ -30,6 +30,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
+
 
 
 
@@ -62,6 +66,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatStepperModule,
     MatDialogModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule,
+
   ],
   exports: [
     MatInputModule,
@@ -90,6 +97,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatStepperModule,
     MatDialogModule,
     MatTooltipModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
 })
 export class MaterialModule {}

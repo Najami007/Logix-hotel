@@ -23,6 +23,13 @@ constructor(
 
 logo:any;
 logo1:any;
+CompanyName:any;
+CompanyName2:any;
+   companyAddress :any;
+   companyPhone :any;
+   companyMobileno:any;
+   companyEmail:any;
+ 
 
 
 
@@ -31,6 +38,14 @@ logo1:any;
     this.global.setHeaderTitle('Transaction Report');
     this.logo = this.global.Logo;
     this.logo1 =  this.global.Logo1;
+    this.CompanyName = this.global.CompanyName;
+    this.CompanyName2 = this.global.CompanyName2;
+    this.companyAddress = this.global.Address;
+    this.companyPhone = this.global.Phone;
+    this.companyMobileno = this.global.mobileNo;
+    this.companyEmail = this.global.Email;
+
+
 
   }
 

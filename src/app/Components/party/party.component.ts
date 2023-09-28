@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../Navigation/header/header.component';
 import { Title } from '@angular/platform-browser';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
@@ -10,6 +10,8 @@ import { __values } from 'tslib';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import Swal from 'sweetalert2';
 import { AppComponent } from 'src/app/app.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BookingComponent } from '../booking/booking.component';
 
 @Component({
   selector: 'app-party',
@@ -20,6 +22,7 @@ export class PartyComponent implements OnInit{
 
 
   constructor(private globalData: GlobalDataModule,
+ 
     private http : HttpClient,
     private msg : NotificationService,
     private app:AppComponent

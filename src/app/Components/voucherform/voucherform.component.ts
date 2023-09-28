@@ -1,4 +1,4 @@
-  import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import * as $ from 'jquery';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { AppComponent } from 'src/app/app.component';
 
 
+
 @Component({
   selector: 'app-voucherform',
   templateUrl: './voucherform.component.html',
@@ -17,6 +18,30 @@ import { AppComponent } from 'src/app/app.component';
 
 })
 export class VoucherformComponent implements OnInit{
+
+
+  page:number = 1;
+  count: number = 0;
+  fixedTableSize = 10;
+  tableSize: number = 10;
+  tableSizes : any = [10,25,50,100];
+
+  onTableDataChange(event:any){
+
+    this.page = event;
+    this.getSavedVoucher();
+  }
+
+  onTableSizeChange(event:any):void{
+    this.tableSize = event.target.value;
+    this.page =1 ;
+    this.getSavedVoucher();
+  }
+
+
+
+
+
 
 
   RoleID:any;
@@ -30,6 +55,12 @@ export class VoucherformComponent implements OnInit{
   ngOnInit(): void {
     this.logo = this.globalData.Logo;
     this.logo1 = this.globalData.Logo1;
+    this.CompanyName = this.globalData.CompanyName;
+    this.CompanyName2 = this.globalData.CompanyName2;
+    this.companyAddress = this.globalData.Address;
+    this.companyPhone = this.globalData.Phone;
+    this.companyMobileno = this.globalData.mobileNo;
+    this.companyEmail = this.globalData.Email;
     this.globalData.setHeaderTitle('Voucher');
    this.RoleID = this.globalData.getRoleId();
     
@@ -53,6 +84,13 @@ export class VoucherformComponent implements OnInit{
 
   logo:any;
   logo1:any;
+  CompanyName :any;
+   CompanyName2:any;
+   companyAddress :any;
+   companyPhone :any;
+   companyMobileno:any;
+   companyEmail:any;
+  
 
   /////////////////declared Variables//////////////////////
   cash = 'Cash';
@@ -189,6 +227,7 @@ export class VoucherformComponent implements OnInit{
       (Response:any)=>{
         // console.log(Response);
         this.SavedVoucherData = Response;
+       
        
       },
       (error:any)=>{
@@ -386,6 +425,7 @@ export class VoucherformComponent implements OnInit{
     this.lblInvoiceNo = row.invoiceNo;
     this.lblInvoiceDate = row.invoiceDate;
     this.lblRemarks = row.invoiceRemarks;
+    this.lblVoucherType = row.type;
 
     this.getInvoiceDetail(row.invoiceNo);
     
@@ -419,6 +459,7 @@ export class VoucherformComponent implements OnInit{
     this.lblInvoiceNo = curRow.invoiceNo;
     this.lblInvoiceDate = curRow.invoiceDate;
     this.lblRemarks = curRow.invoiceRemarks;
+    this.lblVoucherType = curRow.type;
 
     this.getInvoiceDetail(invoiceNo);
 

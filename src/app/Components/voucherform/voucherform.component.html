@@ -34,7 +34,7 @@
                     <mat-form-field class="col-lg-6 col-md-6 col-sm-6 col-xs-6" appearance="outline">
                         <mat-label>Select Voucher Date</mat-label>
                         <input readonly="true" matInput   [(ngModel)]="invoiceDate"
-                            [matDatepicker]="picker" [disabled]="VoucherData != ''">
+                            [matDatepicker]="picker" >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -190,13 +190,14 @@
                 <div class="text-center border-bottom d-flex justify-content-between">
                     <span>
                         <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100"
-                            width="120">
+                            width="100">
                     </span>
                     <span class="mt-3">
-                        <h3>Mehria Mall & Residencia</h3>
-                            <p class="text-end" style="margin-top: -15;">Mehria Town Pvt.(Ltd)</p>
-                        <p style="margin-top: -20;">Kamra Road Attock</p>
-                        <p style="margin-top: -15;">Phone No: 057-2364801-2</p>
+                        <h3>{{CompanyName}}</h3>
+                            <p class="text-end w-75" style="margin-top: -15;">{{CompanyName2}}</p>
+                        <p style="margin-top: -20;">{{companyAddress}}</p>
+                        <p style="margin-top: -15;">{{companyPhone}} , {{companyMobileno}}</p>
+                        <p style="margin-top: -15;">{{companyEmail}}</p>
                     </span>
                     <span>
                         <img src="{{logo1}}" style="color: black;" alt="" srcset="" height="100"
@@ -205,6 +206,7 @@
             
             
                 </div>
+        
         
 
                 <!-------------------------- Headers Area   ----------------------->
@@ -259,9 +261,10 @@
 
 
                <div class="d-flex justify-content-between mt-5 pt-5">
-                <h5 class="border-bottom">Created BY</h5>
-                <h5 class="border-bottom">Approved BY</h5>
-                <h5 class="border-bottom">Checked BY</h5>
+                <h5 *ngIf="lblVoucherType == 'CPV' || lblVoucherType == 'BPV'" class="border-bottom border-dark">Received BY</h5>
+                <h5 class="border-bottom border-dark">Created BY</h5>
+                <h5 class="border-bottom border-dark">Approved BY</h5>
+                <h5 class="border-bottom border-dark">Checked BY</h5>
                </div>
         
         
@@ -278,12 +281,12 @@
 
     <mat-tab label="Saved Record">
 
-        <div class="container text-center p-2">
+        <div class="container-fluid text-center p-2">
 
 
             <mat-form-field class="w-100" appearance="outline">
                 <mat-label>Search.....</mat-label>
-                <input [(ngModel)]="txtSearch" matInput type="text" >
+                <input [(ngModel)]="txtSearch"  matInput type="text" #input >
                 <mat-icon matSuffix class="text-secondary">search</mat-icon>
             </mat-form-field>
 
@@ -309,7 +312,7 @@
                 </thead>
                 <tbody>
 
-                    <tr class="cursorPointer" *ngFor="let item of SavedVoucherData |filter:txtSearch   ; index as index">
+                    <tr class="cursorPointer" *ngFor="let item of SavedVoucherData |filter:txtSearch |paginate:{ id:'voucherData', itemsPerPage : tableSize,currentPage : page, totalItems : count, }  ; index as index">
 
                         <td>{{index+1}}</td>
                         <td> {{item.invoiceNo}}</td>
@@ -328,6 +331,22 @@
                 </tbody>
 
             </table>
+
+            <div class="d-flex" *ngIf="SavedVoucherData.length > fixedTableSize">
+                <mat-hint class="me-1 text-secondary">Total Rows : ({{SavedVoucherData.length}})    </mat-hint>
+                <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+                ></pagination-controls>
+                
+
+                <mat-hint class=" me-1 text-secondary">Rows Per Page </mat-hint>
+                <select class="text-white" style="width: 50px; height: 25px;background-color: rgb(75, 164, 248);" (change)="onTableSizeChange($event)">
+                    <option *ngFor=" let item of tableSizes">{{item}}</option>
+                </select>
+                
+            </div>
 
         </div>
 
@@ -392,13 +411,14 @@
                 <div class="text-center border-bottom d-flex justify-content-between">
                     <span>
                         <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100"
-                            width="120">
+                            width="100">
                     </span>
                     <span class="mt-3">
-                        <h3>Mehria Mall & Residencia</h3>
-                            <p class="text-end" style="margin-top: -15;">Mehria Town Pvt.(Ltd)</p>
-                        <p style="margin-top: -20;">Kamra Road Attock</p>
-                        <p style="margin-top: -15;">Phone No: 057-2364801-2</p>
+                        <h3>{{CompanyName}}</h3>
+                            <p class="text-end w-75" style="margin-top: -15;">{{CompanyName2}}</p>
+                        <p style="margin-top: -20;">{{companyAddress}}</p>
+                        <p style="margin-top: -15;">{{companyPhone}} , {{companyMobileno}}</p>
+                        <p style="margin-top: -15;">{{companyEmail}}</p>
                     </span>
                     <span>
                         <img src="{{logo1}}" style="color: black;" alt="" srcset="" height="100"
@@ -461,9 +481,10 @@
 
 
                <div class="d-flex justify-content-between mt-5 pt-5">
-                <h5 class="border-bottom">Created BY</h5>
-                <h5 class="border-bottom">Approved BY</h5>
-                <h5 class="border-bottom">Checked BY</h5>
+                <h5 *ngIf="lblVoucherType == 'CPV' || lblVoucherType == 'BPV'" class="border-bottom border-dark">Received BY</h5>
+                <h5 class="border-bottom border-dark">Created BY</h5>
+                <h5 class="border-bottom border-dark">Approved BY</h5>
+                <h5 class="border-bottom border-dark">Checked BY</h5>
                </div>
         
         

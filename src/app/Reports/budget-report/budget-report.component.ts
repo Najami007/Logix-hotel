@@ -25,11 +25,24 @@ export class BudgetReportComponent implements OnInit{
     this.global.setHeaderTitle('Budget Report');
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
+    this.CompanyName = this.global.CompanyName;
+    this.CompanyName2 = this.global.CompanyName2;
+    this.companyAddress = this.global.Address;
+    this.companyPhone = this.global.Phone;
+    this.companyMobileno = this.global.mobileNo;
+    this.companyEmail = this.global.Email;
 
   }
 
   logo:any;
   logo1:any;
+  CompanyName:any;
+  CompanyName2:any;
+   companyAddress :any;
+   companyPhone :any;
+   companyMobileno:any;
+   companyEmail:any;
+   
 
   budgetMonth :any = new Date();
 

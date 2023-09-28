@@ -28,6 +28,7 @@ import { DailyTransactionRptComponent } from 'src/app/Reports/daily-transaction-
 import { VoucherSupervisionComponent } from '../voucher-supervision/voucher-supervision.component';
 import { RoomComponent } from '../room/room.component';
 import { BookingComponent } from '../booking/booking.component';
+import { BookingRptDateWiseComponent } from 'src/app/Reports/booking-rpt-date-wise/booking-rpt-date-wise.component';
 
 
 
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path:'spvsb',component:VoucherSupervisionComponent},
   {path:'addRoom',component:RoomComponent},
   {path:'bkng',component:BookingComponent},
+  {path:'brptdw',component:BookingRptDateWiseComponent},
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
 ];

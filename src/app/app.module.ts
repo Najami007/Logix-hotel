@@ -68,6 +68,11 @@ import { BookingComponent } from './Components/booking/booking.component';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ConfirmBookingComponent } from './Components/booking/confirm-booking/confirm-booking.component';
+import { BookingDetailsComponent } from './Components/booking/booking-details/booking-details.component';
+import { BookingRptDateWiseComponent } from './Reports/booking-rpt-date-wise/booking-rpt-date-wise.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AddCustomerComponent } from './Components/booking/add-customer/add-customer.component';
+
 
 
 
@@ -139,6 +144,10 @@ import { ConfirmBookingComponent } from './Components/booking/confirm-booking/co
     AddRoomComponent,
     BookingComponent,
     ConfirmBookingComponent,
+    BookingDetailsComponent,
+    BookingRptDateWiseComponent,
+    AddCustomerComponent,
+ 
     
     
     
@@ -179,7 +188,8 @@ import { ConfirmBookingComponent } from './Components/booking/confirm-booking/co
     MatProgressBarModule,
     NgxMatSelectSearchModule,
     MaterialModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    NgxPaginationModule
    
     
   

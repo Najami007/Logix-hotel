@@ -8,6 +8,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker/public_api'
 import { Time, time } from 'highcharts';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmBookingComponent } from './confirm-booking/confirm-booking.component';
+import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { PartyComponent } from '../party/party.component';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
 
 @Component({
   selector: 'app-booking',
@@ -17,8 +20,34 @@ import { ConfirmBookingComponent } from './confirm-booking/confirm-booking.compo
 export class BookingComponent implements OnInit{
   curDate = new Date();
 
+
+  page:number = 1;
+  count: number = 0;
+  fixedTableSize = 10;
+  tableSize: number = 10;
+  tableSizes : any = [10,25,50,100];
+
+  onTableDataChange(event:any){
+
+    this.page = event;
+    this.filterBookings();
+  }
+
+  onTableSizeChange(event:any):void{
+    this.tableSize = event.target.value;
+    this.page =1 ;
+    this.filterBookings();
+  }
+
   logo:any;
   logo1:any;
+  CompanyName :any;
+   CompanyName2:any;
+   companyAddress :any;
+   companyPhone :any;
+   companyMobileno:any;
+   companyEmail:any;
+
 
   constructor(
     private http:HttpClient,
@@ -26,6 +55,7 @@ export class BookingComponent implements OnInit{
     private app:AppComponent,
     private global:GlobalDataModule,
     private dialogue: MatDialog,
+    
     
   ){
 
@@ -42,6 +72,13 @@ export class BookingComponent implements OnInit{
 
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
+    this.CompanyName = this.global.CompanyName;
+    this.CompanyName2 = this.global.CompanyName2;
+    this.companyAddress = this.global.Address;
+    this.companyPhone = this.global.Phone;
+    this.companyMobileno = this.global.mobileNo;
+    this.companyEmail = this.global.Email;
+
 
 
 
@@ -72,6 +109,8 @@ export class BookingComponent implements OnInit{
   TotalDays:any;
   bookingThrough:any;
   bookingDescription:any;
+  refrenceName:any;
+  numberOfPersons:any;
 
   ////////////////////////////////////////////////
 
@@ -92,7 +131,11 @@ export class BookingComponent implements OnInit{
   lblArrivalDate:any;
   lblDepartureDate:any;
   lblConfirmationDate:any;
-
+  lblPartyCNIC:any;
+  lblArrivalTime:any;
+  lblDepartureTime:any;
+  lblReference:any;
+  lblPersons:any;
 
 /////////////////////////////////////////////////////////
 
@@ -228,7 +271,7 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
     this.http.get(environment.mainApi+'getbooking').subscribe(
     (Response)=>{
       this.savedBookingsData = Response;
-      console.log(Response);
+      
 
       this.SavedData =this.savedBookingsData.filter((e:any)=>e.bookingStatus == 'Pending');
      
@@ -241,7 +284,7 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
   save(){
 
-    var curValue = this.getHours(this.global.dateFormater(this.arrivalDate,'-'),this.arrivalTime,
+    var curValue:any = this.getHours(this.global.dateFormater(this.arrivalDate,'-'),this.arrivalTime,
     this.global.dateFormater(this.DepartureDate,'-'),this.DepartureTime);
 
     if(this.RoomID == '' || this.RoomID == undefined){
@@ -261,15 +304,24 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
     }
     else if( this.DepartureTime == '' || this.DepartureTime == undefined ){
       this.msg.WarnNotify('Enter The Departure Time')
-    }else if(this.TotalDays == '' || this.TotalDays == undefined){
+    }
+    else if(this.refrenceName == '' || this.refrenceName == undefined){
+      this.msg.WarnNotify('Enter The Refrence Name')
+    }
+    else if(this.numberOfPersons == '' || this.numberOfPersons == undefined){
+      this.msg.WarnNotify('Enter The Number Of Persons')
+    }
+    else if(this.TotalDays == '' || this.TotalDays == undefined){
       this.msg.WarnNotify('Enter The Days of Stay')
-    }else if(this.bookingThrough == '' || this.bookingThrough == undefined){
+    }
+    else if(this.bookingThrough == '' || this.bookingThrough == undefined){
       this.msg.WarnNotify('Select the Channel of Booking')
     }else if(this.global.dateFormater(this.arrivalDate,'-') + ' '+this.arrivalTime > this.global.dateFormater(this.DepartureDate,'-') +' '+ this.DepartureTime){
       this.msg.WarnNotify('Departure Date is Not Valid');
 
-    }else if(curValue.toString() < '6' ){
-      this.msg.WarnNotify('Departure Time must be more than 6 Hour')
+    }else if(curValue < 6 ){
+      this.msg.WarnNotify('Departure Time must be more than 6 Hour');
+      
     }else { 
 
 
@@ -291,6 +343,8 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
       TotalDays:this.TotalDays,
       BookingDescription: this.bookingDescription,
       BookingThrough: this.bookingThrough,
+      Reference:this.refrenceName,
+      Persons:this.numberOfPersons,
   
       UserID: this.global.getUserID()
       }).subscribe(
@@ -307,6 +361,9 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
             this.msg.WarnNotify(Response.msg);
             this.app.stopLoaderDark();
           }
+        },
+        (Error)=>{
+          this.app.stopLoaderDark();
         }
       )
 
@@ -398,25 +455,59 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
     this.lblBookingNo = row.bookingID;
     this.lblBookingDate = row.bookingDate;
+    
+    this.lblBookingStatus = row.bookingStatus;
     this.lblAdvanceJvNo = row.invoiceNo;
     this.lblRefundJvNo = row.refundInvNo;
-    this.lblBookingStatus = row.bookingStatus;
     this.lblBookingRemarks = row.bookingDescription;
-  this.lblBookingChannel = row.bookingThrough;
-  this.lblCustomerName = row.partyName;
-  this.lblRentPerDay = row.rentPerDay;
-  this.lblRoomTitle = row.roomTitle;
-  this.lblTotalDays = row.totalDays;
-  this.lblPaidAmount = row.advancePaid;
-  this.lblArrivalDate  = row.dateOfArrival;
-  this.lblDepartureDate = row.dateOfDeparture;
-  this.lblConfirmationDate = row.confirmationDate;
+    this.lblBookingChannel = row.bookingThrough;
+    this.lblCustomerName = row.partyName;
+    this.lblRentPerDay = row.rentPerDay;
+    this.lblRoomTitle = row.roomTitle;
+    this.lblTotalDays = row.totalDays;
+    this.lblPaidAmount = row.advancePaid;
+    this.lblArrivalDate  = row.dateOfArrival;
+    this.lblDepartureDate = row.dateOfDeparture;
+    this.lblConfirmationDate = row.confirmationDate;
+    this.lblPartyCNIC = row.partyCNIC;
+    this.lblArrivalTime = row.dateOfArrival.substring(11,19);
+    this.lblDepartureTime = row.dateOfDeparture.substring(11,19);
+    this.lblReference = row.reference;
+      this.lblPersons = row.persons;
 
 
 
    setTimeout(() => {
     this.global.printData('#printDiv');
    }, 1000);
+  }
+
+
+  getBookingDetail(row:any){
+    this.dialogue.open(BookingDetailsComponent,{
+      width:"40%",
+      data:row
+
+    }).afterClosed().subscribe(val=>{
+      
+    })
+
+  }
+
+
+  addCustomer(){
+    this.dialogue.open(AddCustomerComponent,{
+      width:"60%",
+      data: 'booking page'
+
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getParty();
+
+            
+      }
+      
+    })
   }
 
 
