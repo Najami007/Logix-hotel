@@ -72,6 +72,10 @@ import { BookingDetailsComponent } from './Components/booking/booking-details/bo
 import { BookingRptDateWiseComponent } from './Reports/booking-rpt-date-wise/booking-rpt-date-wise.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AddCustomerComponent } from './Components/booking/add-customer/add-customer.component';
+import { CheckINOUtComponent } from './Components/check-inout/check-inout.component';
+import { ServiceComponent } from './Components/settings/service/service.component';
+import { AddServiceComponent } from './Components/settings/service/add-service/add-service.component';
+import { AddcheckINServiceComponent } from './Components/check-inout/addcheck-inservice/addcheck-inservice.component';
 
 
 
@@ -147,6 +151,10 @@ import { AddCustomerComponent } from './Components/booking/add-customer/add-cust
     BookingDetailsComponent,
     BookingRptDateWiseComponent,
     AddCustomerComponent,
+    CheckINOUtComponent,
+    ServiceComponent,
+    AddServiceComponent,
+    AddcheckINServiceComponent,
  
     
     

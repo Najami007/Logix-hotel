@@ -19,7 +19,7 @@
                         <p class="w-50">{{lblBookingDate |date:'yyyy-MM-dd'}}</p>
                 </span >
 
-                <span class="w-50 row" *ngIf="lblBookingStatus === 'Confirmed' || lblBookingStatus === 'Refunded'">
+                <span class="w-50 row" *ngIf="lblBookingStatus === 'Confirmed' || lblBookingStatus === 'Refunded'|| lblBookingStatus === 'Visited'">
                     <h5 class="w-50 fw-bold">Advance Voucher # :</h5>
                     <p class="w-50">{{lblAdvanceJvNo}}</p>
                 </span>

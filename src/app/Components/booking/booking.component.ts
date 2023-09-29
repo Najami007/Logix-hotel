@@ -23,9 +23,9 @@ export class BookingComponent implements OnInit{
 
   page:number = 1;
   count: number = 0;
-  fixedTableSize = 10;
-  tableSize: number = 10;
-  tableSizes : any = [10,25,50,100];
+
+  tableSize: number = 0;
+  tableSizes : any = [];
 
   onTableDataChange(event:any){
 
@@ -78,12 +78,8 @@ export class BookingComponent implements OnInit{
     this.companyPhone = this.global.Phone;
     this.companyMobileno = this.global.mobileNo;
     this.companyEmail = this.global.Email;
-
-
-
-
-
-
+    this.tableSize = this.global.paginationDefaultTalbeSize;
+    this.tableSizes = this.global.paginationTableSizes;
 
 
     
@@ -403,6 +399,8 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
     this.TotalDays = '';
     this.bookingThrough = '';
     this.bookingDescription = '';
+    this.refrenceName = '';
+    this.numberOfPersons = '';
   }
 
 

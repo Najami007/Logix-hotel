@@ -29,6 +29,7 @@ import { VoucherSupervisionComponent } from '../voucher-supervision/voucher-supe
 import { RoomComponent } from '../room/room.component';
 import { BookingComponent } from '../booking/booking.component';
 import { BookingRptDateWiseComponent } from 'src/app/Reports/booking-rpt-date-wise/booking-rpt-date-wise.component';
+import { CheckINOUtComponent } from '../check-inout/check-inout.component';
 
 
 
@@ -58,6 +59,8 @@ const routes: Routes = [
   {path:'addRoom',component:RoomComponent},
   {path:'bkng',component:BookingComponent},
   {path:'brptdw',component:BookingRptDateWiseComponent},
+  {path:'chkio',component:CheckINOUtComponent},
+  
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
 ];

@@ -1,0 +1,278 @@
+<mat-tab-group>
+    <mat-tab label="Check IN Form">
+        <div class="container-fluid p-4 d-flex">
+    
+
+
+            <div >
+            
+                <div class="row" >
+                    <div class="w-75">
+                        
+                    <mat-form-field appearance="outline" class="col-lg-3 p-2s">
+                        <mat-label>Select Booking</mat-label>
+                        <mat-select [(ngModel)]="bookingID" (selectionChange)="onBookingChange();getTotal()" >
+                            <mat-option><ngx-mat-select-search [(ngModel)]="bookingSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of bookingList |filter:bookingSearch" [value]="item.bookingID">{{item.bookingID}} - {{item.partyName}} ({{item.partyCNIC}})</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                
+                    <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Select Room </mat-label>
+                        <mat-select [(ngModel)]="roomID" (selectionChange)="onRoomChange();getTotal()" >
+                            <mat-option><ngx-mat-select-search [(ngModel)]="roomSearch" [placeholderLabel]="'Search...'"  [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
+                            <mat-option [disabled]="item.onRentStatus == true" *ngFor="let item of roomList|filter:roomSearch" [value]="item.roomID">{{item.roomTitle}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Select Customer </mat-label>
+                        <mat-select [(ngModel)]="partyID" >
+                            <mat-option><ngx-mat-select-search [(ngModel)]="partySearch" [placeholderLabel]="'Search...'"  [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of partyList|filter:partySearch" [value]="item.partyID">{{item.partyName}} ({{item.partyCNIC}})</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    
+        
+                    <mat-form-field class="col-lg-3  p-2" appearance="outline">
+                        <mat-label>Select Check IN Date</mat-label>
+                        <input readonly="true" matInput    [(ngModel)]="checkInDate"
+                            [matDatepicker]="ciDate" >
+                        <mat-datepicker-toggle matSuffix [for]="ciDate"></mat-datepicker-toggle>
+                        <mat-datepicker #ciDate></mat-datepicker>
+                    </mat-form-field>
+            
+            
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Check IN time</mat-label>
+                        <input type="time"    matInput [(ngModel)]="checkInTime" name="week" min="00:00:00" max="24:00:00"  />
+                        
+                      </mat-form-field>
+        
+        
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Enter Rent Per Day</mat-label>
+                        <input matInput type="number" [(ngModel)]="rentPerDay" >
+                          
+                    </mat-form-field>
+        
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Total Days</mat-label>
+                        <input type="number"  (keyup)="getTotal()"  matInput [(ngModel)]="totalDays" />
+                        
+                      </mat-form-field>
+        
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Estimated Days</mat-label>
+                        <input type="number"    matInput [(ngModel)]="estimatedDays"  />
+                        
+                      </mat-form-field>
+        
+        
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Advance Amount</mat-label>
+                        <input type="number"    matInput [(ngModel)]="advanceAmount"  />
+                        
+                      </mat-form-field>
+        
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                        <mat-label>Booking Advance</mat-label>
+                        <input type="number" [readonly]="true"    matInput [(ngModel)]="bookingAdvance"  />
+                        
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline" class="col-lg-3 p-2s">
+                        <mat-label>Select COA Title</mat-label>
+                        <mat-select [(ngModel)]="bookingID" [disabled]="advanceAmount == 0 || advanceAmount == null" >
+                            <mat-option><ngx-mat-select-search [(ngModel)]="coaSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}} </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                           
+        
+        
+        
+                    </div>
+
+
+                    <!-------------  Total Section ------------------>
+
+                    <div class="w-25 border-start  ">
+
+
+                        <mat-card class="h-100 p-5">
+                            <h1 class="text-center text-dark" style="font-size: 50px;">Total</h1>
+
+                            <h1 class="text-center text-danger pt-5" style="font-size: 50px;"  >{{billTotal |number:'1.0-0'}}</h1>
+                        </mat-card>
+
+                    </div>
+                </div>
+        
+        
+        
+                      <mat-card class="p-3 ">
+                        <div>
+                            <p class="dialogueTitle">ADD SERVICES</p>
+                        </div>
+                        <div >
+                            <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                                <mat-label>Select Service</mat-label>
+                                <mat-select [(ngModel)]="serviceID" (selectionChange)="onServiceSeleted();">
+                                    <mat-option><ngx-mat-select-search [(ngModel)]="serviceSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
+                                    <mat-option *ngFor="let item of servicesList |filter:serviceSearch" [value]="item.serviceID">{{item.serviceTitle}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+            
+                            <mat-form-field appearance="outline" class="col-lg-2 p-2">
+                                <mat-label>Amount</mat-label>
+                                <input type="number"    matInput [(ngModel)]="amountCharged"  />
+                                
+                              </mat-form-field>
+            
+                              <mat-form-field appearance="outline" class="col-lg-2 p-2">
+                                <mat-label>Quantity</mat-label>
+                                <input type="number"    matInput [(ngModel)]="quantity"  />
+                                
+                              </mat-form-field>
+        
+                              <mat-form-field class="col-lg-2  p-2" appearance="outline">
+                                <mat-label>Service Date</mat-label>
+                                <input readonly="true" matInput    [(ngModel)]="serviceDate"
+                                    [matDatepicker]="serDate" >
+                                <mat-datepicker-toggle matSuffix [for]="serDate"></mat-datepicker-toggle>
+                                <mat-datepicker #serDate></mat-datepicker>
+                            </mat-form-field>
+                    
+                    
+                              <mat-form-field appearance="outline" class="col-lg-2 p-2">
+                                <mat-label>Service time</mat-label>
+                                <input type="time"    matInput [(ngModel)]="serviceTime" name="week" min="00:00:00" max="24:00:00"  />
+                                
+                              </mat-form-field>
+            
+                              <button class="btn btn-success btn-rpt cursorPointer" (click)="addService()"><mat-icon>save</mat-icon></button>
+            
+                        </div>
+        
+                        <div>
+                            <table class="table">
+                                <thead>
+                                    <th>S#</th>
+                                    <th>Service Title</th>
+                                    <th>Amount Charged</th>
+                                    <th>Qty</th>
+                                    <th>Total</th>
+                                    <th>Date Time</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of serviceTableList index as index">
+                                        <td>{{index+1}}</td>
+                                        <td>{{item.serviceTitle}}</td>
+                                        <td>{{item.AmountCharged |number}}</td>
+                                        <td>{{item.Quantity |number}}</td>
+                                        <td>{{item.AmountCharged * item.Quantity |number}}</td>
+                                        <td>{{item.ServiceDate | date:'yyyy-MM-dd'}} ({{item.ServiceTime}})</td>
+                                        <td (click)="deleteService(item)"><mat-icon class="text-danger cursorPointer">delete</mat-icon></td>
+                                    </tr>
+                                    <tr *ngIf="serviceTableList != ''">
+                                        <th colspan="4"> Total</th>
+                                        <th >{{servicesTotalAmount | number}}</th>
+                                        <td colspan="2" ></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+        
+                        
+        
+                      </mat-card>
+        
+        
+        
+        
+        
+        
+        
+        
+                      <mat-form-field appearance="outline" class="w-50 p-2">
+                        <mat-label>Family Information</mat-label>
+                        <textarea type="text"    matInput [(ngModel)]="familyInfo" ></textarea>
+                        
+                      </mat-form-field>
+        
+                      <mat-form-field appearance="outline" class="w-50 p-2">
+                        <mat-label>Remarks</mat-label>
+                        <textarea type="text"    matInput [(ngModel)]="cioRemarks" ></textarea>
+                        
+                      </mat-form-field>
+        
+        
+                      <div class="text-center ">
+                        <button class="btn btn-primary w-25 me-2"  style="height: 55px;" (click)="saveCheckIN()" > Save</button>
+                        <button class="btn btn-danger w-25" style="height: 55px;"> Reset</button>
+                      </div>
+            
+              
+            </div>
+        
+        
+        
+        
+        
+        </div>
+
+
+     
+        
+    </mat-tab>
+
+    <mat-tab label="Saved Record">
+
+        <div class="container-fluid bg-light ">
+            
+                <mat-form-field appearance="outline" class="w-100 pt-2">
+                    <mat-label>Search.....</mat-label>
+                    <input type="text" matInput [(ngModel)]="searchText">
+                </mat-form-field>
+                
+          
+            <hr>
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <th>S#</th>
+                        <th>ID</th>
+                        <th>Room Title</th>
+                        <th>Customer Name</th>
+                        <th>Check In Date</th>
+                        <th>Amount</th>
+                        <th>ADD Service</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of SavedCheckINData |filter: searchText index as index">
+                            <td>{{index+1}}</td>
+                            <td>{{item.checkinoutID}}</td>
+                            <td>{{item.roomTitle}}</td>
+                            <td>{{item.partyName}}</td>
+                            <td>{{item.checkInDate | date:'short'}}</td>
+                            <td>{{(item.rentPerDay * item.totalDays) + (item.servicesTotalAmount)}}</td>
+                            <td class="text-success cursorPointer " (click)="addNewService(item)"><mat-icon>room_service</mat-icon></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+
+         
+        </div>
+
+
+      
+
+
+    </mat-tab>
+</mat-tab-group>

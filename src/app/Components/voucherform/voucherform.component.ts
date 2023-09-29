@@ -22,9 +22,9 @@ export class VoucherformComponent implements OnInit{
 
   page:number = 1;
   count: number = 0;
-  fixedTableSize = 10;
-  tableSize: number = 10;
-  tableSizes : any = [10,25,50,100];
+ 
+  tableSize: number = 0;
+  tableSizes : any = [];
 
   onTableDataChange(event:any){
 
@@ -53,6 +53,12 @@ export class VoucherformComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+
+    this.globalData.setHeaderTitle('Voucher');
+   this.RoleID = this.globalData.getRoleId();
+    
+    this.getSavedVoucher();
+    this.getParty();
     this.logo = this.globalData.Logo;
     this.logo1 = this.globalData.Logo1;
     this.CompanyName = this.globalData.CompanyName;
@@ -61,11 +67,10 @@ export class VoucherformComponent implements OnInit{
     this.companyPhone = this.globalData.Phone;
     this.companyMobileno = this.globalData.mobileNo;
     this.companyEmail = this.globalData.Email;
-    this.globalData.setHeaderTitle('Voucher');
-   this.RoleID = this.globalData.getRoleId();
+
+    this.tableSize = this.globalData.paginationDefaultTalbeSize;
+    this.tableSizes = this.globalData.paginationTableSizes;
     
-    this.getSavedVoucher();
-    this.getParty();
   }
 
  

@@ -292,7 +292,7 @@
 
 
 
-
+            <mat-progress-bar mode="indeterminate" *ngIf="SavedVoucherData == ''"></mat-progress-bar>
             <table class="col-lg-12  table table-hover bg-light">
 
                 <thead>
@@ -332,7 +332,7 @@
 
             </table>
 
-            <div class="d-flex" *ngIf="SavedVoucherData.length > fixedTableSize">
+            <div class="d-flex" >
                 <mat-hint class="me-1 text-secondary">Total Rows : ({{SavedVoucherData.length}})    </mat-hint>
                 <pagination-controls
                 previousLabel="Prev"

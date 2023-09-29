@@ -12,7 +12,7 @@
                 <mat-option><ngx-mat-select-search [(ngModel)]="searchRoom"
                     [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
                     name="search"></ngx-mat-select-search></mat-option>
-                <mat-option *ngFor="let item of RoomList" [value]="item.roomID">{{item.roomTitle}}</mat-option>
+                <mat-option *ngFor="let item of RoomList |filter:searchRoom" [value]="item.roomID">{{item.roomTitle}}</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -23,7 +23,7 @@
                     <mat-option><ngx-mat-select-search [(ngModel)]="searchParty"
                         [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
                         name="search"></ngx-mat-select-search></mat-option>
-                    <mat-option *ngFor="let item of partyList" [value]="item.partyID">{{item.partyName}}</mat-option>
+                    <mat-option *ngFor="let item of partyList |filter:searchParty" [value]="item.partyID">{{item.partyName}} -({{item.partyCNIC}})</mat-option>
                 </mat-select>
             </mat-form-field>
             <button class="btn btn-primary col-lg-1" style="height: 55px;" (click)="addCustomer()">  <mat-icon>add</mat-icon></button>
@@ -157,6 +157,9 @@
                 </mat-form-field>
             </div>
             <hr>
+
+
+            <mat-progress-bar mode="indeterminate" *ngIf="SavedData == ''"></mat-progress-bar>
             <div class="text-center">
                 <table class="table table-hover">
                     <thead>
@@ -206,7 +209,7 @@
                         
                     </tbody>
                 </table>
-                <div class="d-flex" *ngIf="SavedData.length >  fixedTableSize">
+                <div class="d-flex" >
                     <mat-hint class="me-1 text-secondary">Total Rows : ({{SavedData.length}})    </mat-hint>
                     <pagination-controls
                     previousLabel="Prev"
@@ -301,7 +304,7 @@
                             <p class="w-50">{{lblBookingDate |date:'yyyy-MM-dd'}}</p>
                     </span >
 
-                    <span class="w-50 row" *ngIf="lblBookingStatus === 'Confirmed' || lblBookingStatus === 'Refunded'">
+                    <span class="w-50 row" *ngIf="lblBookingStatus === 'Confirmed' || lblBookingStatus === 'Refunded'|| lblBookingStatus === 'Visited'">
                         <h6 class="w-50 fw-bold">Advance Voucher # :</h6>
                         <p class="w-50">{{lblAdvanceJvNo}}</p>
                     </span>
