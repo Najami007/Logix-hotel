@@ -68,7 +68,7 @@ CompanyName2:any;
         this.reportData = Response;
         this.app.stopLoaderDark();
       },
-      (Error)=>{
+      (Error:any)=>{
         this.msg.WarnNotify('Error Occured');
         this.app.stopLoaderDark();
       }

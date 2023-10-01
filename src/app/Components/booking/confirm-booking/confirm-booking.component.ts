@@ -31,6 +31,8 @@ export class ConfirmBookingComponent implements OnInit{
 
       this.advanceAmount = this.editData.advancePaid;
       this.advancePaidAmount = this.editData.advancePaid;
+    }else if(this.editData.bookingStatus == 'Pending'){
+      this.advanceAmount = this.editData.totalDays * this.editData.rentPerDay;
     }
 
     this.getCoaList();
@@ -62,9 +64,11 @@ export class ConfirmBookingComponent implements OnInit{
     if(this.advanceAmount == '' || this.advanceAmount == undefined){
       this.msg.WarnNotify('Enter Advance Amount')
     }
-    // else if(this.coaID == '' || this.coaID == undefined){
-    //   this.msg.WarnNotify('Select Payment Head');
-    // }
+    else if(this.coaID == '' || this.coaID == undefined){
+      this.msg.WarnNotify('Select Payment Head');
+    }else if(this.advanceAmount > (this.editData.totalDays * this.editData.rentPerDay)){
+      this.msg.WarnNotify("Advance Amount is More than Receivable Amount")
+    }
     else{
       if(this.remarks == '' || this.remarks == undefined){
         this.remarks == '-';
@@ -92,7 +96,7 @@ export class ConfirmBookingComponent implements OnInit{
     this.http.post(environment.mainApi + 'ConfirmBooking',{
       BookingID:this.editData.bookingID, 
       PartyID: this.editData.partyID,
-      CoaID: 6,
+      CoaID: this.coaID,
       AdvancePaid: this.advanceAmount,
       Remarks: this.remarks,
       UserID: this.global.getUserID()
@@ -116,7 +120,7 @@ export class ConfirmBookingComponent implements OnInit{
     this.http.post(environment.mainApi + 'RefundBooking',{
       BookingID:this.editData.bookingID, 
       PartyID: this.editData.partyID,
-      CoaID: 6,
+      CoaID: this.coaID,
       AdvancePaid: this.advanceAmount,
       Remarks: this.remarks,
       UserID: this.global.getUserID()

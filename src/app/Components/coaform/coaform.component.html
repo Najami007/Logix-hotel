@@ -43,7 +43,7 @@
                             </mat-form-field>
                             <mat-form-field appearance="outline" *ngIf="coaLevel == 1" class=" ">
                                 <mat-label>Enter Level 1</mat-label>
-                                <input class="numOnly" matInput type="text" min="1" #EnterLevel aria-label="level1" (keyup)="setvalue();numberOnly()"
+                                <input class="numOnly" matInput type="number" min="1" #EnterLevel aria-label="level1" (keyup)="setvalue();numberOnly($event)"
                                    [(ngModel)]="level1" >
                                    <mat-hint>Must Be a Number</mat-hint>
                             </mat-form-field>
@@ -63,7 +63,7 @@
     
                             <mat-form-field appearance="outline" *ngIf="coaLevel == 2" class="">
                                 <mat-label>Enter Level 2</mat-label>
-                                <input class="numOnly" matInput type="text" min="1"  #EnterLevel aria-label="level2" (keyup)="setvalue();numberOnly()"
+                                <input class="numOnly" matInput type="number" min="1"  #EnterLevel aria-label="level2" (keyup)="setvalue();numberOnly($event)"
                                    [(ngModel)]="level2" >
                                    <mat-hint>Must Be a Number</mat-hint>
                             </mat-form-field>
@@ -80,8 +80,8 @@
                             </mat-form-field>
                             <mat-form-field appearance="outline" *ngIf="coaLevel == 3" class="">
                                 <mat-label>Enter Level 3</mat-label>
-                                <input class="numOnly" matInput type="text" min="1"  #EnterLevel aria-label="level3"
-                                  (keyup)="setvalue();numberOnly()"
+                                <input class="numOnly" matInput type="number" min="1"  #EnterLevel aria-label="level3"
+                                  (keyup)="setvalue();numberOnly($event)"
                                    [(ngModel)]="level3" >
                                    <mat-hint>Must Be a Number</mat-hint>
                             </mat-form-field>
@@ -92,10 +92,10 @@
     
                             <mat-form-field appearance="outline" *ngIf="coaLevel == 4" class="">
                                 <mat-label>Enter Level 4</mat-label>
-                                <input class="numOnly" matInput type="text" min="1" #EnterLevel aria-label="level4"
-                                 (blur)="numberOnly()" 
-                                 (keyup)="setvalue();numberOnly()"
-                                 (keypress)="numberOnly()"
+                                <input class="numOnly" matInput type="number" min="1" #EnterLevel aria-label="level4"
+                                 (blur)="numberOnly($event)" 
+                                 (keyup)="setvalue();numberOnly($event)"
+                                 (keypress)="numberOnly($event)"
                                    [(ngModel)]="level4" >
                                    <mat-hint>Must Be a Number</mat-hint>
                             </mat-form-field>

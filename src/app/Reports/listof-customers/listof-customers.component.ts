@@ -64,7 +64,7 @@ export class ListofCustomersComponent implements OnInit {
     {
       next:value =>{
         this.partyList = value;
-        console.log(value);
+        
         this.app.stopLoaderDark();
       
       },

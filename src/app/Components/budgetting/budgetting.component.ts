@@ -28,6 +28,10 @@ export class BudgettingComponent implements OnInit {
 
   logo:any;
   logo1:any;
+  CompanyName :any;
+  CompanyName2:any;
+  companyAddress :any;
+  companyPhone :any;
   constructor (
     private http:HttpClient,
     private msg:NotificationService,
@@ -44,6 +48,10 @@ export class BudgettingComponent implements OnInit {
     this.getSaved();
     this.logo = this.globalData.Logo;
     this.logo1 = this.globalData.Logo1;
+    this.CompanyName = this.globalData.CompanyName;
+    this.CompanyName2 = this.globalData.CompanyName2;
+    this.companyAddress = this.globalData.Address;
+    this.companyPhone = this.globalData.Phone;
   
   }
 
@@ -181,6 +189,11 @@ export class BudgettingComponent implements OnInit {
     if(this.budgetData == ''){
       this.msg.WarnNotify('Table is Empty')
     }else{
+
+      if(this.description == '' || this.description == undefined){
+        this.description = '-';
+      }
+      
       if(this.btnText == 'Save'){
         this.insertBudget();
       }else if(this.btnText == 'Update'){
@@ -221,6 +234,7 @@ export class BudgettingComponent implements OnInit {
   ////////////////////////////////////////////////////
   
   insertBudget(){
+    this.app.startLoaderDark();
     this.http.post(environment.mallApiUrl+'InsertBudget',{
       BudgetDate: this.globalData.dateFormater(this.BudgetMonth,'-'),
       Description: this.description,
@@ -232,8 +246,10 @@ export class BudgettingComponent implements OnInit {
           this.msg.SuccessNotify(Response.msg);
           this.getSaved();
           this.reset();
+          this.app.stopLoaderDark();
         }else{
           this.msg.WarnNotify(Response.msg);
+          this.app.stopLoaderDark();
         }
       }
     )
@@ -244,7 +260,7 @@ export class BudgettingComponent implements OnInit {
 
   updateBudget(){
     
-    
+    this.app.startLoaderDark();
     this.http.post(environment.mallApiUrl+'updateBudget',{
       BudgetID: this.budgetID,
       BudgetDate: this.BudgetMonth,
@@ -257,8 +273,10 @@ export class BudgettingComponent implements OnInit {
           this.msg.SuccessNotify(Response.msg);
           this.getSaved();
           this.reset();
+          this.app.stopLoaderDark();
         }else{
           this.msg.WarnNotify(Response.msg);
+          this.app.stopLoaderDark();
         }
       }
     )
@@ -281,6 +299,7 @@ export class BudgettingComponent implements OnInit {
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
+        this.app.startLoaderDark();
         this.http.post(environment.mallApiUrl+'DeleteBudget',{
           BudgetID: row.budgetID,
         UserID: this.globalData.getUserID(),
@@ -289,8 +308,10 @@ export class BudgettingComponent implements OnInit {
             if(Response.msg == 'Data Deleted Successfully'){
               this.msg.SuccessNotify(Response.msg);
               this.getSaved();
+              this.app.stopLoaderDark();
             }else{
               this.msg.WarnNotify(Response.msg);
+              this.app.stopLoaderDark();
             }
           }
         )
@@ -318,6 +339,7 @@ export class BudgettingComponent implements OnInit {
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
+        this.app.startLoaderDark();
         this.http.post(environment.mallApiUrl+'ApproveBudget',{
           BudgetID: row.budgetID,
         UserID: this.globalData.getUserID(),
@@ -326,8 +348,10 @@ export class BudgettingComponent implements OnInit {
             if(Response.msg =='Voucher Approved Successfully'){
               this.msg.SuccessNotify(Response.msg);
               this.getSaved();
+              this.app.stopLoaderDark();
             }else{
               this.msg.WarnNotify(Response.msg);
+              this.amount.stopLoaderDark();
             }
             
             
@@ -345,6 +369,7 @@ export class BudgettingComponent implements OnInit {
   /////////////////////////////////////////////////////
 
   printBudget(row:any){
+    this.app.startLoaderDark();
     this.lblBudgetTotal = 0;
 
 
@@ -365,7 +390,7 @@ export class BudgettingComponent implements OnInit {
           }, 1000);
         }
 
-        
+        this.app.stopLoaderDark();
         
       }
     )

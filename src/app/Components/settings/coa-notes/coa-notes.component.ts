@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-coa-notes',
@@ -19,7 +20,8 @@ export class CoaNotesComponent implements OnInit{
     private dialogue:MatDialog,
     private msg:NotificationService,
     private http:HttpClient,
-    private globalData:GlobalDataModule
+    private globalData:GlobalDataModule,
+    private app:AppComponent
   ){}
 
 
@@ -77,6 +79,7 @@ export class CoaNotesComponent implements OnInit{
     if(result.isConfirmed){
 
       //////on confirm button pressed the api will run
+      this.app.startLoaderDark();
       this.http.post(environment.mallApiUrl+'DeleteNote',{
         AutoID: row.autoID,
        NoteID: row.noteID,
@@ -86,12 +89,14 @@ export class CoaNotesComponent implements OnInit{
           if(Response.msg == 'Data Deleted Successfully'){
             this.msg.SuccessNotify(Response.msg);
             this.getNotes();
+            this.app.stopLoaderDark();
           }else{
             this.msg.WarnNotify(Response.msg);
+            this.app.stopLoaderDark();
           }
         },
         (Error)=>{
-        
+          this.app.stopLoaderDark();
         }
       )
     }

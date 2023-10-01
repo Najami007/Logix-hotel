@@ -28,6 +28,8 @@ export class AddcheckINServiceComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
+
     this.getServices();
     this.getSavedServices();
     
@@ -47,6 +49,8 @@ export class AddcheckINServiceComponent implements OnInit {
   savedServicesList:any = [];
 
 
+  //////////////////////////////////////////////////////////////
+
   getServices(){
     this.http.get(environment.mallApiUrl+'getservice').subscribe(
      {
@@ -58,12 +62,16 @@ export class AddcheckINServiceComponent implements OnInit {
     ) 
    }
 
+   //////////////////////////////////////////////////////////////
+
    onServiceChange(){
     var curService = this.servicesList.find((e:any)=>e.serviceID == this.serviceID);
 
     this.amountCharged = curService.serviceCharges;
     this.serviceCharges = curService.serviceCharges;
    }
+
+   //////////////////////////////////////////////////////////////
 
 
    addService(){
@@ -112,7 +120,11 @@ export class AddcheckINServiceComponent implements OnInit {
    }
 
 
+   //////////////////////////////////////////////////////////////
+
    deleteService(row:any){
+
+    console.log(row);
     Swal.fire({
       title:'Alert!',
       text:'Confirm to Delete the Data',
@@ -151,6 +163,7 @@ export class AddcheckINServiceComponent implements OnInit {
   
    }
 
+//////////////////////////////////////////////////////////////
 
    getSavedServices(){
     this.http.get(environment.mainApi+'GetRoomServices?cioid='+this.editData.checkinoutID).subscribe(
@@ -162,6 +175,8 @@ export class AddcheckINServiceComponent implements OnInit {
     )
    }
 
+   //////////////////////////////////////////////////////////////
+
    reset(){
     this.serviceID = '';
     this.amountCharged = '';
@@ -171,7 +186,7 @@ export class AddcheckINServiceComponent implements OnInit {
    }
  
 
-
+//////////////////////////////////////////////////////////////
 
    closeDialogue(){
     this.dialogRef.close('Update');

@@ -85,9 +85,11 @@ export class BookingRptDateWiseComponent implements OnInit{
           this.ReportData =this.bookingData.filter((e:any)=>e.bookingStatus == this.bookingType);
           this.app.stopLoaderDark();
          }
+
+         this.app.stopLoaderDark();
   
         },
-        (Error)=>{
+        (Error:any)=>{
           this.app.stopLoaderDark();
         }
       )

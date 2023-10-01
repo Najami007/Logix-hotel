@@ -76,6 +76,16 @@ import { CheckINOUtComponent } from './Components/check-inout/check-inout.compon
 import { ServiceComponent } from './Components/settings/service/service.component';
 import { AddServiceComponent } from './Components/settings/service/add-service/add-service.component';
 import { AddcheckINServiceComponent } from './Components/check-inout/addcheck-inservice/addcheck-inservice.component';
+import { CheckOutFormComponent } from './Components/check-inout/check-out-form/check-out-form.component';
+import { AddDocumentsComponent } from './Components/check-inout/add-documents/add-documents.component';
+import { CioRptDateWiseComponent } from './Reports/cio-rpt-date-wise/cio-rpt-date-wise.component';
+import { CioDetailsComponent } from './Components/check-inout/cio-details/cio-details.component';
+import { ServicesRptDateWiseComponent } from './Reports/services-rpt-date-wise/services-rpt-date-wise.component';
+import { ServicesRptServiceandDatewiseComponent } from './Reports/services-rpt-serviceand-datewise/services-rpt-serviceand-datewise.component';
+import { CioRptTypeDatewiseComponent } from './Reports/cio-rpt-type-datewise/cio-rpt-type-datewise.component';
+import { CioRptPartywiseComponent } from './Reports/cio-rpt-partywise/cio-rpt-partywise.component';
+import { ListOfRoomsComponent } from './Reports/list-of-rooms/list-of-rooms.component';
+import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/booking-rpt-partywise.component';
 
 
 
@@ -155,6 +165,16 @@ import { AddcheckINServiceComponent } from './Components/check-inout/addcheck-in
     ServiceComponent,
     AddServiceComponent,
     AddcheckINServiceComponent,
+    CheckOutFormComponent,
+    AddDocumentsComponent,
+    CioRptDateWiseComponent,
+    CioDetailsComponent,
+    ServicesRptDateWiseComponent,
+    ServicesRptServiceandDatewiseComponent,
+    CioRptTypeDatewiseComponent,
+    CioRptPartywiseComponent,
+    ListOfRoomsComponent,
+    BookingRptPartywiseComponent,
  
     
     

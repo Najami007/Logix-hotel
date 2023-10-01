@@ -41,8 +41,8 @@ export class CoaformComponent implements OnInit {
    
   }
 
-  numberOnly(){
-    this.globalData.numberOnly();
+  numberOnly(val:any){
+    this.globalData.avoidMinus(val);
   }
 
   error: any;
@@ -334,13 +334,13 @@ onlevel3Change(){
     //   }
     // }
     else if(this.CoaTitle == '' || this.CoaTitle == undefined){
-      this.msg.WarnNotify('COA Title Required')
-    }else if((this.CoaType == 1 || this.CoaType == 3 || this.CoaType == 5 && this.TransactionAllowed == true) 
+      this.msg.WarnNotify('COA Title Required');
+    }else if(((this.CoaType == 1 || this.CoaType == 4 || this.CoaType == 5) && this.TransactionAllowed == true) 
     && (this.NoteID == 0 || this.NoteID == undefined || this.NoteID == '' ) ){
-      this.msg.WarnNotify('Select The Note')
+      this.msg.WarnNotify('Select The Note');
     }
     else{
-      
+      this.app.startLoaderDark();
       this.http.post(environment.mallApiUrl+'InsertChartOfAccount',{
     CoaTitle: this.CoaTitle,
     CoaTypeID: this.CoaType,
@@ -361,8 +361,10 @@ onlevel3Change(){
             this.msg.SuccessNotify(Response.msg);
             this.GetChartOfAccount();
             this.reset();
+            this.app.stopLoaderDark();
           }else{
             this.msg.WarnNotify(Response.msg);
+            this.app.stopLoaderDark();
           }
         }
         

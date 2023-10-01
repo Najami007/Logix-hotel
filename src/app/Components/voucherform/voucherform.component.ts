@@ -19,6 +19,8 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class VoucherformComponent implements OnInit{
 
+  loadingBar = 'start';
+
 
   page:number = 1;
   count: number = 0;
@@ -118,7 +120,7 @@ export class VoucherformComponent implements OnInit{
   debittotal :number = 0;
   creditTotal :number = 0;
   COA: any = [];
-  narration='-';
+  narration='';
 
  //////////////// print Variables/////////////////////
 
@@ -154,14 +156,7 @@ export class VoucherformComponent implements OnInit{
   ////////////////////////////////////////////////////////////////////////////////////////
 
   changeValue(val: any) {
-    // alert(val.target.value);
-    if (val.target.value < '0') {
-      val.target.value = '0';
-    }else if(val.target.value == ''){
-      val.target.value = '0';
-    }if(val.target.value == ''){
-      val.target.value = '0';
-    }
+   this.globalData.avoidMinus(val);
   }
 
 
@@ -232,12 +227,14 @@ export class VoucherformComponent implements OnInit{
       (Response:any)=>{
         // console.log(Response);
         this.SavedVoucherData = Response;
+        this.loadingBar = 'stop';
        
        
       },
       (error:any)=>{
         console.log(error)
         this.msg.WarnNotify('Error Occured While Retreiving Data');
+        this.loadingBar = 'stop';
        
       }
     )
@@ -302,6 +299,12 @@ export class VoucherformComponent implements OnInit{
     } 
     else{
 
+        
+      if(this.narration == '' || this.narration == undefined){
+        this.narration = '-';
+      }
+
+
       
    
 
@@ -321,12 +324,13 @@ export class VoucherformComponent implements OnInit{
             this.msg.SuccessNotify(Response.msg);
             this.reset();
             this.getSavedVoucher();
-            this.app.stopLoaderDark();
+            
 
             /////////////////////////will print The invoice after SAve///////////////
             setTimeout(() => {
               this.printAfterSave(Response.invNo);  
             }, 1000);
+            this.app.stopLoaderDark();
             
           }else{
             this.msg.WarnNotify(Response.msg);
@@ -522,7 +526,7 @@ export class VoucherformComponent implements OnInit{
     this.VoucherData = [];
     this.debittotal = 0;
     this.creditTotal = 0;
-    this.narration = '-';
+    this.narration = '';
   }
 
 }

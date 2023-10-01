@@ -5,8 +5,8 @@
     <div class="text-center container-fluid " >
         <mat-form-field class="w-100" appearance="outline">
             <mat-label>Select COA Type</mat-label>
-            <mat-select [(ngModel)]="CoaTypeID">
-                <mat-option *ngFor="let item of coaTypesList" [value]="item.coaTypeID">{{item.coaTypeTitle}}</mat-option>
+            <mat-select  [(ngModel)]="CoaTypeID">
+                <mat-option [disabled]="item.coaTypeID == 2 || item.coaTypeID == 3" *ngFor="let item of coaTypesList" [value]="item.coaTypeID">{{item.coaTypeTitle}}</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field class="w-100" appearance="outline">

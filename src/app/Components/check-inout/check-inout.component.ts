@@ -7,6 +7,9 @@ import { NotificationService } from 'src/app/Shared/service/notification.service
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environments/environment.development';
 import { AddcheckINServiceComponent } from './addcheck-inservice/addcheck-inservice.component';
+import { CheckOutFormComponent } from './check-out-form/check-out-form.component';
+import { AddDocumentsComponent } from './add-documents/add-documents.component';
+import { CioDetailsComponent } from './cio-details/cio-details.component';
 
 @Component({
   selector: 'app-check-inout',
@@ -15,7 +18,37 @@ import { AddcheckINServiceComponent } from './addcheck-inservice/addcheck-inserv
 })
 export class CheckINOUtComponent implements OnInit {
 
+
+
+  page:number = 1;
+  count: number = 0;
+
+  tableSize: number = 0;
+  tableSizes : any = [];
+
+  onTableDataChange(event:any){
+
+    this.page = event;
+    this.getSavedVouchers();
+  }
+
+  onTableSizeChange(event:any):void{
+    this.tableSize = event.target.value;
+    this.page =1 ;
+    this.getSavedVouchers();
+  }
+
   curDate = new Date();
+
+  lblVoucherPrintDate= new Date();
+    logo:any;
+    logo1:any;
+    CompanyName :any;
+     CompanyName2:any;
+     companyAddress :any;
+    companyPhone :any;
+    companyMobileno:any;
+    companyEmail:any;
 
   constructor(
     private http:HttpClient,
@@ -29,6 +62,8 @@ export class CheckINOUtComponent implements OnInit {
 
 
 
+  voucherTypesList:any = [{title:'Check In'},{title:'Check Out'}];
+  voucherType:any = 'Check In';
 
 
   ngOnInit(): void {
@@ -40,7 +75,27 @@ export class CheckINOUtComponent implements OnInit {
     this.getServices();
     this.getCoaList();
     this.getSavedVouchers();
+
+    this.logo = this.global.Logo;
+    this.logo1 = this.global.Logo1;
+    this.CompanyName = this.global.CompanyName;
+    this.CompanyName2 = this.global.CompanyName2;
+    this.companyAddress = this.global.Address;
+    this.companyPhone = this.global.Phone;
+    this.companyMobileno = this.global.mobileNo;
+    this.companyEmail = this.global.Email;
+    this.tableSize = this.global.paginationDefaultTalbeSize;
+    this.tableSizes = this.global.paginationTableSizes; 
+    
   }
+
+
+  numberOnly(val:any){
+    return  this.global.avoidMinus(val);
+   
+  }
+
+
 
 
   searchText:any;
@@ -52,11 +107,13 @@ export class CheckINOUtComponent implements OnInit {
   bookingID:number = 0;
   roomID:number = 0;
   partyID:number = 0;
-  rentPerDay:any;
+  rentPerDay:number = 0;
   checkInDate:any = new Date();
   checkInTime:any;
+  checkOutDate:any = new Date();
+  checkOutTime:any;
   totalDays:any = 0;
-  estimatedDays:any;
+  estimatedDays:any = 0;
   advanceAmount:any = 0;
   bookingAdvance:any = 0;
   familyInfo:any;
@@ -65,6 +122,26 @@ export class CheckINOUtComponent implements OnInit {
 
 
   billTotal:number = 0;
+
+  /////////////////////////////////
+
+
+  lblVoucherNo:any;
+  lblBookingID:any;
+  lblAdvancePaid:any;
+  lblBalanceAmont:any;
+  lblDiscount:any;
+  lblArrivalDate:any;
+  lblDepartureDate:any;
+  lblPartyName:any;
+  lblServicesAmount:any;
+  lblRoomNo:any;
+  lblTotalDays:any;
+  lblRentPerDay:any;
+  lblActiveStatus:any;
+
+  lblServiceList:any = [];
+
 
 
   ///////////////////////////////////////
@@ -82,12 +159,6 @@ export class CheckINOUtComponent implements OnInit {
 
 
 
-
-
-
-
-
-
   //////////////////////////////////
 
 
@@ -98,15 +169,18 @@ export class CheckINOUtComponent implements OnInit {
   coaList:any = [];
 
   savedVoucherList:any = [];
+  checkInOutList:any =[];
 
 
 
   serviceTableList:any= [];
 
   SavedCheckINData:any = [];
+  savedCheckOutData:any = [];
 
 
 
+//////////////////////////////////////////////////////////////
 
   getBookingsList(){
     this.http.get(environment.mainApi+'getbooking').subscribe(
@@ -125,6 +199,8 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
+  //////////////////////////////////////////////////////////////
+
   getRoom(){
     this.http.get(environment.mainApi+'GetRoom').subscribe(
       (Response:any)=>{
@@ -136,6 +212,7 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
+  //////////////////////////////////////////////////////////////
   
   getParty(){
     this.http.get(environment.mallApiUrl+'getparty').subscribe(
@@ -152,12 +229,16 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
+  //////////////////////////////////////////////////////////////
 
   getTotal(){
     this.billTotal = (this.rentPerDay * this.totalDays ) + this.servicesTotalAmount;
     
   }
   
+
+
+  //////////////////////////////////////////////////////////////
   getServices(){
     this.http.get(environment.mallApiUrl+'getservice').subscribe(
      {
@@ -170,6 +251,9 @@ export class CheckINOUtComponent implements OnInit {
    }
  
 
+
+   //////////////////////////////////////////////////////////////
+
    onServiceSeleted(){
     var curService = this.servicesList.find((e:any)=>e.serviceID == this.serviceID);
 
@@ -179,6 +263,8 @@ export class CheckINOUtComponent implements OnInit {
    }
 
 
+
+   //////////////////////////////////////////////////////////////
 
    addService(){
 
@@ -194,7 +280,7 @@ export class CheckINOUtComponent implements OnInit {
       var serviceTitle = curService.serviceTitle;
       var serviceCharges = curService.serviceCharges;
    
-      this.serviceTableList.push({ServiceID: this.serviceID,serviceTitle:serviceTitle, ServiceDate:this.serviceDate, 
+      this.serviceTableList.push({ServiceID: this.serviceID,serviceTitle:serviceTitle, ServiceDate:this.global.dateFormater(this.serviceDate,'-'), 
         ServiceTime:this.serviceTime, ServiceCharges:serviceCharges, Quantity:this.quantity, AmountCharged:this.amountCharged});
 
       this.serviceTableList.forEach((e:any) => {
@@ -227,6 +313,8 @@ export class CheckINOUtComponent implements OnInit {
    }
 
 
+   //////////////////////////////////////////////////////////////
+
    deleteService(item:any){
     
     var index = this.serviceTableList.indexOf(item);
@@ -234,6 +322,8 @@ export class CheckINOUtComponent implements OnInit {
 
    }
 
+
+   //////////////////////////////////////////////////////////////
 
    getCoaList(){
     this.http.get(environment.mainApi+'GetCashBankCOA').subscribe(
@@ -246,16 +336,20 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
+  //////////////////////////////////////////////////////////////
+
   reset(){
     
    this.bookingID = 0;
     this.roomID = 0;
     this.partyID = 0;
-    this.rentPerDay = '';
+    this.rentPerDay = 0;
     this.checkInDate = new Date();
     this.checkInTime = '';
+    this.checkOutTime = '';
+    this.checkOutDate = new Date();
     this.totalDays = 0;
-    this.estimatedDays = '';
+    this.estimatedDays = 0;
     this.advanceAmount = 0;
     this.bookingAdvance = 0;
     this.familyInfo = '';
@@ -267,6 +361,8 @@ export class CheckINOUtComponent implements OnInit {
 
   }
 
+
+  //////////////////////////////////////////////////////////////
   onRoomChange(){
    
     
@@ -279,6 +375,10 @@ export class CheckINOUtComponent implements OnInit {
    
     
   }
+
+
+  //////////////////////////////////////////////////////////////
+
 
   onBookingChange(){
     var curBooking = this.bookingList.find((e:any)=>e.bookingID == this.bookingID);
@@ -293,8 +393,13 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
+  //////////////////////////////////////////////////////////////
 
-  saveCheckIN(){
+  saveCheckIN(){    
+
+    var hoursDifferece:any = this.global.getHours(this.global.dateFormater(this.checkInDate,'-'),this.checkInTime,
+    this.global.dateFormater(this.checkOutDate,'-'),this.checkOutTime);
+
     if(this.roomID == 0 || this.roomID == undefined){
       this.msg.WarnNotify('Select Room');
     }else if(this.partyID == 0 || this.partyID == undefined){
@@ -303,13 +408,23 @@ export class CheckINOUtComponent implements OnInit {
       this.msg.WarnNotify('Select Check In Date')
     }else if(this.checkInTime == '' || this.checkInTime == undefined){
       this.msg.WarnNotify('Enter Check In Time')
-    }else if(this.rentPerDay == '' || this.rentPerDay  == undefined){
+    }else if(this.rentPerDay == 0 || this.rentPerDay  == undefined){
       this.msg.WarnNotify('Enter Rent Per Day')
     }else if(this.totalDays == '' || this.totalDays == undefined){
       this.msg.WarnNotify('Enter Total Days')
     }else if(this.estimatedDays == '' || this.estimatedDays == undefined){
       this.msg.WarnNotify('Enter Estimates Days of Stay')
-    }else{
+    }else if(this.checkOutDate == '' || this.checkOutDate == undefined){
+      this.msg.WarnNotify('Select Check Out Date')
+    }else if(this.checkOutTime == '' || this.checkOutTime == undefined){
+      this.msg.WarnNotify('Enter Check Out Time')
+    }else if(hoursDifferece < 6 ){
+      this.msg.WarnNotify('Departure Date is not Valid')
+    }
+    else if(this.advanceAmount > 0 && this.coaID == 0){
+      this.msg.WarnNotify('Select Payment Head')
+    }
+    else{
 
       if(this.cioRemarks == '' || this.cioRemarks == undefined){
         this.cioRemarks = '-';
@@ -323,7 +438,10 @@ export class CheckINOUtComponent implements OnInit {
     }
   }
 
-   insertCheckIn(){
+
+  //////////////////////////////////////////////////////////////
+
+   insertCheckIn(){    
     this.app.startLoaderDark();
     this.http.post(environment.mainApi+'insertcheckin',{
       RoomID:this.roomID,
@@ -331,6 +449,8 @@ export class CheckINOUtComponent implements OnInit {
       BookingID:this.bookingID,
       CheckInDate:this.global.dateFormater(this.checkInDate,'-'),
       CheckInTime: this.checkInTime,
+      CheckOutTime:this.checkOutTime,
+      CheckOutDate:this.checkOutDate,
       RentPerDay: this.rentPerDay,
       TotalDays:this.totalDays,
       EstimatedDays:this.estimatedDays,
@@ -338,13 +458,14 @@ export class CheckINOUtComponent implements OnInit {
       FamilyInfo: this.familyInfo,
       AdvancePaid: this.advanceAmount,
       BookingAdvancePaid: this.bookingAdvance,
-      COAID:3,
+      COAID:this.coaID,
       CioDetail:JSON.stringify(this.serviceTableList),
       UserID: this.global.getUserID()
     }).subscribe(
       (Response:any)=>{
         if(Response.msg == 'Data Saved Successfully'){
           this.msg.SuccessNotify(Response.msg);
+          this.getSavedVouchers();
           this.reset();
           this.app.stopLoaderDark();
         }else{
@@ -353,26 +474,44 @@ export class CheckINOUtComponent implements OnInit {
           
         }
       },
-      (Error)=>{
+      (Error:any)=>{
+        console.log(Error); 
         this.app.stopLoaderDark();
       }
     )
    }
 
 
+   //////////////////////////////////////////////////////////////
+
+   filterSavedVouchers(){
+    
+    if(this.voucherType == 'Check In'){
+      this.checkInOutList = this.savedVoucherList.filter((e:any)=>e.activeStatus == true);
+    }else if(this.voucherType == 'Check Out'){
+      this.checkInOutList = this.savedVoucherList.filter((e:any)=>e.activeStatus == false);
+    }
+
+   }
+
+
+   //////////////////////////////////////////////////////////////
 
    getSavedVouchers(){
     this.http.get(environment.mainApi+'GetCIOHistory').subscribe(
       (Response:any)=>{
 
         this.savedVoucherList = Response;
-        this.SavedCheckINData = Response.filter((e:any)=>e.activeStatus == true)
-       // console.log(this.SavedCheckINData);
+        this.checkInOutList = Response.filter((e:any)=>e.activeStatus == true);
+       
+
+       // console.log(Response);
+        
       }
     )
    }
 
-
+//////////////////////////////////////////////////////////////
 
    addNewService(row:any){
     this.dialogue.open(AddcheckINServiceComponent,{
@@ -384,6 +523,100 @@ export class CheckINOUtComponent implements OnInit {
       }
       
     })
+   }
+
+
+   //////////////////////////////////////////////////////////////
+
+   checkOut(row:any){
+    this.dialogue.open(CheckOutFormComponent,{
+      width:"40%",
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getSavedVouchers();
+      }
+      
+    })
+   }
+
+
+   //////////////////////////////////////////////////////////////
+
+   addDocuments(row:any){
+    this.dialogue.open(AddDocumentsComponent,{
+      width:"40%",
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getSavedVouchers();
+      }
+      
+    })
+   }
+
+
+   //////////////////////////////////////////////////////////////
+   
+  getCheckInOutDetails(row:any){
+
+    this.lblVoucherNo = row.checkinoutID;
+    this.lblBookingID = row.bookingID;
+    this.lblAdvancePaid = row.advancePaid;
+    this.lblBalanceAmont = row.balanceAmount;
+    this.lblArrivalDate = row.checkInDate;
+    this.lblDepartureDate = row.checkOutDate;
+    this.lblPartyName = row.partyName;
+    this.lblDiscount = row.discount;
+    this.lblServicesAmount = row.servicesTotalAmount;
+    this.lblRoomNo  = row.roomTitle;
+    this.lblTotalDays = row.totalDays;
+    this.lblRentPerDay = row.rentPerDay;
+    this.lblActiveStatus = row.activeStatus;
+
+    this.http.get(environment.mainApi+'GetRoomServices?cioid='+row.checkinoutID).subscribe(
+      (Response)=>{
+
+        
+        this.lblServiceList = Response;
+        
+      }
+    )
+
+
+    
+
+  }
+
+
+  //////////////////////////////////////////////////////////////
+
+  getCioVoucherDetails(row:any){
+    this.dialogue.open(CioDetailsComponent,{
+      width:"40%",
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getSavedVouchers();
+      }
+      
+    })
+  }
+
+
+
+  //////////////////////////////////////////////////////////////
+
+   print(row:any){
+
+
+
+    this.getCheckInOutDetails(row)
+
+
+   setTimeout(() => {
+    this.global.printData('#printDiv');
+   }, 1000);
    }
 
 }

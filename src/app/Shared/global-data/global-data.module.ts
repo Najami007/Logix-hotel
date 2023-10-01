@@ -73,7 +73,7 @@ export class GlobalDataModule  {
   getUserID(){
      var credentials = JSON.parse(localStorage.getItem('curVal') || '{}');
 
-   return  atob(atob(credentials.value._culId));
+   return  parseInt(atob(atob(credentials.value._culId)));
 
   }
 
@@ -95,7 +95,31 @@ export class GlobalDataModule  {
  }
 
 
+ /////////////////// will give the difference of hours of two Date and times 
 
+getHours(date1:any, Time1:any, date2:any, Time2:any) {
+  const DateTime1 = new Date(Date.parse(date1 + ' ' + Time1));
+  const DateTime2 = new Date(Date.parse(date2 + ' ' + Time2));
+
+  // Check if the dates and times are valid.
+  if (isNaN(DateTime1.getTime()) || isNaN(DateTime2.getTime())) {
+    return false;
+  }
+
+  // Calculate the difference in seconds.
+  const differenceInSeconds = (DateTime2.getTime() - DateTime1.getTime()) / 1000;
+
+  // Calculate the difference in hours.
+  const differenceInHours = differenceInSeconds / 3600;
+
+  // Return the difference in hours.
+  return differenceInHours;
+}
+
+
+
+
+ 
 
 
 
@@ -310,14 +334,12 @@ logout(){
   }
 
 
-  changeValue(val: any) {
+  avoidMinus(val: any) {
     // alert(val.target.value);
     if (val.target.value < '0') {
-      val.target.value = '0';
+      val.target.value = '';
     }else if(val.target.value == ''){
-      val.target.value = '0';
-    }if(val.target.value == ''){
-      val.target.value = '0';
+      val.target.value = '';
     }
   }
 

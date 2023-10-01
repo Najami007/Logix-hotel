@@ -30,6 +30,13 @@ import { RoomComponent } from '../room/room.component';
 import { BookingComponent } from '../booking/booking.component';
 import { BookingRptDateWiseComponent } from 'src/app/Reports/booking-rpt-date-wise/booking-rpt-date-wise.component';
 import { CheckINOUtComponent } from '../check-inout/check-inout.component';
+import { CioRptDateWiseComponent } from 'src/app/Reports/cio-rpt-date-wise/cio-rpt-date-wise.component';
+import { ServicesRptDateWiseComponent } from 'src/app/Reports/services-rpt-date-wise/services-rpt-date-wise.component';
+import { ServicesRptServiceandDatewiseComponent } from 'src/app/Reports/services-rpt-serviceand-datewise/services-rpt-serviceand-datewise.component';
+import { CioRptTypeDatewiseComponent } from 'src/app/Reports/cio-rpt-type-datewise/cio-rpt-type-datewise.component';
+import { CioRptPartywiseComponent } from 'src/app/Reports/cio-rpt-partywise/cio-rpt-partywise.component';
+import { ListOfRoomsComponent } from 'src/app/Reports/list-of-rooms/list-of-rooms.component';
+import { BookingRptPartywiseComponent } from 'src/app/Reports/booking-rpt-partywise/booking-rpt-partywise.component';
 
 
 
@@ -60,6 +67,13 @@ const routes: Routes = [
   {path:'bkng',component:BookingComponent},
   {path:'brptdw',component:BookingRptDateWiseComponent},
   {path:'chkio',component:CheckINOUtComponent},
+  {path:'ciorptdw',component:CioRptDateWiseComponent},
+  {path:'ciorpttdw',component:CioRptTypeDatewiseComponent},
+  {path:'ciorptpw',component:CioRptPartywiseComponent},
+  {path:'srptdw',component:ServicesRptDateWiseComponent},
+  {path:'srptsdw',component:ServicesRptServiceandDatewiseComponent},
+  {path:'rptlor',component:ListOfRoomsComponent},
+  {path:'brptpw',component:BookingRptPartywiseComponent},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},

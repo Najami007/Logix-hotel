@@ -5,6 +5,7 @@ import { CoaformComponent } from '../coaform.component';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { environment } from 'src/environments/environment.development';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-update-coa',
@@ -54,22 +55,32 @@ export class UpdateCoaComponent implements OnInit{
 
 
   UpdateChartofAccount(){
-    this.http.post(environment.mallApiUrl+'UpdateChartofAccount',{
-      CoaID: this.editData.coaID,
-      CoaTitle: this.coaTitle,
-      NoteID:this.noteID,
-      UserID: this.global.getUserID()
-    }).subscribe(
-      (Response:any)=>{
-        if(Response.msg == 'Data Updated Successfully'){
-          this.msg.SuccessNotify(Response.msg);
-          this.dialogRef.close('Update');
+   if(this.coaTitle == '' || this.coaTitle == undefined){
+      this.msg.WarnNotify('Enter Cao Title')
+    }else{
 
-        }else{
-          this.msg.WarnNotify(Response.msg);
+      $('.loaderDark').show();
+      
+      this.http.post(environment.mallApiUrl+'UpdateChartofAccount',{
+        CoaID: this.editData.coaID,
+        CoaTitle: this.coaTitle,
+        NoteID:this.noteID,
+        UserID: this.global.getUserID()
+      }).subscribe(
+        (Response:any)=>{
+          if(Response.msg == 'Data Updated Successfully'){
+            this.msg.SuccessNotify(Response.msg);
+            this.dialogRef.close('Update');
+            $('.loaderDark').fadeOut(500);
+  
+          }else{
+            this.msg.WarnNotify(Response.msg);
+            $('.loaderDark').fadeOut(500);
+          }
         }
-      }
-    )
+      )
+    }
+   
   }
 
 

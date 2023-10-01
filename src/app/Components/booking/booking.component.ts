@@ -20,6 +20,7 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
 export class BookingComponent implements OnInit{
   curDate = new Date();
 
+  loadingBar = 'start';
 
   page:number = 1;
   count: number = 0;
@@ -69,6 +70,7 @@ export class BookingComponent implements OnInit{
     this.getRoom();
     this.getParty();
     this.getBookings();
+    this.global.numberOnly();
 
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
@@ -174,6 +176,10 @@ export class BookingComponent implements OnInit{
   ]
 
 
+
+  numberOnly(val:any){
+    this.global.avoidMinus(val);
+  }
   
 
 
@@ -188,18 +194,12 @@ export class BookingComponent implements OnInit{
   filterBookings(){
   if(this.bookingStaus != 'All'){
     
-      
-        var curRow = this.savedBookingsData.filter((e:any)=>e.bookingStatus == this.bookingStaus);
-      this.SavedData = curRow;
-      
-   
-   
+    this.SavedData = this.savedBookingsData.filter((e:any)=>e.bookingStatus == this.bookingStaus);
+          
   }else{
     this.SavedData = this.savedBookingsData;
   }
 
-  
-  
   }
   
 
@@ -265,11 +265,11 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
   getBookings(){
     this.http.get(environment.mainApi+'getbooking').subscribe(
-    (Response)=>{
+    (Response:any)=>{
       this.savedBookingsData = Response;
-      
+      this.SavedData =Response.filter((e:any)=>e.bookingStatus == 'Pending');
 
-      this.SavedData =this.savedBookingsData.filter((e:any)=>e.bookingStatus == 'Pending');
+      this.loadingBar = 'stop';
      
     }
     )
