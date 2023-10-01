@@ -1,6 +1,6 @@
 <div class="container-fluid p-4">
     <div class="d-flex justify-content-between cursorPointer p-2 border-bottom">
-        <p class="dialogueTitle">ADD Documents</p>
+        <p class="dialogueTitle">ADD DOCUMENTS</p>
         <mat-icon (click)="closeDialogue()">cancel</mat-icon>
     </div>
 
@@ -17,7 +17,7 @@
             <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
             <input hidden accept=".pdf" [(ngModel)]="fileName"  (change)="onFileSelected($event)" #fileInput type="file" id="file" class="border border-dark">
             <p class="text-center text-secondary mt-1 border-bottom">{{fileName}}</p>
-            <mat-hint>File Must be PDF Only</mat-hint>
+            <mat-hint class="text-danger">File Must be PDF Only</mat-hint>
         </span>
 
 
@@ -27,8 +27,8 @@
         </mat-form-field>
 
         <div class="text-center">
-            <button class="btn btn-success me-2" style="height: 55px;width: 100px;" (click)="insertDocument()">Save</button>
-            <button class="btn btn-danger" style="height: 55px;width: 100px;" (click)="reset()">Reset</button>
+            <button class="btn btn-success btn-save me-2" style="height: 55px;width: 100px;" (click)="insertDocument()">Save</button>
+            <button class="btn btn-danger btn-reset" style="height: 55px;width: 100px;" (click)="reset()">Reset</button>
         </div>
 
     </div>

@@ -1,6 +1,6 @@
-<mat-tab-group>
+<mat-tab-group class="col-lg-12">
     <mat-tab label="Check IN Form">
-        <div class="container-fluid p-4 d-flex">
+        <div class=" container-fluid p-4 d-flex">
     
 
 
@@ -9,7 +9,7 @@
                 <div class="row" >
                     <div class="w-75">
                         
-                    <mat-form-field appearance="outline" class="col-lg-3 p-2s">
+                    <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2s">
                         <mat-label>Select Booking</mat-label>
                         <mat-select [(ngModel)]="bookingID" (selectionChange)="onBookingChange();getTotal()" >
                             <mat-option><ngx-mat-select-search [(ngModel)]="bookingSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
@@ -17,7 +17,7 @@
                         </mat-select>
                     </mat-form-field>
                 
-                    <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                    <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Select Room </mat-label>
                         <mat-select [(ngModel)]="roomID" (selectionChange)="onRoomChange();getTotal()" >
                             <mat-option><ngx-mat-select-search [(ngModel)]="roomSearch" [placeholderLabel]="'Search...'"  [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
@@ -25,17 +25,21 @@
                         </mat-select>
                     </mat-form-field>
         
-                    <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                    <mat-form-field appearance="outline" class="col-lg-5 col-md-5 col-sm-5 p-2">
                         <mat-label>Select Customer </mat-label>
                         <mat-select [(ngModel)]="partyID" >
                             <mat-option><ngx-mat-select-search [(ngModel)]="partySearch" [placeholderLabel]="'Search...'"  [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
                             <mat-option *ngFor="let item of partyList|filter:partySearch" [value]="item.partyID">{{item.partyName}} ({{item.partyCNIC}})</mat-option>
                         </mat-select>
+                       
+
                     </mat-form-field>
+
+                    <button class="btn btn-primary col-lg-1 col-md-1 col-sm-1" style="height: 55px;" (click)="addCustomer()">  <mat-icon>add</mat-icon></button>
         
                     
         
-                    <mat-form-field class="col-lg-3  p-2" appearance="outline">
+                    <mat-form-field class="col-lg-3 col-md-3 col-sm-3  p-2" appearance="outline">
                         <mat-label>Select Check IN Date</mat-label>
                         <input readonly="true" matInput    [(ngModel)]="checkInDate"
                             [matDatepicker]="ciDate" >
@@ -44,13 +48,13 @@
                     </mat-form-field>
             
             
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Check IN time</mat-label>
                         <input type="time"    matInput [(ngModel)]="checkInTime" name="week" min="00:00:00" max="24:00:00"  />
                         
                       </mat-form-field>
 
-                      <mat-form-field class="col-lg-3  p-2" appearance="outline">
+                      <mat-form-field class="col-lg-3 col-md-3 col-sm-3  p-2" appearance="outline">
                         <mat-label>Select Check Out Date</mat-label>
                         <input readonly="true" matInput    [(ngModel)]="checkOutDate"
                             [matDatepicker]="coDate" >
@@ -59,45 +63,45 @@
                     </mat-form-field>
             
             
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Check Out time</mat-label>
                         <input type="time"    matInput [(ngModel)]="checkOutTime" name="week" min="00:00:00" max="24:00:00"  />
                         
                       </mat-form-field>
         
         
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Enter Rent Per Day</mat-label>
                         <input matInput type="number" min="0" [(ngModel)]="rentPerDay" (keypress)="numberOnly($event)" >
                           
                     </mat-form-field>
         
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Total Days</mat-label>
                         <input type="number" min="0"  (keyup)="getTotal()" (keypress)="numberOnly($event)"  matInput [(ngModel)]="totalDays" />
                         
                       </mat-form-field>
         
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Estimated Days</mat-label>
                         <input type="number" min="0" (keypress)="numberOnly($event)"    matInput [(ngModel)]="estimatedDays"  />
                         
                       </mat-form-field>
         
         
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Advance Amount</mat-label>
                         <input type="number" min="0" (keypress)="numberOnly($event)"    matInput [(ngModel)]="advanceAmount"  />
                         
                       </mat-form-field>
         
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                         <mat-label>Booking Advance</mat-label>
                         <input type="number" [readonly]="true" min="0" (keypress)="numberOnly($event)"    matInput [(ngModel)]="bookingAdvance"  />
                         
                       </mat-form-field>
 
-                      <mat-form-field appearance="outline" class="col-lg-3 p-2s">
+                      <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2s">
                         <mat-label>Select COA Title</mat-label>
                         <mat-select [(ngModel)]="coaID" [disabled]="advanceAmount == 0 || advanceAmount == null" >
                             <mat-option><ngx-mat-select-search [(ngModel)]="coaSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
@@ -226,8 +230,8 @@
         
         
                       <div class="text-center ">
-                        <button class="btn btn-primary w-25 me-2"  style="height: 55px;" (click)="saveCheckIN()" > Save</button>
-                        <button class="btn btn-danger w-25" style="height: 55px;"> Reset</button>
+                        <button class="btn btn-primary btn-save w-25 me-2"  style="height: 55px;" (click)="saveCheckIN()" > Save</button>
+                        <button class="btn btn-danger btn-reset w-25" style="height: 55px;"> Reset</button>
                       </div>
             
               
@@ -288,7 +292,7 @@
                             <td >{{item.checkInDate | date:'short'}}</td>
                             <td *ngIf="item.activeStatus == false" >{{item.checkOutDate | date:'short'}}</td>
                             <td>{{(item.rentPerDay * item.totalDays) + (item.servicesTotalAmount) |number}}</td>
-                            <td *ngIf="item.activeStatus == true"  class="text-success cursorPointer " (click)="addNewService(item)"><mat-icon>room_service</mat-icon></td>
+                            <td *ngIf="item.activeStatus == true"  class="text-success cursorPointer " (click)="addNewService(item)"><mat-icon>add_box</mat-icon></td>
                             <td  class="text-primary cursorPointer " (click)="addDocuments(item)" ><mat-icon>add_photo_alternate</mat-icon></td>
                             <td *ngIf="item.activeStatus == true" class="text-warning cursorPointer " (click)="checkOut(item)"><mat-icon>check_box</mat-icon></td>
                           

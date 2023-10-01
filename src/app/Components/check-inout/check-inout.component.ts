@@ -10,6 +10,7 @@ import { AddcheckINServiceComponent } from './addcheck-inservice/addcheck-inserv
 import { CheckOutFormComponent } from './check-out-form/check-out-form.component';
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { CioDetailsComponent } from './cio-details/cio-details.component';
+import { AddCustomerComponent } from '../booking/add-customer/add-customer.component';
 
 @Component({
   selector: 'app-check-inout',
@@ -420,6 +421,8 @@ export class CheckINOUtComponent implements OnInit {
       this.msg.WarnNotify('Enter Check Out Time')
     }else if(hoursDifferece < 6 ){
       this.msg.WarnNotify('Departure Date is not Valid')
+    }else if(this.advanceAmount > this.billTotal){
+      this.msg.WarnNotify('Advance Amount is more Than Bill Amount')
     }
     else if(this.advanceAmount > 0 && this.coaID == 0){
       this.msg.WarnNotify('Select Payment Head')
@@ -618,5 +621,23 @@ export class CheckINOUtComponent implements OnInit {
     this.global.printData('#printDiv');
    }, 1000);
    }
+
+
+
+   addCustomer(){
+    this.dialogue.open(AddCustomerComponent,{
+      width:"60%",
+      data: 'booking page'
+
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getParty();
+
+            
+      }
+      
+    })
+  }
+
 
 }

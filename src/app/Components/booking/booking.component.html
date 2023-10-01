@@ -40,13 +40,13 @@
 
 
         <mat-form-field appearance="outline" class="w-50 p-2"> 
-            <mat-label>Rent</mat-label>
+            <mat-label>Rent Per Day</mat-label>
             <input matInput type="number" min="0" class="numOnly" (keypress)="numberOnly($event)"  [(ngModel)]="rentPerDay">
         </mat-form-field>
 
 
         <mat-form-field class="w-50 p-2" appearance="outline">
-            <mat-label>Select Arrival Date</mat-label>
+            <mat-label>Arrival Date</mat-label>
             <input readonly="true" matInput [min]="curDate"  [(ngModel)]="arrivalDate"
                 [matDatepicker]="ADate" >
             <mat-datepicker-toggle matSuffix [for]="ADate"></mat-datepicker-toggle>
@@ -55,7 +55,7 @@
 
 
           <mat-form-field appearance="outline" class="w-50 p-2">
-            <mat-label>Arrival time</mat-label>
+            <mat-label>Arrival Time</mat-label>
             <input type="time"    matInput [(ngModel)]="arrivalTime" name="week" min="00:00:00" max="24:00:00" />
             
           </mat-form-field>
@@ -65,7 +65,7 @@
 
 
           <mat-form-field class="w-50 p-2" appearance="outline">
-            <mat-label>Select Departure Date</mat-label>
+            <mat-label>Departure Date</mat-label>
             <input readonly="true" matInput  [min]="curDate"  [(ngModel)]="DepartureDate"
                 [matDatepicker]="DDate" >
             <mat-datepicker-toggle matSuffix [for]="DDate"></mat-datepicker-toggle>
@@ -81,7 +81,7 @@
 
 
           <mat-form-field appearance="outline" class="w-50 p-2">
-            <mat-label>Refrence Name</mat-label>
+            <mat-label>Referred By</mat-label>
             <input type="text"    matInput [(ngModel)]="refrenceName" />
             
           </mat-form-field>
@@ -120,8 +120,8 @@
 
 
           <div class="text-center"> 
-            <Button class="btn btn-success btn-rpt w-25 me-3"(click)="save()" >Save</Button>
-            <Button class="btn btn-danger btn-rpt w-25" (click)="reset()">Reset</Button>
+            <Button class="btn btn-success btn-save  w-25 me-3"(click)="save()" >Save</Button>
+            <Button class="btn btn-danger btn-reset  w-25" (click)="reset()">Reset</Button>
           </div>
 
 
@@ -275,7 +275,7 @@
                             width="100">
                     </span>
                     <span class="mt-3">
-                        <h3>{{CompanyName}}</h3>
+                        <h3 >{{CompanyName}}</h3>
                             <p class="w-75 text-end" style="margin-top: -15;" >{{CompanyName2}}</p>
                         <p style="margin-top: -20;" >{{companyAddress}}</p>
                         <p style="margin-top: -15;">{{companyPhone}}  - {{companyMobileno}}</p>

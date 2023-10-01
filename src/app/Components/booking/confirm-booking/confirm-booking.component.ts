@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { environment } from 'src/environments/environment.development';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-confirm-booking',
@@ -33,6 +34,7 @@ export class ConfirmBookingComponent implements OnInit{
       this.advancePaidAmount = this.editData.advancePaid;
     }else if(this.editData.bookingStatus == 'Pending'){
       this.advanceAmount = this.editData.totalDays * this.editData.rentPerDay;
+      this.bookingStatus = this.editData.bookingStatus;
     }
 
     this.getCoaList();
@@ -93,6 +95,7 @@ export class ConfirmBookingComponent implements OnInit{
 
 
   ConfirmBooking(){
+    $('.loaderDark').show();
     this.http.post(environment.mainApi + 'ConfirmBooking',{
       BookingID:this.editData.bookingID, 
       PartyID: this.editData.partyID,
@@ -106,8 +109,10 @@ export class ConfirmBookingComponent implements OnInit{
           this.msg.SuccessNotify('Booking Confirmed');
           this.reset();
           this.dialogRef.close('Update');
+          $('.loaderDark').fadeOut(500);
         }else{
           this.msg.WarnNotify(Response.msg);
+          $('.loaderDark').fadeOut(500);
         }
       }
     )
@@ -117,6 +122,7 @@ export class ConfirmBookingComponent implements OnInit{
 
 
   Refund(){
+    $('.loaderDark').show();
     this.http.post(environment.mainApi + 'RefundBooking',{
       BookingID:this.editData.bookingID, 
       PartyID: this.editData.partyID,
@@ -130,8 +136,10 @@ export class ConfirmBookingComponent implements OnInit{
           this.msg.SuccessNotify('Booking Confirmed');
           this.reset();
           this.dialogRef.close('Update');
+          $('.loaderDark').fadeOut(500);
         }else{
           this.msg.WarnNotify(Response.msg);
+          $('.loaderDark').fadeOut(500);
         }
       }
     )
@@ -139,7 +147,7 @@ export class ConfirmBookingComponent implements OnInit{
 
 
   reset(){
-    this.actionBtn = 'Confirm';
+    this.actionBtn = 'Confirm Booking';
     this.advanceAmount = '';
     this.coaID = '';
     this.remarks = '';
