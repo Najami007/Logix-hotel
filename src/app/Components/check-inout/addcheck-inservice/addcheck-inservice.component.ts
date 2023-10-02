@@ -52,7 +52,7 @@ export class AddcheckINServiceComponent implements OnInit {
   //////////////////////////////////////////////////////////////
 
   getServices(){
-    this.http.get(environment.mallApiUrl+'getservice').subscribe(
+    this.http.get(environment.mainApi+'getservice').subscribe(
      {
        next:value=>{
          this.servicesList = value;

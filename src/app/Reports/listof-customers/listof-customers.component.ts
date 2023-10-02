@@ -60,7 +60,7 @@ export class ListofCustomersComponent implements OnInit {
 
   getParty(){
     this.app.startLoaderDark();
-    this.http.get(environment.mallApiUrl+'getparty').subscribe(
+    this.http.get(environment.mainApi+'getparty').subscribe(
     {
       next:value =>{
         this.partyList = value;

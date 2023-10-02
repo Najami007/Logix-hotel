@@ -44,7 +44,7 @@ export class OwnerProfileComponent implements OnInit{
   citiesData:any;
 
   getCity(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe({
+    this.http.get(environment.mainApi+'getcity').subscribe({
       next:value=>{
         this.citiesData = value;
       },
@@ -56,7 +56,7 @@ export class OwnerProfileComponent implements OnInit{
 
 
   getOwner(){
-    this.http.get(environment.mallApiUrl+'getowner').subscribe(
+    this.http.get(environment.mainApi+'getowner').subscribe(
       {
         next:value=>{
           this.ownerData = value;
@@ -89,7 +89,7 @@ export class OwnerProfileComponent implements OnInit{
       this.description = '-';
     }else {
       if(this.btntype == 'Save'){
-        this.http.post(environment.mallApiUrl+'insertparty',{
+        this.http.post(environment.mainApi+'insertparty',{
           PartyType:'Owner',
           PartyName:this.ownerName,
           PartyAddress:this.address,
@@ -120,7 +120,7 @@ export class OwnerProfileComponent implements OnInit{
   }
 
   updateOwner(){
-    this.http.post(environment.mallApiUrl+'updateparty',{
+    this.http.post(environment.mainApi+'updateparty',{
       partyID:this.PartyID,
       PartyType:'Owner',
       PartyName:this.ownerName,
@@ -176,7 +176,7 @@ export class OwnerProfileComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deleteparty',{
+        this.http.post(environment.mainApi+'deleteparty',{
           PartyID:row.partyID,
           UserID:this.global.getUserID(),
         }).subscribe(

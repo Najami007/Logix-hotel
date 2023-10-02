@@ -34,7 +34,7 @@ export class ServiceComponent {
   servicesData:any;
 
   getService(){
-   this.http.get(environment.mallApiUrl+'getservice').subscribe(
+   this.http.get(environment.mainApi+'getservice').subscribe(
     {
       next:value=>{
         this.servicesData = value;
@@ -78,7 +78,7 @@ export class ServiceComponent {
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deleteservice',{
+        this.http.post(environment.mainApi+'deleteservice',{
           ServiceID:row.serviceID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(

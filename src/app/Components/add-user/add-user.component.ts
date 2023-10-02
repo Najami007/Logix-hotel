@@ -64,7 +64,7 @@ export class AddUserComponent implements OnInit{
  
 
   getUserData(){
-    this.http.get(environment.mallApiUrl+'getuser').subscribe(
+    this.http.get(environment.mainApi+'getuser').subscribe(
       (Response)=>{
         
         this.userData = Response;
@@ -129,7 +129,7 @@ export class AddUserComponent implements OnInit{
 
   insertUser(){
     
-    this.http.post(environment.mallApiUrl+'insertuser',{
+    this.http.post(environment.mainApi+'insertuser',{
       UserName: this.uName,
       MobileNo: this.uContact,
       LoginName: this.loginName,
@@ -157,7 +157,7 @@ export class AddUserComponent implements OnInit{
   /////////////////////////////////////////////
 
   updateUser(){
-    this.http.post(environment.mallApiUrl+'updateuser',{
+    this.http.post(environment.mainApi+'updateuser',{
       UserName: this.uName,
       MobileNo: this.uContact,
       LoginName: this.loginName,
@@ -186,7 +186,7 @@ export class AddUserComponent implements OnInit{
   ////////////////////////////////////////////////
 
   delUser(item:any){
-    this.http.post(environment.mallApiUrl+'deleteuser',{
+    this.http.post(environment.mainApi+'deleteuser',{
       UserID:item.userID,
     }).subscribe(
       (Response:any)=>{
@@ -220,7 +220,7 @@ export class AddUserComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'blockuser',{
+        this.http.post(environment.mainApi+'blockuser',{
           TempBlock:true,
           UserID: item.userID,
         }).subscribe(
@@ -259,7 +259,7 @@ export class AddUserComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'blockuser',{
+        this.http.post(environment.mainApi+'blockuser',{
           TempBlock:false,
           UserID: item.userID,
         }).subscribe(
@@ -296,7 +296,7 @@ export class AddUserComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'resetpin',{
+        this.http.post(environment.mainApi+'resetpin',{
           UserID: item.userID,
           reqUserID: this.globalData.getUserID(),
         }).subscribe(
@@ -320,7 +320,7 @@ export class AddUserComponent implements OnInit{
   ////////////////////////////////////
 
   getMenu(){
-    this.http.get(environment.mallApiUrl+'getmenu').subscribe(
+    this.http.get(environment.mainApi+'getmenu').subscribe(
       (Response)=>{
         // console.log(Response);
         this.menuList = Response;
@@ -380,7 +380,7 @@ export class AddUserComponent implements OnInit{
     this.userID = row.userID;
     this.disablePin = true;
 
-    this.http.get(environment.mallApiUrl+'getusermenu?userid='+row.userID).subscribe(
+    this.http.get(environment.mainApi+'getusermenu?userid='+row.userID).subscribe(
       (Response:any)=>{
         Response.forEach((e:any) => {
           

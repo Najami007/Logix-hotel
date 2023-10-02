@@ -171,9 +171,9 @@
                         <textarea matInput [(ngModel)]="narration" name="Narration" placeholder="Narration"></textarea>
                     </mat-form-field>
                 </div>
-                <div style="text-align: center;font-size: 30px;">
-                    <input type="button" id="save" class="btn btn-danger col-lg-6 " value="Save"
-                        (click)="insertVoucher()">
+                <div class="text-center " >
+                    <button  class="btn btn-success btn-save  col-lg-3 me-2" (click)="insertVoucher()"> Save</button>
+                        <button   class="btn btn-danger btn-reset  col-lg-3 "  (click)="reset()"> Reset</button>
                 </div>
             </div>
             
@@ -184,7 +184,7 @@
 
         <div class="d-none" id="afterSavePrint">
             <div class="text-end ">{{lblVoucherPrintDate |date:'short'}}</div>
-            <div class="mt-2">
+            <div >
                 
                 <!-------------------------    Top Logo Section -------------------->
                 <div class="text-center border-bottom d-flex justify-content-between">
@@ -192,11 +192,11 @@
                         <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100"
                             width="100">
                     </span>
-                    <span class="mt-3">
+                    <span >
                         <h3>{{CompanyName}}</h3>
                             <p class="text-end w-75" style="margin-top: -15;">{{CompanyName2}}</p>
                         <p style="margin-top: -20;">{{companyAddress}}</p>
-                        <p style="margin-top: -15;">{{companyPhone}} , {{companyMobileno}}</p>
+                        <p style="margin-top: -15;">{{companyPhone}}  {{companyMobileno}}</p>
                         <p style="margin-top: -15;">{{companyEmail}}</p>
                     </span>
                     <span>
@@ -413,11 +413,11 @@
                         <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100"
                             width="100">
                     </span>
-                    <span class="mt-3">
-                        <h3>{{CompanyName}}</h3>
-                            <p class="text-end w-75" style="margin-top: -15;">{{CompanyName2}}</p>
+                    <span >
+                        <h3 class="companyName">{{CompanyName}}</h3>
+                            <p class="companyName2" style="margin-top: -15;">{{CompanyName2}}</p>
                         <p style="margin-top: -20;">{{companyAddress}}</p>
-                        <p style="margin-top: -15;">{{companyPhone}} , {{companyMobileno}}</p>
+                        <p style="margin-top: -15;">{{companyPhone}}  {{companyMobileno}}</p>
                         <p style="margin-top: -15;">{{companyEmail}}</p>
                     </span>
                     <span>

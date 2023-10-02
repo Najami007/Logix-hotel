@@ -43,29 +43,29 @@
 
             <hr>
     
-        <div id="printReport" class="p-3 printReport">
+        <div id="printReport" class="printReport" >
 
 
             <!-------------------------    Top Logo Section -------------------->
         <div class="hide">
             <div class="text-center border-bottom d-flex justify-content-between">
                 <span>
-                    <img src="{{logo}}"  srcset="" height="150"
-                        width="150">
+                    <img src="{{logo}}"  srcset="" height="100"
+                        width="100">
                 </span>
-                <span class="mt-3">
+                <span >
                     
 
-                    <h1>{{CompanyName}}</h1>
-                    <h5 style="margin-top: -15px;" class="text-end w-75">{{CompanyName2}}</h5>
+                    <h1 class="companyName">{{CompanyName}}</h1>
+                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>
 
-                    <h1>Trial Balance Report</h1>
-                    <h4><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</h4>
+                    <p class="rptTitle"  style="margin-top: -25px;">Trial Balance Report</p>
+                    <p  style="margin-top: -20px;"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                   
                 </span>
                 <span>
-                    <img src="{{logo1}}" style="color: black;" alt="" srcset="" height="150"
-                        width="150">
+                    <img src="{{logo1}}" style="color: black;" alt="" srcset="" height="100"
+                        width="100">
                 </span>
         
         
@@ -138,7 +138,7 @@
         <!-----------------  Summary 2 Seciton Table-->
         <div id="summary2">
            
-            <table class="table table-logix" *ngFor="let row of notesList; index as index">
+            <table class="table table-logix " *ngFor="let row of notesList; index as index">
                 
                 <thead>
                     <tr class="text-start">

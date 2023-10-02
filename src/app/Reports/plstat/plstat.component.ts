@@ -95,7 +95,7 @@ export class PlstatComponent implements OnInit {
 
 
     if(reqFunc == 'R1'){
-      this.http.get(environment.mallApiUrl+'GetProfitRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
+      this.http.get(environment.mainApi+'GetProfitRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
       +this.globalData.dateFormater(this.toDate,'-')).subscribe(
         (Response)=>{
          
@@ -115,7 +115,7 @@ export class PlstatComponent implements OnInit {
     }
 
     if(reqFunc == 'R2'){
-      this.http.get(environment.mallApiUrl+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
+      this.http.get(environment.mainApi+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
       +this.globalData.dateFormater(this.toDate,'-')).subscribe(
         (Response)=>{
         
@@ -136,7 +136,7 @@ export class PlstatComponent implements OnInit {
     }
 
     
-    this.http.get(environment.mallApiUrl+'GetLossRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
+    this.http.get(environment.mainApi+'GetLossRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+'&todate='
     +this.globalData.dateFormater(this.toDate,'-')).subscribe(
       (Response)=>{
 

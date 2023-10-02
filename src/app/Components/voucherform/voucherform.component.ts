@@ -223,7 +223,7 @@ export class VoucherformComponent implements OnInit{
 
   getSavedVoucher(){
    
-    this.http.get(environment.mallApiUrl+'GetSavedVoucherDetail').subscribe(
+    this.http.get(environment.mainApi+'GetSavedVoucherDetail').subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.SavedVoucherData = Response;
@@ -246,7 +246,7 @@ export class VoucherformComponent implements OnInit{
   ///////////////////////////////////////////////////////////
 
   getParty(){
-    this.http.get(environment.mallApiUrl+'GetVoucherParty').subscribe(
+    this.http.get(environment.mainApi+'GetVoucherParty').subscribe(
       (Response)=>{
         // console.log(Response);
         this.partyList = Response;
@@ -262,7 +262,7 @@ export class VoucherformComponent implements OnInit{
 
 
   getCoa(){
-    this.http.get(environment.mallApiUrl+'GetVoucherCOA').subscribe(
+    this.http.get(environment.mainApi+'GetVoucherCOA').subscribe(
       (Response)=>{
         // console.log(Response);
         this.CoaList = Response;
@@ -273,7 +273,7 @@ export class VoucherformComponent implements OnInit{
   ////////////////////////////////////////////
 
   getRefCoa(){
-    this.http.get(environment.mallApiUrl+'GetVoucherCBCOA?type='+this.vType).subscribe(
+    this.http.get(environment.mainApi+'GetVoucherCBCOA?type='+this.vType).subscribe(
       (Response)=>{
         this.refCoaList = Response;
       },
@@ -309,7 +309,7 @@ export class VoucherformComponent implements OnInit{
    
 
       this.app.startLoaderDark();  ///////////// will start the loader
-      this.http.post(environment.mallApiUrl+'InsertVoucher',{
+      this.http.post(environment.mainApi+'InsertVoucher',{
         InvoiceDate: this.globalData.dateFormater(this.invoiceDate,'-'),
         RefCOAID: this.refrenceCOA,
         Type: this.vType,
@@ -365,7 +365,7 @@ export class VoucherformComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'DeleteVoucher',{
+        this.http.post(environment.mainApi+'DeleteVoucher',{
           InvoiceNo: row.invoiceNo,
           UserID: this.globalData.getUserID(),
         }).subscribe(
@@ -402,7 +402,7 @@ export class VoucherformComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'ApproveVoucher',{
+        this.http.post(environment.mainApi+'ApproveVoucher',{
           InvoiceNo: row.invoiceNo,
         UserID: this.globalData.getUserID(),
         }).subscribe(
@@ -493,7 +493,7 @@ export class VoucherformComponent implements OnInit{
     this.invoiceDetails = [];
 
     
-    this.http.get(environment.mallApiUrl+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
+    this.http.get(environment.mainApi+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.invoiceDetails = Response;

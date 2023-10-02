@@ -74,9 +74,32 @@
 }
 
 .table-logix > tbody > tr {
-  border: 1px solid #000;
+  border: 1px solid #000 !important;
 }
 
 .table-logix > tbody > tr > td {
-  border: 1px solid #000;
+  border: 1px solid #000 !important;
 }
+
+
+
+
+/* .table{
+  border: 1px solid #000 !important;
+} */
+
+.companyName{
+  font-size: 25px !important;
+}
+
+.companyName2{
+  font-size: 15px;
+  
+}
+
+.rptTitle{
+  font-size: 30px !important;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+

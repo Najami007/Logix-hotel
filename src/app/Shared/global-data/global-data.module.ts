@@ -17,7 +17,7 @@ import * as b64 from 'base64-js/index.js';
     CommonModule
   ]
 })
-export class GlobalDataModule  {
+export class GlobalDataModule  implements OnInit {
 
 
 
@@ -27,12 +27,19 @@ export class GlobalDataModule  {
   public Logo = '../assets/Images/BlackGold.jpg';
   public Logo1 = '../assets/Images/MT-logo.png';
 
-  public CompanyName = 'BLACK GOLD HOTEL';
-  public CompanyName2 =  'Mehria Town Pvt.(Ltd)';
-  public Address = 'Mehria Mall & Residencia, Phase 4, Mehria Town Attock City';
-  public Phone = '057-2377132';
-  public mobileNo = '0349-1001948';
-  public Email = 'bgmehria@gmail.com'
+  // public CompanyName = 'BLACK GOLD HOTEL';
+  // public CompanyName2 =  'Mehria Town Pvt.(Ltd)';
+  // public Address = 'Mehria Mall & Residencia, Phase 4, Mehria Town Attock City';
+  // public Phone = '057-2377132';
+  // public mobileNo = '0349-1001948';
+  // public Email = 'bgmehria@gmail.com'
+
+  public  CompanyName = '';
+  public CompanyName2 =  '';
+  public Address = '';
+  public Phone = '';
+  public mobileNo = '';
+  public Email = ''
 
    
    public currentUserSubject:BehaviorSubject<userInterface>;
@@ -53,6 +60,11 @@ export class GlobalDataModule  {
       );
       this.currentUser = this.currentUserSubject.asObservable();
     }
+
+
+  ngOnInit(): void {
+   this.getCompanyData();
+  }
 
     private _headerTitleSource = new Subject<string>();
     header_title$ = this._headerTitleSource.asObservable();
@@ -95,6 +107,13 @@ export class GlobalDataModule  {
  }
 
 
+ getComapnyLink(){
+  var credentials = JSON.parse(localStorage.getItem('curVal') || '{}');
+
+  return  atob(atob(credentials.value._cuLnk)).toString();
+ }
+
+
  /////////////////// will give the difference of hours of two Date and times 
 
 getHours(date1:any, Time1:any, date2:any, Time2:any) {
@@ -118,8 +137,42 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
 
 
-
+////////////////////////////////////////////////////
  
+getCompanyData(){
+  this.http.get(environment.mainApi+'GetCompanyProfile').subscribe(
+    (Response:any)=>{
+      
+     localStorage.setItem('cmpnyVal',JSON.stringify({Response}));
+
+     this.CompanyName =Response[0].companyName ;
+      
+     this.CompanyName2 = Response[0].companyAlias;
+     this.Phone = Response[0].companyPhone;
+     this.mobileNo =Response[0].companyMobile;
+     this.Email = Response[0].companyEmail;
+     this.Address = Response[0].companyAddress;
+   
+    }
+  )
+}
+
+getCompanyDataFromStorage(){
+
+ var  companyData:any =  JSON.parse(localStorage.getItem('cmpnyVal') || '{}');
+//  console.log(companyData);
+
+ this.CompanyName = companyData.Response[0].companyName ;
+      
+ this.CompanyName2 = companyData.Response[0].companyAlias;
+ this.Phone = companyData.Response[0].companyPhone;
+ this.mobileNo = companyData.Response[0].companyMobile;
+ this.Email = companyData.Response[0].companyEmail;
+ this.Address = companyData.Response[0].companyAddress;
+//  alert(this.CompanyName);
+
+
+}
 
 
 
@@ -138,11 +191,12 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
   login(Email:String,password:string){
 
-    this.http.post(environment.mallApiUrl+'_userLogin',{
+    this.http.post(environment.mainApi+'_userLogin',{
       LoginName: Email,
       Password: password,
     }).subscribe({
       next:(value:any)=>{
+        //console.log(value);
         
         
        
@@ -171,7 +225,9 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
         // localStorage.setItem('_usercur',JSON.stringify(this.curUserValue));
         localStorage.setItem('curVal',JSON.stringify({value}));
+        this.getCompanyData();  
        }else{
+        //console.log(value.msg);
         this.msg.WarnNotify('Error Occurred While Login Process');
        }
       },
@@ -192,7 +248,7 @@ getHours(date1:any, Time1:any, date2:any, Time2:any) {
 
 
 logout(){
-    this.http.post(environment.mallApiUrl+'_userLogout',{
+    this.http.post(environment.mainApi+'_userLogout',{
       UserID: this.getUserID(),
     }).subscribe(
       (Response:any)=>{
@@ -201,6 +257,7 @@ logout(){
 
           
           localStorage.removeItem('curVal');
+          localStorage.removeItem('cmpnyVal');
            this.rout.navigate(['login']);
         }else{
           this.msg.WarnNotify(Response.msg);
@@ -233,6 +290,9 @@ logout(){
 
 
   printData(printSection: string) {
+     this.getCompanyDataFromStorage();
+  if(this.CompanyName != ''){
+      
     var contents = $(printSection).html();
 
     var frame1:any = $('<iframe />');
@@ -261,9 +321,66 @@ logout(){
     frameDoc.document.write(
       
       '<link rel="stylesheet" href="../../assets/style/ownStyle.css" type="text/css" media="print"/>'
-      +
-      '<link rel="stylesheet" href="../../assets/style/bootstrap.min.css" type="text/css" media="print"/>'+
-      '<link rel="stylesheet" href="../../assets/style/bootstrap.min.css.map" type="text/css" />'
+      +'<link rel="stylesheet" href="../../assets/style/bootstrap.min.css" type="text/css" media="print"/>'
+      //+'<style type="text/css" media="print">/*@page { size: landscape; }*/</style>'
+      // '<link rel="stylesheet" href="../../assets/style/bootstrap.min.css.map" type="text/css" />'+
+     
+      // '<link rel="stylesheet" href="../css/bootstrap.css" type="text/css"  media="print"/>'
+    );
+    frameDoc.document.write('</head><body>');
+
+    //Append the DIV contents.
+    frameDoc.document.write(contents);
+    frameDoc.document.write('</body></html>');
+
+    frameDoc.document.close();
+
+    setTimeout(function () {
+      window.frames[0].focus();
+      window.frames[0].print();
+
+      frame1.remove();
+    }, 500);
+  }
+  }
+
+
+  //////////////////////////////////////////////////////////////////////
+
+
+  printLandscape(printSection: string) {
+    var contents = $(printSection).html();
+
+    var frame1:any = $('<iframe />');
+    frame1[0].name = 'frame1';
+    frame1.css({ position: 'absolute', top: '-1000000px' });
+    $('body').append(frame1);
+    var frameDoc = frame1[0].contentWindow
+      ? frame1[0].contentWindow
+      : frame1[0].contentDocument.document
+      ? frame1[0].contentDocument.document
+      : frame1[0].contentDocument;
+    frameDoc.document.open();
+
+    //Create a new HTML document.
+    // frameDoc.document.write(
+    //   "<html><head><title>DIV Contents</title>" +
+    //     "<style>" +
+    //     printCss +
+    //     "</style>"
+    // );
+
+    //Append the external CSS file. <link rel="stylesheet" href="../../../styles.scss" /> <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    frameDoc.document.write(
+      '<style type="text/css" media="print">@page { size: portrait; }</style>'
+    );
+    frameDoc.document.write(
+      
+      '<link rel="stylesheet" href="../../assets/style/ownStyle.css" type="text/css" media="print"/>'
+      +'<link rel="stylesheet" href="../../assets/style/bootstrap.min.css" type="text/css" media="print"/>'
+      +'<style type="text/css" media="print">@page { size: landscape; }</style>'
+      // '<link rel="stylesheet" href="../../assets/style/bootstrap.min.css.map" type="text/css" />'+
+     
       // '<link rel="stylesheet" href="../css/bootstrap.css" type="text/css"  media="print"/>'
     );
     frameDoc.document.write('</head><body>');

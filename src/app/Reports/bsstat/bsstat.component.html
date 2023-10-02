@@ -1,5 +1,5 @@
-<div class="container p-2 ">
-    <div class="d-flex bg-white p-2 border-bottom">
+<div class="container-fluid p-2 ">
+    <div class="d-flex bg-white p-2 border-bottom" >
 
 
         <mat-form-field class="w-50" appearance="outline">
@@ -10,21 +10,21 @@
         </mat-form-field>
 
 
-        <div class="w-50  text-center">
-            <button class="fw-bold btn btn-success border-0 justify-content-bottom   " (click)="getBalanceSheet()">
-                <mat-icon>insert_drive_file</mat-icon>Get Report
+        <div class="w-50  text-center" >
+            <button class=" btn btn-success btn-rpt w-25  me-1" (click)="getBalanceSheet()">
+               Get Report
             </button>
 
-            <button class="fw-bold btn  btn-primary border-0 ms-5 justify-content-bottom" (click)="Summary1()">
-                Summary1
+            <button class=" btn  btn-primary btn-rpt    me-1  " (click)="Summary1()">
+                Summary 1
             </button>
 
-            <button class="fw-bold btn  btn-primary border-0 ms-5 justify-content-bottom" (click)="summary2()" >
+            <button class=" btn  btn-primary btn-rpt  me-1 " (click)="summary2()" >
                 Summary 2
             </button>
 
-            <button class="fw-bold btn  btn-primary border-0 ms-5 justify-content-bottom" (click)="PrintTable()">
-                <mat-icon>print</mat-icon>Print
+            <button class=" btn  btn-primary btn-rpt w-25   me-1 " (click)="PrintTable()">
+                Print
             </button>
         </div>
     </div>
@@ -36,21 +36,20 @@
         <div class="hide">
             <div class=" text-center border-bottom d-flex justify-content-between">
                 <span>
-                    <img src="{{logo}}" height="150" width="150">
+                    <img src="{{logo}}" height="100" width="100">
                 </span>
-                <span class="mt-3">
+                <span >
 
 
-                    <h1>{{CompanyName}}</h1>
-                    <h5 style="margin-top: -15px;" class="text-end w-75">{{CompanyName2}}</h5>
+                    <h1 class="companyName">{{CompanyName}}</h1>
+                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>
 
-                    <h1>Balance Sheet</h1>
-                    <h3 style="margin-top:-10px"></h3>
-                    <h4 style="margin-top:-5px"><b>AS On:</b> {{toDate |date:'yyyy-MM-dd'}}</h4>
+                    <p class="rptTitle" style="margin-top:-25px">Balance Sheet</p>
+                    <p style="margin-top:-20px"><b>AS On:</b> {{toDate |date:'yyyy-MM-dd'}}</p>
 
                 </span>
                 <span>
-                    <img src="{{logo1}}" height="150" width="150">
+                    <img src="{{logo1}}" height="100" width="100">
                 </span>
 
 

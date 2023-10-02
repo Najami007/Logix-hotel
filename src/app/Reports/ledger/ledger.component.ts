@@ -108,7 +108,7 @@ export class LedgerComponent {
   /////////////////////////////////////////////
 
   getCoa(){
-    this.http.get(environment.mallApiUrl+'GetVoucherCOA').subscribe(
+    this.http.get(environment.mainApi+'GetVoucherCOA').subscribe(
       (Response)=>{
         // console.log(Response);
         this.CoaList = Response;
@@ -134,7 +134,7 @@ export class LedgerComponent {
       /////////////////////////////////////////////////
 
      
-      this.http.get(environment.mallApiUrl+'GetLedgerRpt?coaid='+this.coaID +'&fromdate='
+      this.http.get(environment.mainApi+'GetLedgerRpt?coaid='+this.coaID +'&fromdate='
       +this.globalData.dateFormater(this.startDate,'-') +'&todate='+this.globalData.dateFormater(this.EndDate,'-')).subscribe(
         (Response)=>{
           // console.log(Response);
@@ -186,7 +186,7 @@ export class LedgerComponent {
     this.invoiceDetails = [];
 
     
-    this.http.get(environment.mallApiUrl+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
+    this.http.get(environment.mainApi+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.invoiceDetails = Response;

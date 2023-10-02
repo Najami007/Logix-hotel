@@ -61,7 +61,7 @@ constructor(private globalData:GlobalDataModule,
 
 
   getMenu(){
-    this.http.get(environment.mallApiUrl+'getusermenu?userid='+this.globalData.getUserID()).subscribe(
+    this.http.get(environment.mainApi+'getusermenu?userid='+this.globalData.getUserID()).subscribe(
       (Response:any)=>{
        this.menuList = Response;
       }

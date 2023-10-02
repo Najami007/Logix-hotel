@@ -44,7 +44,7 @@ export class UpdateCoaComponent implements OnInit{
   transactionAllowed:any;
 
   getNotes(){
-    this.http.get(environment.mallApiUrl+'GetNote').subscribe(
+    this.http.get(environment.mainApi+'GetNote').subscribe(
       (Response )=>{
         this.notesList = Response;
       }
@@ -61,7 +61,7 @@ export class UpdateCoaComponent implements OnInit{
 
       $('.loaderDark').show();
       
-      this.http.post(environment.mallApiUrl+'UpdateChartofAccount',{
+      this.http.post(environment.mainApi+'UpdateChartofAccount',{
         CoaID: this.editData.coaID,
         CoaTitle: this.coaTitle,
         NoteID:this.noteID,

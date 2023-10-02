@@ -62,7 +62,7 @@ CompanyName2:any;
   getReport(){
 
     this.app.startLoaderDark();
-    this.http.get(environment.mallApiUrl+'GetDayTransaction?FromDate='+this.global.dateFormater(this.fromDate,'-')+
+    this.http.get(environment.mainApi+'GetDayTransaction?FromDate='+this.global.dateFormater(this.fromDate,'-')+
     '&ToDate='+this.global.dateFormater(this.toDate,'-')).subscribe(
       (Response)=>{
         this.reportData = Response;
@@ -85,7 +85,7 @@ CompanyName2:any;
     this.invoiceDetails = [];
 
     
-    this.http.get(environment.mallApiUrl+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
+    this.http.get(environment.mainApi+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.invoiceDetails = Response;

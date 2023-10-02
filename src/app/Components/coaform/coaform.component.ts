@@ -179,7 +179,7 @@ onlevel3Change(){
   //////////////////////////// will get the coa main five types///////////////////
 
   getCoaType(){
-    this.http.get(environment.mallApiUrl+'getcoatype').subscribe(
+    this.http.get(environment.mainApi+'getcoatype').subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -197,7 +197,7 @@ onlevel3Change(){
   ///////////////////////////// will get the notes list
   
   getNotes(){
-    this.http.get(environment.mallApiUrl+'GetNote').subscribe(
+    this.http.get(environment.mainApi+'GetNote').subscribe(
       (Response )=>{
         this.notesList = Response;
 
@@ -210,7 +210,7 @@ onlevel3Change(){
 
   //////////////////////////////////////////////////////////
   GetChartOfAccount(){
-    this.http.get(environment.mallApiUrl+'GetChartOfAccount').subscribe(
+    this.http.get(environment.mainApi+'GetChartOfAccount').subscribe(
       {
         next:value=>{
     
@@ -227,7 +227,7 @@ onlevel3Change(){
   ///////////////////////////////////////
 
   getLevel1(){
-    this.http.get(environment.mallApiUrl+'getlevel1?level0='+this.CoaType).subscribe(
+    this.http.get(environment.mainApi+'getlevel1?level0='+this.CoaType).subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -243,7 +243,7 @@ onlevel3Change(){
   /////////////////////////////////////////////////
 
   getLevel2(){
-    this.http.get(environment.mallApiUrl+'getlevel2?level0='+this.CoaType+'&level1='+this.level1).subscribe(
+    this.http.get(environment.mainApi+'getlevel2?level0='+this.CoaType+'&level1='+this.level1).subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -259,7 +259,7 @@ onlevel3Change(){
 
   ////////////////////////////////////
   getLevel3(){
-    this.http.get(environment.mallApiUrl+'getlevel3?level0='+this.CoaType+'&level1='+this.level1+'&level2='+this.level2).subscribe(
+    this.http.get(environment.mainApi+'getlevel3?level0='+this.CoaType+'&level1='+this.level1+'&level2='+this.level2).subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -275,7 +275,7 @@ onlevel3Change(){
 
   //////////////////////////////
   getLevel4(){
-    this.http.get(environment.mallApiUrl+'getlevel4?level0='+this.CoaType+'&level1='+this.level1+'&level2='+this.level2+'&level3='+this.level3).subscribe(
+    this.http.get(environment.mainApi+'getlevel4?level0='+this.CoaType+'&level1='+this.level1+'&level2='+this.level2+'&level3='+this.level3).subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -341,7 +341,7 @@ onlevel3Change(){
     }
     else{
       this.app.startLoaderDark();
-      this.http.post(environment.mallApiUrl+'InsertChartOfAccount',{
+      this.http.post(environment.mainApi+'InsertChartOfAccount',{
     CoaTitle: this.CoaTitle,
     CoaTypeID: this.CoaType,
     Level1: this.level1.toString(),
@@ -412,8 +412,8 @@ onlevel3Change(){
     }).then((result)=>{
       if(result.isConfirmed){
 
-        //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'DeleteChartOfAccount',{
+        //////on confirm button mainApi the api will run
+        this.http.post(environment.mainApi+'DeleteChartOfAccount',{
           CoaID: row.coaID,
           AccountCode:row.accountCode,
           UserID: this.globalData.getUserID(),

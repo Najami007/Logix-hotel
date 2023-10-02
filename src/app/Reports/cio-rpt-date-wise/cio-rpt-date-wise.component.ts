@@ -72,6 +72,7 @@ export class CioRptDateWiseComponent implements OnInit {
         this.app.stopLoaderDark();
       },
       (Error:any)=>{
+        
         this.app.stopLoaderDark();
       }
     )

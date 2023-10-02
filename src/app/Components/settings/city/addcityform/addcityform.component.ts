@@ -72,7 +72,7 @@ export class AddcityformComponent implements OnInit{
 
   insert(){
     $('.loaderDark').show();
-    this.http.post(environment.mallApiUrl+'insertcity',{
+    this.http.post(environment.mainApi+'insertcity',{
       CountryID:this.countryID,
       CityName:this.cityName,
       UserID:this.global.getUserID(),
@@ -93,7 +93,7 @@ export class AddcityformComponent implements OnInit{
 
   update(){
     $('.loaderDark').show();
-    this.http.post(environment.mallApiUrl+'updatecity',{
+    this.http.post(environment.mainApi+'updatecity',{
       
       CityID:this.editData.cityID,
       CountryID:this.countryID,

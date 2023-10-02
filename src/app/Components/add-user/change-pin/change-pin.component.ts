@@ -43,7 +43,7 @@ export class ChangePinComponent implements OnInit {
     }else if(this.newPin == '' || this.newPin == undefined){
       this.msg.WarnNotify('Enter New Pin')
     }else{
-      this.http.post(environment.mallApiUrl+'updatepin',{
+      this.http.post(environment.mainApi+'updatepin',{
       
         OldPin: this.oldPin,
         PinCode: this.newPin,

@@ -83,7 +83,7 @@ export class CountryComponent implements OnInit{
         this.app.startLoaderDark();
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deletecountry',{
+        this.http.post(environment.mainApi+'deletecountry',{
           CountryID:row.countryID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(

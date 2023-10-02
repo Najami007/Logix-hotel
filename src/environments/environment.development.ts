@@ -9,7 +9,7 @@ export const environment = {
     // mallApiUrl: 'http://192.168.10.100:2005/',       //// Local Server
 
 
-     mallApiUrl: 'http://159.69.174.21:2005/', ///// live Server
+     //AccountsApiUrl: 'http://159.69.174.21:2005/', ///// live Server
 
 
      mainApi: 'http://159.69.174.21:2005/',

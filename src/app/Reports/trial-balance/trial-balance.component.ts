@@ -71,7 +71,7 @@ export class TrialBalanceComponent {
 this.TrialBalanceData = [];
     this.app.startLoaderDark();
 
-    this.http.get(environment.mallApiUrl+'GetTrailBalanceRpt?fromdate='
+    this.http.get(environment.mainApi+'GetTrailBalanceRpt?fromdate='
     +this.globalData.dateFormater(this.fromDate,'-')+'&todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
       (Response)=>{
       
@@ -153,7 +153,7 @@ this.TrialBalanceData = [];
   
   getNotes(){
     this.notesList = [];
-    this.http.get(environment.mallApiUrl+'GetNote').subscribe(
+    this.http.get(environment.mainApi+'GetNote').subscribe(
       (Response:any )=>{
         // console.log(Response);
 

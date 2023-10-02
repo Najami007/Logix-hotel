@@ -64,7 +64,7 @@ export class CioRptPartywiseComponent implements OnInit {
 
   
   getParty(){
-    this.http.get(environment.mallApiUrl+'getparty').subscribe(
+    this.http.get(environment.mainApi+'getparty').subscribe(
     {
       next:value =>{
         this.partyList = value;

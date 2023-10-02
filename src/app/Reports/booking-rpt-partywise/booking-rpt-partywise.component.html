@@ -2,7 +2,7 @@
     <!----------------           Date Section ------------------------------->
     <div class="row  p-2">
 
-        <mat-form-field class="col-lg-4 " appearance="outline">
+        <mat-form-field class="col-lg-6 " appearance="outline">
             <mat-label>Select Type</mat-label>
             <mat-select [(ngModel)]="partyID">
                 <mat-option><ngx-mat-select-search [(ngModel)]="searchCustomer" [placeholderLabel]="'Search...'"
@@ -29,10 +29,10 @@
 
 
         <div class="col-lg-1 text-end">
-            <button class="fw-bold btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
+            <button class="btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
         </div>
         <div class="col-lg-1  text-end">
-            <button class="fw-bold btn btn-primary btn-rpt" (click)="print()"> Print</button>
+            <button class=" btn btn-primary btn-rpt" (click)="print()"> Print</button>
         </div>
     </div>
 
@@ -45,17 +45,17 @@
                 <span>
                     <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                 </span>
-                <span class="mt-3">
+                <span >
 
 
-                    <h1>{{CompanyName}}</h1>
-                    <h5 style="margin-top: -15px;" class="text-end">{{CompanyName2}}</h5>
+                    <h1 class="companyName">{{CompanyName}}</h1>
+                    <p style="margin-top: -15px;" class=" companyName2">{{CompanyName2}}</p>
 
-                    <h1 *ngIf="customerName !=''">Mr. {{customerName}}</h1>
-                    <h1>Booking Report </h1>
+                    <!-- <p class="rptTitle" style="margin-top:-15px" *ngIf="customerName !=''">Mr. </p> -->
+                    <p class="rptTitle" style="margin-top:-25px">Booking Report ({{customerName}}) </p>
 
-                    <h4 style="margin-top:-5px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate |
-                        date:'yyyy-MM-dd'}}</h4>
+                    <p style="margin-top:-15px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate |
+                        date:'yyyy-MM-dd'}}</p>
 
                 </span>
 

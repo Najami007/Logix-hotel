@@ -98,7 +98,7 @@ export class CashbookComponent  implements OnInit{
     $('#CashBookDetail').show();
     $('.cashSummary').hide();
 
-    this.http.get(environment.mallApiUrl+'GetCashBookDetailRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
+    this.http.get(environment.mainApi+'GetCashBookDetailRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
     '&todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
       (Response:any)=>{
         
@@ -123,7 +123,7 @@ export class CashbookComponent  implements OnInit{
     $('#CashBookDetail').hide();
     $('.cashSummary').show();
 
-    this.http.get(environment.mallApiUrl+'GetCashBookSummaryRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
+    this.http.get(environment.mainApi+'GetCashBookSummaryRpt?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
     '&todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
       (Response)=>{
         this.cashSummary = Response;
@@ -152,7 +152,7 @@ export class CashbookComponent  implements OnInit{
     this.lblCreditTotal = 0;
     this.invoiceDetails = [];   
     
-    this.http.get(environment.mallApiUrl+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
+    this.http.get(environment.mainApi+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.invoiceDetails = Response;

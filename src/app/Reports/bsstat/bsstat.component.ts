@@ -77,7 +77,7 @@ export class BsstatComponent implements OnInit {
    
     this.previousYear = this.currentYear-1
 
-    this.http.get(environment.mallApiUrl+'GetMainBalanceSheet?todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
+    this.http.get(environment.mainApi+'GetMainBalanceSheet?todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
       (Response:any)=>{
         this.assetList = [];
         this.liabilityList = [];

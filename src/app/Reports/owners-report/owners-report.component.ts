@@ -51,7 +51,7 @@ export class OwnersReportComponent implements OnInit{
 
   getOwner(){
     this.app.startLoaderDark();
-    this.http.get(environment.mallApiUrl+'getowner').subscribe(
+    this.http.get(environment.mainApi+'getowner').subscribe(
       {
         next:value=>{
           this.ownerData = value;

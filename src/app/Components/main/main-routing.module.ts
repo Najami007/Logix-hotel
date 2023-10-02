@@ -56,7 +56,7 @@ const routes: Routes = [
   // {path:'bank',component:BankComponent},
   {path:'OwnerProfile',component:OwnerProfileComponent},
 
-  {path:'orptl',component:OwnersReportComponent},
+  // {path:'orptl',component:OwnersReportComponent},
   {path:'CBRpt',component:CashbookComponent},
   {path:'rptcust',component:ListofCustomersComponent},
   {path:'bdgtng',component:BudgettingComponent},

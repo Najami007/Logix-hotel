@@ -47,6 +47,8 @@ export class LoginComponent implements OnInit {
       this.msg.WarnNotify('Please Enter Password')
     }else{
      
+      //console.log(this.userEmail,this.userPassword)
+
 
       this.globalData.login(this.userEmail,this.userPassword);
 

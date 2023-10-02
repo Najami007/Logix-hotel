@@ -59,7 +59,7 @@ export class AddCustomerComponent implements OnInit {
   CitiesNames : any = []
 
   getCityNames(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe(
+    this.http.get(environment.mainApi+'getcity').subscribe(
       {
         next : value =>{
           this.CitiesNames = value;
@@ -107,7 +107,7 @@ export class AddCustomerComponent implements OnInit {
     $('.loaderDark').show();
       
 
-      this.http.post(environment.mallApiUrl+'insertparty',{
+      this.http.post(environment.mainApi+'insertparty',{
         PartyType:this.partyType,
         PartyName:this.partyName,
         PartyAddress:this.partyAddress,

@@ -4,14 +4,14 @@
 
 
 
-        <mat-form-field class="col-lg-4 " appearance="outline">
+        <mat-form-field class="col-lg-5 " appearance="outline">
             <mat-label>From Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="fromDate" [matDatepicker]="sDate">
             <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
             <mat-datepicker #sDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-lg-4" appearance="outline">
+        <mat-form-field class="col-lg-5" appearance="outline">
             <mat-label>To Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="toDate" [matDatepicker]="eDate">
             <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
@@ -20,10 +20,10 @@
 
 
         <div class="col-lg-1 text-end">
-            <button class="fw-bold btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
+            <button class=" btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
         </div>
         <div class="col-lg-1  text-end">
-            <button class="fw-bold btn btn-primary btn-rpt" (click)="print()"> Print</button>
+            <button class=" btn btn-primary btn-rpt" (click)="print()"> Print</button>
         </div>
     </div>
 
@@ -37,15 +37,15 @@
                 <span>
                     <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                 </span>
-                <span class="mt-3">
+                <span >
                     
 
-                    <h1 >{{CompanyName}}</h1>
-                    <h5 style="margin-top: -15px;" class="text-end">{{CompanyName2}}</h5>
+                    <h1 class="companyName" >{{CompanyName}}</h1>
+                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>
 
-                    <h1>Check In Out Report</h1>
+                    <p class="rptTitle" style="margin-top:-25px">Check In Out Report</p>
                    
-                    <h4 style="margin-top:-5px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</h4>
+                    <p style="margin-top:-20px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                   
                 </span>
                 <span>

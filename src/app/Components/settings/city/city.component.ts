@@ -45,7 +45,7 @@ export class CityComponent implements OnInit{
 
 
   getCity(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe({
+    this.http.get(environment.mainApi+'getcity').subscribe({
       next:value=>{
     
         this.citiesData = value;
@@ -89,7 +89,7 @@ export class CityComponent implements OnInit{
 
         this.app.startLoaderDark();
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deletecity',{
+        this.http.post(environment.mainApi+'deletecity',{
           CityID:row.cityID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(

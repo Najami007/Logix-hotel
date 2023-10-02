@@ -84,7 +84,7 @@ export class CategoryComponent implements OnInit{
         this.app.startLoaderDark();
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'DeleteCatagory',{
+        this.http.post(environment.mainApi+'DeleteCatagory',{
           CategoryID:row.categoryID,
           UserID:this.globaldata.getUserID(),
         }).subscribe(

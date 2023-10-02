@@ -26,6 +26,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit():void {
     // this.reload();
+    // this.globalData.getCompanyData();
+    this.globalData.getCompanyDataFromStorage();
     
    
     

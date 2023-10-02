@@ -76,7 +76,7 @@ export class VoucherSupervisionComponent {
   getVouchers(){
     this.voucherList = [];
     this.app.startLoaderDark();
-      this.http.get(environment.mallApiUrl+'GetSavedVoucherDetailDateWise?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
+      this.http.get(environment.mainApi+'GetSavedVoucherDetailDateWise?fromdate='+this.globalData.dateFormater(this.fromDate,'-')+
       '&todate='+this.globalData.dateFormater(this.toDate,'-')).subscribe(
         (Response:any)=>{
         
@@ -103,7 +103,7 @@ export class VoucherSupervisionComponent {
     this.invoiceDetails = [];
 
     
-    this.http.get(environment.mallApiUrl+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
+    this.http.get(environment.mainApi+'GetSpecificVocherDetail?InvoiceNo='+invoiceNo).subscribe(
       (Response:any)=>{
         // console.log(Response);
         this.invoiceDetails = Response;
@@ -150,7 +150,7 @@ export class VoucherSupervisionComponent {
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'ApproveVoucher',{
+        this.http.post(environment.mainApi+'ApproveVoucher',{
           InvoiceNo: row.invoiceNo,
         UserID: this.globalData.getUserID(),
         }).subscribe(
@@ -190,7 +190,7 @@ export class VoucherSupervisionComponent {
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'DeleteVoucher',{
+        this.http.post(environment.mainApi+'DeleteVoucher',{
           InvoiceNo: row.invoiceNo,
           UserID: this.globalData.getUserID(),
         }).subscribe(

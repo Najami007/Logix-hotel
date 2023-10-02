@@ -50,7 +50,7 @@ export class BankComponent implements OnInit{
 
   ////////////////////will get all bank data
   getBank(){
-    this.http.get(environment.mallApiUrl+'getbank').subscribe({
+    this.http.get(environment.mainApi+'getbank').subscribe({
       next:value=>{
         this.bankData = value;
         // console.log(value);
@@ -83,7 +83,7 @@ export class BankComponent implements OnInit{
       this.description = '-';
     }else{
       if(this.btntype == 'Save'){
-        this.http.post(environment.mallApiUrl+'InsertBank',{
+        this.http.post(environment.mainApi+'InsertBank',{
           BankName: this.bankName,
          BankAlias: '-',
         BankAccountTitle: this.accTitle,
@@ -129,7 +129,7 @@ export class BankComponent implements OnInit{
 
   /////////////////////for updating Bank will be called in add bankFunction////////////////
   updateBank(){
-    this.http.post(environment.mallApiUrl+'UpdateBank',{
+    this.http.post(environment.mainApi+'UpdateBank',{
       bankID:this.bankID,
       BankName: this.bankName,
          BankAlias: '-',
@@ -191,7 +191,7 @@ export class BankComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'DeleteBank',{
+        this.http.post(environment.mainApi+'DeleteBank',{
           BankID : row.bankID,
           UserID: this.globalData.getUserID(),
         }).subscribe(

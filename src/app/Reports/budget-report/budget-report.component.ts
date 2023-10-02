@@ -57,7 +57,7 @@ export class BudgetReportComponent implements OnInit{
     this.TotalAmount = 0;
     this.totalConsumedAmount = 0;
 
-    this.http.get(environment.mallApiUrl+'GetMonthlyBudget?BudgetDate='+this.global.dateFormater(this.budgetMonth,'-')).subscribe(
+    this.http.get(environment.mainApi+'GetMonthlyBudget?BudgetDate='+this.global.dateFormater(this.budgetMonth,'-')).subscribe(
       (Response:any)=>{
         this.reportData = Response;
 

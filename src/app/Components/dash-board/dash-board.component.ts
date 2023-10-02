@@ -90,9 +90,11 @@ export class DashBoardComponent implements OnInit{
 
   //////////////////////////////////
   getCardsData(){
-    this.http.get(environment.mallApiUrl+'GetTotals').subscribe(
+
+    this.http.get(environment.mainApi+'GetTotals').subscribe(
       (Response)=>{
         this.cardsData = Response;
+        // console.log(Response);
 
       }
     )
@@ -104,7 +106,7 @@ export class DashBoardComponent implements OnInit{
   ////////////////////////////////////////////////
 
   GetIncExp(){
-    this.http.get(environment.mallApiUrl+'GetIncExp').subscribe(
+    this.http.get(environment.mainApi+'GetIncExp').subscribe(
       (Response:any)=>{
        
         Response.forEach((e:any) => {
@@ -192,7 +194,7 @@ export class DashBoardComponent implements OnInit{
   getBudget(){
     
 
-    this.http.get(environment.mallApiUrl+'GetMonthlyBudget?BudgetDate='+this.globalData.dateFormater(this.budgetMonth,'-')).subscribe(
+    this.http.get(environment.mainApi+'GetMonthlyBudget?BudgetDate='+this.globalData.dateFormater(this.budgetMonth,'-')).subscribe(
       (Response:any)=>{
         this.budgetData = Response;
         
@@ -286,9 +288,11 @@ export class DashBoardComponent implements OnInit{
     this.IncomeHeadsAmountList = [];
   
 
-    this.http.get(environment.mallApiUrl+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.firstDay,'-')+'&todate='
+    this.http.get(environment.mainApi+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.firstDay,'-')+'&todate='
       +this.globalData.dateFormater(this.lastDay,'-')).subscribe(
         (Response:any)=>{
+
+         // console.log(Response);
 
 
           // this.IncomeHeadsList = [
@@ -307,6 +311,7 @@ export class DashBoardComponent implements OnInit{
           //   ['printing', 144.0, false],
           // ]
 
+        if(Response != null){
           Response.forEach((obj:any) => {
 
             var amount = (obj.credit - obj.debit).toFixed();
@@ -316,11 +321,13 @@ export class DashBoardComponent implements OnInit{
             this.IncomeHeadsAmountList.push(tmpArry);
             
           });
+        }
           
             this.IncomeDetailPieChart();
 
         },
         (Error)=>{
+          
        
         }
       )
@@ -368,7 +375,7 @@ export class DashBoardComponent implements OnInit{
     
 
 
-    this.http.get(environment.mallApiUrl+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.priviousMonthFirstDay,'-')+'&todate='
+    this.http.get(environment.mainApi+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.priviousMonthFirstDay,'-')+'&todate='
       +this.globalData.dateFormater(this.priviousMonthLastDay,'-')).subscribe(
         (Response:any)=>{
 
@@ -388,7 +395,8 @@ export class DashBoardComponent implements OnInit{
           //   ['printing', 144.0, false],
           // ]
 
-          Response.forEach((obj:any) => {
+         if(Response != null){
+           Response.forEach((obj:any) => {
 
 
             var amount = (obj.credit - obj.debit).toFixed();
@@ -399,6 +407,7 @@ export class DashBoardComponent implements OnInit{
             
           });
           
+         }
             this.previousIncomeDetailPieChart();
 
         },

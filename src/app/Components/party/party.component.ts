@@ -45,7 +45,7 @@ export class PartyComponent implements OnInit{
   CitiesNames : any = []
 
   getCityNames(){
-    this.http.get(environment.mallApiUrl+'getcity').subscribe(
+    this.http.get(environment.mainApi+'getcity').subscribe(
       {
         next : value =>{
           this.CitiesNames = value;
@@ -92,7 +92,7 @@ export class PartyComponent implements OnInit{
 
 
   getParty(){
-    this.http.get(environment.mallApiUrl+'getparty').subscribe(
+    this.http.get(environment.mainApi+'getparty').subscribe(
     {
       next:value =>{
         this.partyData = value;
@@ -144,7 +144,7 @@ export class PartyComponent implements OnInit{
     if(this.btnType == "Save"){
       this.app.startLoaderDark();
 
-      this.http.post(environment.mallApiUrl+'insertparty',{
+      this.http.post(environment.mainApi+'insertparty',{
         PartyType:this.partyType,
         PartyName:this.partyName,
         PartyAddress:this.partyAddress,
@@ -173,7 +173,7 @@ export class PartyComponent implements OnInit{
     }else if(this.btnType == 'Update'){
       this.app.startLoaderDark();
    
-      this.http.post(environment.mallApiUrl+'updateparty',{
+      this.http.post(environment.mainApi+'updateparty',{
   
         PartyID:this.curPartyId,
         PartyType:this.partyType,
@@ -267,7 +267,7 @@ export class PartyComponent implements OnInit{
       if(result.isConfirmed){
 
         //////on confirm button pressed the api will run
-        this.http.post(environment.mallApiUrl+'deleteparty',{
+        this.http.post(environment.mainApi+'deleteparty',{
           PartyID:row.partyID,
           deletedBy:this.globalData.getUserID(),
         }).subscribe(

@@ -63,7 +63,7 @@ export class AddServiceComponent implements OnInit {
       if(this.saveFlag == true){
         if(this.actionbtn == 'Save'){
           this.saveFlag = false;
-          this.http.post(environment.mallApiUrl+'Insertservice',{
+          this.http.post(environment.mainApi+'Insertservice',{
         ServiceTitle:this.serviceTitle,
         ServiceCode:this.serviceCode,
         ServiceCharges:this.serviceCharges,
@@ -95,7 +95,7 @@ export class AddServiceComponent implements OnInit {
   updateService(){
 
    
-        this.http.post(environment.mallApiUrl+'updateservice',{
+        this.http.post(environment.mainApi+'updateservice',{
           ServiceID:this.editData.serviceID,
           ServiceTitle:this.serviceTitle,
           ServiceCode:this.serviceCode,

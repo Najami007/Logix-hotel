@@ -49,7 +49,7 @@ export class AddNoteComponent implements OnInit{
   //////////////////////////////////////////////////////////
 
   getCoaType(){
-    this.http.get(environment.mallApiUrl+'getcoatype').subscribe(
+    this.http.get(environment.mainApi+'getcoatype').subscribe(
       {
         next:value=>{
           // console.log(value);
@@ -87,7 +87,7 @@ export class AddNoteComponent implements OnInit{
 
   insertNote(){
    
-    this.http.post(environment.mallApiUrl+'InsertNote',{
+    this.http.post(environment.mainApi+'InsertNote',{
     NoteID: this.note,
     CoaTypeID: this.CoaTypeID,
     NoteTitle: this.noteTitle,
@@ -115,7 +115,7 @@ export class AddNoteComponent implements OnInit{
 
   UpdateNote(){
  
-    this.http.post(environment.mallApiUrl+'UpdateNote',{
+    this.http.post(environment.mainApi+'UpdateNote',{
       AutoID: this.editData.autoID,
       NoteID: this.note,
       CoaTypeID: this.CoaTypeID,

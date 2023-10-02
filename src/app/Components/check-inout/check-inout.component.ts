@@ -135,11 +135,13 @@ export class CheckINOUtComponent implements OnInit {
   lblArrivalDate:any;
   lblDepartureDate:any;
   lblPartyName:any;
+  lblPartyCNIC:any;
   lblServicesAmount:any;
   lblRoomNo:any;
   lblTotalDays:any;
   lblRentPerDay:any;
   lblActiveStatus:any;
+  lblCIORemarks:any;
 
   lblServiceList:any = [];
 
@@ -216,7 +218,7 @@ export class CheckINOUtComponent implements OnInit {
   //////////////////////////////////////////////////////////////
   
   getParty(){
-    this.http.get(environment.mallApiUrl+'getparty').subscribe(
+    this.http.get(environment.mainApi+'getparty').subscribe(
     {
       next:(value:any) =>{
         this.partyList = value;
@@ -241,7 +243,7 @@ export class CheckINOUtComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////
   getServices(){
-    this.http.get(environment.mallApiUrl+'getservice').subscribe(
+    this.http.get(environment.mainApi+'getservice').subscribe(
      {
        next:value=>{
          this.servicesList = value;
@@ -562,6 +564,7 @@ export class CheckINOUtComponent implements OnInit {
    //////////////////////////////////////////////////////////////
    
   getCheckInOutDetails(row:any){
+    // console.log(row);
 
     this.lblVoucherNo = row.checkinoutID;
     this.lblBookingID = row.bookingID;
@@ -570,12 +573,14 @@ export class CheckINOUtComponent implements OnInit {
     this.lblArrivalDate = row.checkInDate;
     this.lblDepartureDate = row.checkOutDate;
     this.lblPartyName = row.partyName;
+    this.lblPartyCNIC = row.partyCNIC;
     this.lblDiscount = row.discount;
     this.lblServicesAmount = row.servicesTotalAmount;
     this.lblRoomNo  = row.roomTitle;
     this.lblTotalDays = row.totalDays;
     this.lblRentPerDay = row.rentPerDay;
     this.lblActiveStatus = row.activeStatus;
+    this.lblCIORemarks = row.cioRemarks;
 
     this.http.get(environment.mainApi+'GetRoomServices?cioid='+row.checkinoutID).subscribe(
       (Response)=>{
@@ -614,12 +619,25 @@ export class CheckINOUtComponent implements OnInit {
 
 
 
-    this.getCheckInOutDetails(row)
+    this.getCheckInOutDetails(row);
 
 
    setTimeout(() => {
     this.global.printData('#printDiv');
    }, 1000);
+   }
+
+   ///////////////////////////////////////////
+
+
+   printCIO(row:any){
+    // console.log(row);
+    this.getCheckInOutDetails(row);
+
+
+    setTimeout(() => {
+     this.global.printData('#print2');
+    }, 1000);
    }
 
 
