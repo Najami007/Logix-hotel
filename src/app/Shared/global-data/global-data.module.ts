@@ -27,19 +27,19 @@ export class GlobalDataModule  implements OnInit {
   public Logo = '../assets/Images/BlackGold.jpg';
   public Logo1 = '../assets/Images/MT-logo.png';
 
-  // public CompanyName = 'BLACK GOLD HOTEL';
-  // public CompanyName2 =  'Mehria Town Pvt.(Ltd)';
-  // public Address = 'Mehria Mall & Residencia, Phase 4, Mehria Town Attock City';
-  // public Phone = '057-2377132';
-  // public mobileNo = '0349-1001948';
-  // public Email = 'bgmehria@gmail.com'
+  public CompanyName = 'BLACK GOLD HOTEL';
+  public CompanyName2 =  'Mehria Town Pvt.(Ltd)';
+  public Address = 'Mehria Mall & Residencia, Phase 4, Mehria Town Attock City';
+  public Phone = '057-2377132';
+  public mobileNo = '0349-1001948';
+  public Email = 'bgmehria@gmail.com'
 
-  public  CompanyName = '';
-  public CompanyName2 =  '';
-  public Address = '';
-  public Phone = '';
-  public mobileNo = '';
-  public Email = ''
+  // public  CompanyName = '';
+  // public CompanyName2 =  '';
+  // public Address = '';
+  // public Phone = '';
+  // public mobileNo = '';
+  // public Email = ''
 
    
    public currentUserSubject:BehaviorSubject<userInterface>;
@@ -225,7 +225,7 @@ getCompanyDataFromStorage(){
 
         // localStorage.setItem('_usercur',JSON.stringify(this.curUserValue));
         localStorage.setItem('curVal',JSON.stringify({value}));
-        this.getCompanyData();  
+        // this.getCompanyData();  
        }else{
         //console.log(value.msg);
         this.msg.WarnNotify('Error Occurred While Login Process');
@@ -257,7 +257,7 @@ logout(){
 
           
           localStorage.removeItem('curVal');
-          localStorage.removeItem('cmpnyVal');
+          // localStorage.removeItem('cmpnyVal');
            this.rout.navigate(['login']);
         }else{
           this.msg.WarnNotify(Response.msg);
@@ -289,10 +289,7 @@ logout(){
   //////////////////////////print Funciton /////////////////////////////////
 
 
-  printData(printSection: string) {
-     this.getCompanyDataFromStorage();
-  if(this.CompanyName != ''){
-      
+  printData(printSection: string) {    
     var contents = $(printSection).html();
 
     var frame1:any = $('<iframe />');
@@ -341,7 +338,7 @@ logout(){
 
       frame1.remove();
     }, 500);
-  }
+  
   }
 
 

@@ -24,22 +24,9 @@ export class HeaderComponent implements OnInit {
    title = 'Title';
    UserName = '';
 
-  ngOnInit():void {
-    // this.reload();
-    // this.globalData.getCompanyData();
-    this.globalData.getCompanyDataFromStorage();
-    
-   
-    
+  ngOnInit():void {    
     this.globalData.header_title$.subscribe((str:string)=>{this.title = str});
-    // setTimeout(() => {
-    //   this.UserName = '';
-    //   this.UserName = this.globalData.setUserName();
-    // }, 1000);
-
     this.UserName = this.globalData.getUserName().toUpperCase();
-
-    
 
   }
 

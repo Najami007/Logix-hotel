@@ -6,6 +6,8 @@ import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module'
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { environment } from 'src/environments/environment.development';
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-change-pin',
   templateUrl: './change-pin.component.html',
@@ -43,6 +45,7 @@ export class ChangePinComponent implements OnInit {
     }else if(this.newPin == '' || this.newPin == undefined){
       this.msg.WarnNotify('Enter New Pin')
     }else{
+      $('.loaderDark').show();
       this.http.post(environment.mainApi+'updatepin',{
       
         OldPin: this.oldPin,
@@ -55,8 +58,10 @@ export class ChangePinComponent implements OnInit {
             if(Response.msg == 'Data Updated Successfully'){
               this.msg.SuccessNotify(Response.msg);
               this.dialogRef.close('Update');
+              $('.loaderDark').fadeOut(500);
             }else{
               this.msg.WarnNotify(Response.msg);
+              $('.loaderDark').fadeOut(500);
             }
     
           }

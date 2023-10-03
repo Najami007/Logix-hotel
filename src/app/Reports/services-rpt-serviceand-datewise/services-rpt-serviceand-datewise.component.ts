@@ -35,7 +35,7 @@ export class ServicesRptServiceandDatewiseComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.global.setHeaderTitle('Service Rpt DateWise');
+    this.global.setHeaderTitle('Service Rpt Service & DateWise');
     this.getServices();
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;

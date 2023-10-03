@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/Shared/service/notification.service
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePinComponent } from './change-pin/change-pin.component';
+import { AppComponent } from 'src/app/app.component';
 
 
 
@@ -23,7 +24,8 @@ export class AddUserComponent implements OnInit{
   constructor(private globalData:GlobalDataModule,
     private http : HttpClient,
     private msg:NotificationService,
-    private dialogue:MatDialog
+    private dialogue:MatDialog,
+    private app:AppComponent
     ){}
   ngOnInit(): void {
     this.globalData.setHeaderTitle('Add User');
@@ -129,6 +131,7 @@ export class AddUserComponent implements OnInit{
 
   insertUser(){
     
+    this.app.startLoaderDark();
     this.http.post(environment.mainApi+'insertuser',{
       UserName: this.uName,
       MobileNo: this.uContact,
@@ -145,10 +148,15 @@ export class AddUserComponent implements OnInit{
           this.reset();
           this.getMenu();
           this.getUserData();
+          this.app.stopLoaderLight();
           
         }else{
           this.msg.WarnNotify(Response.msg);
+          this.app.stopLoaderLight();
         }
+      },
+      (Error)=>{
+        this.app.stopLoaderLight();
       }
     )
   }
@@ -157,6 +165,7 @@ export class AddUserComponent implements OnInit{
   /////////////////////////////////////////////
 
   updateUser(){
+    this.app.startLoaderDark();
     this.http.post(environment.mainApi+'updateuser',{
       UserName: this.uName,
       MobileNo: this.uContact,
@@ -174,10 +183,15 @@ export class AddUserComponent implements OnInit{
           this.reset();
           this.getUserData();
           this.getMenu();
+          this.app.stopLoaderDark();
           
         }else{
           this.msg.WarnNotify(Response.msg);
+          this.app.stopLoaderDark();
         }
+      },
+      (Error)=>{
+        this.app.stopLoaderDark();
       }
     )
   }

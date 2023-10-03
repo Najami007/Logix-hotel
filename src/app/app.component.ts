@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalDataModule } from './Shared/global-data/global-data.module';
 
 
 
@@ -14,13 +15,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Mall Management';
-constructor( private route:Router){}
+constructor( private route:Router,private global:GlobalDataModule){}
   
 
   ngOnInit(){
+    
     if(localStorage.getItem('curVal') == null || localStorage.getItem('curVal') == '' ){
       this.route.navigate(['']);
     }
+   
   }
 
 

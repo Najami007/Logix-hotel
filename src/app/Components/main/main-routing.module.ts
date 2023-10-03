@@ -14,13 +14,8 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { BankComponent } from '../bank/bank.component';
 import { OwnerProfileComponent } from '../owner-profile/owner-profile.component';
-
-
 import { OwnersReportComponent } from 'src/app/Reports/owners-report/owners-report.component';
-
 import { CashbookComponent } from 'src/app/Reports/cashbook/cashbook.component';
-
-
 import { ListofCustomersComponent } from 'src/app/Reports/listof-customers/listof-customers.component';
 import { BudgettingComponent } from '../budgetting/budgetting.component';
 import { BudgetReportComponent } from 'src/app/Reports/budget-report/budget-report.component';
@@ -44,7 +39,7 @@ import { BookingRptPartywiseComponent } from 'src/app/Reports/booking-rpt-partyw
 const routes: Routes = [
   {path:'',component:MainPageComponent, children:[
     {path:'dashBoard', component:DashBoardComponent },
-  { path: 'coa', component: CoaformComponent },
+  { path: 'coa', component: CoaformComponent, },
   {path:'voucher', component: VoucherformComponent},
   {path:'ldgrpt', component: LedgerComponent},
   {path:'tbrpt', component: TrialBalanceComponent},
@@ -62,7 +57,7 @@ const routes: Routes = [
   {path:'bdgtng',component:BudgettingComponent},
   {path:'bdgtrpt',component:BudgetReportComponent},
   {path:'Dtranrpt',component:DailyTransactionRptComponent},
-  {path:'spvsb',component:VoucherSupervisionComponent},
+  {path:'spv',component:VoucherSupervisionComponent},
   {path:'addRoom',component:RoomComponent},
   {path:'bkng',component:BookingComponent},
   {path:'brptdw',component:BookingRptDateWiseComponent},
