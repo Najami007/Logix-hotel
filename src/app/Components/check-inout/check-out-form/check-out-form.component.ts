@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class CheckOutFormComponent implements OnInit{
 
+  today = new Date();
+
   constructor(
     private http:HttpClient,
     @Inject(MAT_DIALOG_DATA) public rowData : any,
@@ -28,6 +30,12 @@ export class CheckOutFormComponent implements OnInit{
     
 
     this.getCoaList();
+    this.getTotalDays();
+    if(this.rowData){
+      this.checkInDate = this.rowData.checkInDate.substring(0,10);
+      this.checkInTime = this.rowData.checkInTime;
+      this.discount = 0;
+    }
     
   }
 
@@ -37,8 +45,10 @@ export class CheckOutFormComponent implements OnInit{
 
   balanceAmount:any;
 
+  checkInDate:any; 
+  checkInTime:any;
   checkOutDate:any = new Date();
-  checkOutTime:any;
+  checkOutTime:any = this.today.getHours() + ":" + this.today.getMinutes() ;  
   discount:any;
   totalDays:any;
   coaID:any;
@@ -53,7 +63,7 @@ export class CheckOutFormComponent implements OnInit{
   
    var totalHours:any = this.global.getHours(this.rowData.checkInDate.substring(0,10),this.rowData.checkInTime,this.global.dateFormater(this.checkOutDate,'-'),this.checkOutTime);
 
-   this.totalDays = totalHours / 24 ;
+  //  this.totalDays = totalHours / 24 ;
    var days:any = totalHours / 24 ;
 
    var firstNumber = parseInt(days);

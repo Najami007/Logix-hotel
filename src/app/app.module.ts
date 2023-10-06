@@ -86,6 +86,7 @@ import { CioRptTypeDatewiseComponent } from './Reports/cio-rpt-type-datewise/cio
 import { CioRptPartywiseComponent } from './Reports/cio-rpt-partywise/cio-rpt-partywise.component';
 import { ListOfRoomsComponent } from './Reports/list-of-rooms/list-of-rooms.component';
 import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/booking-rpt-partywise.component';
+import { PaymentComponent } from './Components/check-inout/payment/payment.component';
 
 
 
@@ -175,6 +176,7 @@ import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/bo
     CioRptPartywiseComponent,
     ListOfRoomsComponent,
     BookingRptPartywiseComponent,
+    PaymentComponent,
  
     
     

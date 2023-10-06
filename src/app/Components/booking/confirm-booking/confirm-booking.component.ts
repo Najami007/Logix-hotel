@@ -48,6 +48,7 @@ export class ConfirmBookingComponent implements OnInit{
 
   coaList:any;
   actionBtn = 'Confirm Booking';
+  Date:any = new Date();
 
 
   getCoaList(){
@@ -101,6 +102,7 @@ export class ConfirmBookingComponent implements OnInit{
       PartyID: this.editData.partyID,
       CoaID: this.coaID,
       AdvancePaid: this.advanceAmount,
+      ConfirmationDate:this.global.dateFormater(this.Date,'-'),
       Remarks: this.remarks,
       UserID: this.global.getUserID()
     }).subscribe(
@@ -127,6 +129,7 @@ export class ConfirmBookingComponent implements OnInit{
       BookingID:this.editData.bookingID, 
       PartyID: this.editData.partyID,
       CoaID: this.coaID,
+      ConfirmationDate:this.global.dateFormater(this.Date,'-'),
       AdvancePaid: this.advanceAmount,
       Remarks: this.remarks,
       UserID: this.global.getUserID()

@@ -12,6 +12,19 @@
             <h3 class="text-danger fw-bold">BALANCE AMOUNT: <b>{{remainingAmount}}</b></h3>
            
         </div>
+        <div class="d-flex justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-50 p-2">
+                <mat-label>Check In time</mat-label>
+                <input type="text" disabled="true"  matInput [(ngModel)]="checkInDate" />
+                
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="w-50 p-2">
+                <mat-label>Check In time</mat-label>
+                <input type="time" disabled="true"  matInput [(ngModel)]="checkInTime" />
+                
+              </mat-form-field>
+            
+        </div>
 
 
         <mat-form-field class="w-50  p-2" appearance="outline">
@@ -38,7 +51,7 @@
 
         <mat-form-field appearance="outline" class="w-50 p-2">
             <mat-label>Discount</mat-label>   
-            <input matInput type="number" min="1" [(ngModel)]="discount"  (keypress)="numberOnly($event)">
+            <input matInput type="number" min="0" [(ngModel)]="discount"  (keypress)="numberOnly($event)">
         </mat-form-field>
 
 
@@ -51,7 +64,7 @@
             <mat-label>Select COA Title</mat-label>
             <mat-select [(ngModel)]="coaID"  >
                 <mat-option><ngx-mat-select-search [(ngModel)]="coaSearch" [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
-                <mat-option *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}} </mat-option>
+                <mat-option  [disabled]="item.coaTitle == 'Cash In Hand'" *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}} </mat-option>
             </mat-select>
             </mat-form-field>
 

@@ -25,6 +25,7 @@ export class CioDetailsComponent  implements OnInit{
 
 
   ngOnInit(): void {
+    this.getPaymentHistory();
     this.getCheckInOutDetails(this.rowData);
     
   }
@@ -42,9 +43,12 @@ export class CioDetailsComponent  implements OnInit{
   lblTotalDays:any;
   lblRentPerDay:any;
   lblActiveStatus:any;
+  lblPartyCNIC:any;
+  lblPartyMobileno:any;
 
   lblServiceList:any = [];
-
+  paymentHistoryList:any = [];
+  paymentAmountTotal:any;
 
   //////////////////////////////////////////////////////////////
    
@@ -57,6 +61,8 @@ export class CioDetailsComponent  implements OnInit{
     this.lblArrivalDate = row.checkInDate;
     this.lblDepartureDate = row.checkOutDate;
     this.lblPartyName = row.partyName;
+    this.lblPartyCNIC = row.partyCNIC;
+    this.lblPartyMobileno = row.partyMobileNo;
     this.lblDiscount = row.discount;
     this.lblServicesAmount = row.servicesTotalAmount;
     this.lblRoomNo  = row.roomTitle;
@@ -78,6 +84,21 @@ export class CioDetailsComponent  implements OnInit{
 
   }
 
+
+  getPaymentHistory(){
+    this.http.get(environment.mainApi+'GetCioPaymentHistory?cioid='+this.rowData.checkinoutID).subscribe(
+      (Response:any)=>{
+        this.paymentAmountTotal = 0;
+
+        this.paymentHistoryList = Response;
+        Response.forEach((e:any) => {
+          this.paymentAmountTotal += e.paymentAmount;
+        });
+      
+
+      }
+    )
+  }
   //////////////////////////////////////////////////////////////
 
   closeDialogue(){

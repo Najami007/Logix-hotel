@@ -47,7 +47,7 @@
 
         <mat-form-field class="w-50 p-2" appearance="outline">
             <mat-label>Arrival Date</mat-label>
-            <input readonly="true" matInput [min]="curDate"  [(ngModel)]="arrivalDate"
+            <input readonly="true" matInput  (dateChange)="getTotalDays()"  [(ngModel)]="arrivalDate"
                 [matDatepicker]="ADate" >
             <mat-datepicker-toggle matSuffix [for]="ADate"></mat-datepicker-toggle>
             <mat-datepicker #ADate></mat-datepicker>
@@ -56,7 +56,7 @@
 
           <mat-form-field appearance="outline" class="w-50 p-2">
             <mat-label>Arrival Time</mat-label>
-            <input type="time"    matInput [(ngModel)]="arrivalTime" name="week" min="00:00:00" max="24:00:00" />
+            <input type="time"    matInput [(ngModel)]="arrivalTime" (change)="getTotalDays()" name="week" min="00:00:00" max="24:00:00" />
             
           </mat-form-field>
 
@@ -66,7 +66,7 @@
 
           <mat-form-field class="w-50 p-2" appearance="outline">
             <mat-label>Departure Date</mat-label>
-            <input readonly="true" matInput  [min]="curDate"  [(ngModel)]="DepartureDate"
+            <input readonly="true" matInput (dateChange)="getTotalDays()"    [(ngModel)]="DepartureDate"
                 [matDatepicker]="DDate" >
             <mat-datepicker-toggle matSuffix [for]="DDate"></mat-datepicker-toggle>
             <mat-datepicker #DDate></mat-datepicker>
@@ -75,14 +75,14 @@
 
           <mat-form-field appearance="outline" class="w-50 p-2">
             <mat-label>Departure time</mat-label>
-            <input type="time"    matInput [(ngModel)]="DepartureTime" name="week" min="00:00:00" max="24:00:00"  />
+            <input type="time" (change)="getTotalDays()"   matInput [(ngModel)]="DepartureTime" name="week" min="00:00:00" max="24:00:00"  />
             
           </mat-form-field>
 
 
           <mat-form-field appearance="outline" class="w-50 p-2">
             <mat-label>Referred By</mat-label>
-            <input type="text"    matInput [(ngModel)]="refrenceName" />
+            <input type="text"     matInput [(ngModel)]="refrenceName" />
             
           </mat-form-field>
 

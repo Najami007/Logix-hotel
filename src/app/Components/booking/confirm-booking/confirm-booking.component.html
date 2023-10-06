@@ -9,9 +9,17 @@
         </mat-form-field>
 
         <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Date</mat-label>
+            <input readonly="true" matInput    [(ngModel)]="Date"
+                [matDatepicker]="CDate" >
+            <mat-datepicker-toggle matSuffix [for]="CDate"></mat-datepicker-toggle>
+            <mat-datepicker #CDate></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
             <mat-label>Select COA</mat-label>
             <mat-select [(ngModel)]="coaID">
-                <mat-option *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}} </mat-option>
+                <mat-option [disabled]="item.coaTitle == 'Cash In Hand'" *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}} </mat-option>
             </mat-select>
         </mat-form-field>
 

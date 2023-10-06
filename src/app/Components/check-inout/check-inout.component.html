@@ -23,7 +23,7 @@
 
                         <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                             <mat-label>Select Room </mat-label>
-                            <mat-select [(ngModel)]="roomID" (selectionChange)="onRoomChange();getTotal()">
+                            <mat-select [disabled]="bookingID != 0" [(ngModel)]="roomID" (selectionChange)="onRoomChange();getTotal()">
                                 <mat-option><ngx-mat-select-search [(ngModel)]="roomSearch"
                                         [placeholderLabel]="'Search...'"
                                         [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
@@ -35,7 +35,7 @@
 
                         <mat-form-field appearance="outline" class="col-lg-5 col-md-5 col-sm-5 p-2">
                             <mat-label>Select Customer </mat-label>
-                            <mat-select [(ngModel)]="partyID">
+                            <mat-select [disabled]="bookingID != 0" [(ngModel)]="partyID">
                                 <mat-option><ngx-mat-select-search [(ngModel)]="partySearch"
                                         [placeholderLabel]="'Search...'"
                                         [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
@@ -53,7 +53,7 @@
 
                         <mat-form-field class="col-lg-3 col-md-3 col-sm-3  p-2" appearance="outline">
                             <mat-label>Select Check IN Date</mat-label>
-                            <input readonly="true" matInput [(ngModel)]="checkInDate" [matDatepicker]="ciDate">
+                            <input readonly="true" (dateChange)="getTotalDays()" matInput [(ngModel)]="checkInDate" [matDatepicker]="ciDate">
                             <mat-datepicker-toggle matSuffix [for]="ciDate"></mat-datepicker-toggle>
                             <mat-datepicker #ciDate></mat-datepicker>
                         </mat-form-field>
@@ -61,14 +61,14 @@
 
                         <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                             <mat-label>Check IN time</mat-label>
-                            <input type="time" matInput [(ngModel)]="checkInTime" name="week" min="00:00:00"
+                            <input type="time" (change)="getTotalDays()" matInput [(ngModel)]="checkInTime" name="week" min="00:00:00"
                                 max="24:00:00" />
 
                         </mat-form-field>
 
                         <mat-form-field class="col-lg-3 col-md-3 col-sm-3  p-2" appearance="outline">
                             <mat-label>Select Check Out Date</mat-label>
-                            <input readonly="true" matInput [(ngModel)]="checkOutDate" [matDatepicker]="coDate">
+                            <input readonly="true" (dateChange)="getTotalDays()" matInput [(ngModel)]="checkOutDate" [matDatepicker]="coDate">
                             <mat-datepicker-toggle matSuffix [for]="coDate"></mat-datepicker-toggle>
                             <mat-datepicker #coDate></mat-datepicker>
                         </mat-form-field>
@@ -76,7 +76,7 @@
 
                         <mat-form-field appearance="outline" class="col-lg-3 col-md-3 col-sm-3 p-2">
                             <mat-label>Check Out time</mat-label>
-                            <input type="time" matInput [(ngModel)]="checkOutTime" name="week" min="00:00:00"
+                            <input type="time" (change)="getTotalDays()" matInput [(ngModel)]="checkOutTime" name="week" min="00:00:00"
                                 max="24:00:00" />
 
                         </mat-form-field>
@@ -124,7 +124,7 @@
                                 <mat-option><ngx-mat-select-search [(ngModel)]="coaSearch"
                                         [placeholderLabel]="'Search...'"
                                         [noEntriesFoundLabel]="'Not found'"></ngx-mat-select-search></mat-option>
-                                <mat-option *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}}
+                                <mat-option [disabled]="item.coaTitle == 'Cash In Hand'" *ngFor="let item of coaList" [value]="item.coaID">{{item.coaTitle}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -305,8 +305,11 @@
                         <th>Check In Date</th>
                         <th  *ngIf="voucherType == 'Check Out'">Check Out Date</th>
                         <th>Amount</th>
+                        <th>Remarks</th>
                         <th class="text-center" *ngIf="voucherType == 'Check In'">ADD Service</th>
                         <th class="text-center"> Add Documents</th>
+                        <th class="text-center" *ngIf="voucherType == 'Check In'">ADD Payment</th>
+                        
                         <th class="text-center" *ngIf="voucherType == 'Check In'"> Check Out</th>
 
                         <th class="text-center">Actions</th>
@@ -323,13 +326,19 @@
                             <td>{{item.partyName}}</td>
                             <td>{{item.checkInDate | date:'short'}}</td>
                             <td *ngIf="item.activeStatus == false">{{item.checkOutDate | date:'short'}}</td>
+
                             <td>{{(item.rentPerDay * item.totalDays) + (item.servicesTotalAmount) |number}}</td>
+                            <td>{{item.cioRemarks}}</td>
                             <td *ngIf="item.activeStatus == true" class="text-success text-center cursorPointer "
                                 (click)="addNewService(item)"><mat-icon>add_box</mat-icon></td>
                             <td class="text-primary text-center cursorPointer " (click)="addDocuments(item)">
-                                <mat-icon>add_photo_alternate</mat-icon></td>
+                               <mat-icon>add_photo_alternate</mat-icon></td>
+                                <td *ngIf="item.activeStatus == true" class="text-success text-center cursorPointer "
+                                (click)="AddPayment(item)"> <mat-icon>payment</mat-icon></td>
+
                             <td *ngIf="item.activeStatus == true" class="text-warning text-center cursorPointer "
                                 (click)="checkOut(item)"><mat-icon>check_box</mat-icon></td>
+                            
 
                             <td class="cursorPointer text-center ">
                                 <mat-icon class="text-success" (click)="getCioVoucherDetails(item)">receipt</mat-icon>
@@ -421,10 +430,14 @@
                             <p class="w-50">{{lblPartyName }}</p>
                         </span>
                         
-                        <!-- <span class="w-50 row ">
+                        <span class="w-50 row ">
                             <h6 class="w-50 fw-bold border-dark">Customer CNIC:</h6>
                             <p class="w-50">{{lblPartyCNIC }}</p>
-                        </span> -->
+                        </span>
+                        <span class="w-50 row ">
+                            <h6 class="w-50 fw-bold border-dark">Customer CNIC:</h6>
+                            <p class="w-50">{{lblPartyMobileno }}</p>
+                        </span>
 
 
 
@@ -578,7 +591,7 @@
                         </tr>
                         <tr >
                             <td class="fw-bold">Contact No:</td>
-                            <td></td>
+                            <td>{{lblPartyMobileno }}</td>
                         </tr>
 
                         <tr >

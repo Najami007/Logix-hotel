@@ -18,7 +18,7 @@ import { AddCustomerComponent } from './add-customer/add-customer.component';
   styleUrls: ['./booking.component.scss']
 })
 export class BookingComponent implements OnInit{
-  curDate = new Date();
+  today = new Date();
 
   loadingBar = 'start';
 
@@ -100,10 +100,10 @@ export class BookingComponent implements OnInit{
   partyID:any;
   bookingDate:any = new Date();
   rentPerDay:any;
-  arrivalDate:any ;
-  arrivalTime:any;
-  DepartureDate:any ;
-  DepartureTime:any;
+  arrivalDate:any = this.today;
+  arrivalTime:any = this.today.getHours() + ":" + this.today.getMinutes() ;
+  DepartureDate:any = this.today;
+  DepartureTime:any = this.today.getHours() + ":" + this.today.getMinutes() ;
   TotalDays:any;
   bookingThrough:any;
   bookingDescription:any;
@@ -153,7 +153,7 @@ export class BookingComponent implements OnInit{
   savedBookingsData:any;
   bookingStaus:any = 'Pending';
 
-  SavedData:any;
+  SavedData:any = [];
 
 
   //////////////////////////////////////////
@@ -186,6 +186,27 @@ export class BookingComponent implements OnInit{
   onRoomSelected(){
     var curRoom = this.RoomList.find((e:any)=> e.roomID == this.RoomID );
     this.rentPerDay = curRoom.rentPerDay;
+  }
+
+
+  getTotalDays(){
+   var totalHours:any =  this.global.getHours(this.global.dateFormater(this.arrivalDate,'-')
+    ,this.arrivalTime,this.global.dateFormater(this.DepartureDate,'-'),this.DepartureTime);
+
+    var days:any = totalHours / 24 ;
+
+    var firstNumber = parseInt(days);
+    var secondNumber = parseFloat(days);
+ 
+    var differce:any = (secondNumber - firstNumber).toString().substring(2,4) ;
+ 
+    if(differce < '5' && differce > '0'){
+     this.TotalDays = Math.round(days) + 1;
+    }else {
+     this.TotalDays = Math.round(days);
+    }
+ 
+
   }
 
 

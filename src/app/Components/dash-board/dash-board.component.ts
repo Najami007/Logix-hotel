@@ -126,6 +126,8 @@ export class DashBoardComponent implements OnInit{
           
 
         });
+
+        this.incomeExpenseChart();
       }
     )
   }

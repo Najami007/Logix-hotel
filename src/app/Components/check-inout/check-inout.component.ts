@@ -11,6 +11,7 @@ import { CheckOutFormComponent } from './check-out-form/check-out-form.component
 import { AddDocumentsComponent } from './add-documents/add-documents.component';
 import { CioDetailsComponent } from './cio-details/cio-details.component';
 import { AddCustomerComponent } from '../booking/add-customer/add-customer.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @Component({
   selector: 'app-check-inout',
@@ -19,7 +20,7 @@ import { AddCustomerComponent } from '../booking/add-customer/add-customer.compo
 })
 export class CheckINOUtComponent implements OnInit {
 
-
+  today = new Date();
 
   page:number = 1;
   count: number = 0;
@@ -76,6 +77,8 @@ export class CheckINOUtComponent implements OnInit {
     this.getServices();
     this.getCoaList();
     this.getSavedVouchers();
+    this.getTotalDays();
+    
 
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
@@ -109,10 +112,10 @@ export class CheckINOUtComponent implements OnInit {
   roomID:number = 0;
   partyID:number = 0;
   rentPerDay:number = 0;
-  checkInDate:any = new Date();
-  checkInTime:any;
-  checkOutDate:any = new Date();
-  checkOutTime:any;
+  checkInDate:any = this.today;
+  checkInTime:any = this.today.getHours() + ":" + this.today.getMinutes() ;
+  checkOutDate:any = this.today;
+  checkOutTime:any = this.today.getHours() + ":" + this.today.getMinutes()  ;
   totalDays:any = 0;
   estimatedDays:any = 0;
   advanceAmount:any = 0;
@@ -136,6 +139,7 @@ export class CheckINOUtComponent implements OnInit {
   lblDepartureDate:any;
   lblPartyName:any;
   lblPartyCNIC:any;
+  lblPartyMobileno:any
   lblServicesAmount:any;
   lblRoomNo:any;
   lblTotalDays:any;
@@ -154,8 +158,8 @@ export class CheckINOUtComponent implements OnInit {
   serviceCharges:any;
   quantity:any;
   amountCharged:any;
-  serviceDate:any;
-  serviceTime:any;
+  serviceDate:any = new Date();
+  serviceTime:any = this.today.getHours() + ":" + this.today.getMinutes();
   servicesTotalAmount:any = 0;
 
 
@@ -200,6 +204,31 @@ export class CheckINOUtComponent implements OnInit {
     }
     )
   }
+
+
+ //////////////////////////////////////////////////////////////
+
+ getTotalDays(){
+  
+  var totalHours:any = this.global.getHours(this.global.dateFormater(this.checkInDate,'-'),this.checkInTime,this.global.dateFormater(this.checkOutDate,'-'),this.checkOutTime);
+
+ //  this.totalDays = totalHours / 24 ;
+  var days:any = totalHours / 24 ;
+
+  var firstNumber = parseInt(days);
+  var secondNumber = parseFloat(days);
+
+  var differce:any = (secondNumber - firstNumber).toString().substring(2,4) ;
+
+  if(differce < '5' && differce > '0'){
+   this.totalDays = Math.round(days) + 1;
+  }else {
+   this.totalDays = Math.round(days);
+  }
+
+  this.getTotal();
+
+ }
 
 
   //////////////////////////////////////////////////////////////
@@ -574,6 +603,7 @@ export class CheckINOUtComponent implements OnInit {
     this.lblDepartureDate = row.checkOutDate;
     this.lblPartyName = row.partyName;
     this.lblPartyCNIC = row.partyCNIC;
+    this.lblPartyMobileno = row.partyMobileNo;
     this.lblDiscount = row.discount;
     this.lblServicesAmount = row.servicesTotalAmount;
     this.lblRoomNo  = row.roomTitle;
@@ -650,6 +680,22 @@ export class CheckINOUtComponent implements OnInit {
     }).afterClosed().subscribe(val=>{
       if(val == 'Update'){
         this.getParty();
+
+            
+      }
+      
+    })
+  }
+
+
+  AddPayment(row:any){
+    this.dialogue.open(PaymentComponent,{
+      width:"40%",
+      data: row
+
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getSavedVouchers();
 
             
       }

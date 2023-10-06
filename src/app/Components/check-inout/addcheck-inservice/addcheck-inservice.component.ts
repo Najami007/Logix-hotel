@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./addcheck-inservice.component.scss']
 })
 export class AddcheckINServiceComponent implements OnInit {
+  today = new Date()
 
   constructor(
     private http:HttpClient,
@@ -40,8 +41,8 @@ export class AddcheckINServiceComponent implements OnInit {
   serviceCharges:any;
   amountCharged:any;
   quantity:any;
-  serviceDate:any ;
-  serviceTime:any;
+  serviceDate:any = this.today;
+  serviceTime:any = this.today.getHours() + ':' + this.today.getMinutes();
 
 
   servicesList:any = [];
