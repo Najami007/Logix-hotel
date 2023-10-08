@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes, UrlTree } from '@angular/router';
 import { MainModule } from './main.module';
 import { CoaformComponent } from '../coaform/coaform.component';
 import { DashBoardComponent } from '../dash-board/dash-board.component';
@@ -32,43 +32,45 @@ import { CioRptTypeDatewiseComponent } from 'src/app/Reports/cio-rpt-type-datewi
 import { CioRptPartywiseComponent } from 'src/app/Reports/cio-rpt-partywise/cio-rpt-partywise.component';
 import { ListOfRoomsComponent } from 'src/app/Reports/list-of-rooms/list-of-rooms.component';
 import { BookingRptPartywiseComponent } from 'src/app/Reports/booking-rpt-partywise/booking-rpt-partywise.component';
-
+import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
+import { Observable } from 'rxjs';
+import { AuthGuard } from 'src/app/auth.guard';
 
 
 
 const routes: Routes = [
   {path:'',component:MainPageComponent, children:[
-    {path:'dashBoard', component:DashBoardComponent },
-  { path: 'coa', component: CoaformComponent, },
-  {path:'voucher', component: VoucherformComponent},
-  {path:'ldgrpt', component: LedgerComponent},
-  {path:'tbrpt', component: TrialBalanceComponent},
-  {path:'plrpt', component: PlstatComponent},
-  {path:'bsrpt', component: BsstatComponent},
-  {path:'party', component: PartyComponent},
-  {path:'AddUser', component: AddUserComponent},
-  {path:'Settings',component:SettingsComponent},
-  // {path:'bank',component:BankComponent},
-  {path:'OwnerProfile',component:OwnerProfileComponent},
+    {path:'dashBoard', component:DashBoardComponent, canActivate : [AuthGuard] },
+  { path: 'coa', component: CoaformComponent,canActivate : [AuthGuard]  },
+  {path:'voucher', component: VoucherformComponent,canActivate : [AuthGuard]},
+  {path:'ldgrpt', component: LedgerComponent,canActivate : [AuthGuard]},
+  {path:'tbrpt', component: TrialBalanceComponent,canActivate : [AuthGuard]},
+  {path:'plrpt', component: PlstatComponent,canActivate : [AuthGuard]},
+  {path:'bsrpt', component: BsstatComponent,canActivate : [AuthGuard]},
+  {path:'party', component: PartyComponent,canActivate : [AuthGuard]},
+  {path:'AddUser', component: AddUserComponent,canActivate : [AuthGuard]},
+  {path:'Settings',component:SettingsComponent,canActivate : [AuthGuard]},
+  // {path:'bank',component:BankComponent,canActivate : [AuthGuard]},
+  {path:'OwnerProfile',component:OwnerProfileComponent,canActivate : [AuthGuard]},
 
-  // {path:'orptl',component:OwnersReportComponent},
-  {path:'CBRpt',component:CashbookComponent},
-  {path:'rptcust',component:ListofCustomersComponent},
-  {path:'bdgtng',component:BudgettingComponent},
-  {path:'bdgtrpt',component:BudgetReportComponent},
-  {path:'Dtranrpt',component:DailyTransactionRptComponent},
-  {path:'spv',component:VoucherSupervisionComponent},
-  {path:'addRoom',component:RoomComponent},
-  {path:'bkng',component:BookingComponent},
-  {path:'brptdw',component:BookingRptDateWiseComponent},
-  {path:'chkio',component:CheckINOUtComponent},
-  {path:'ciorptdw',component:CioRptDateWiseComponent},
-  {path:'ciorpttdw',component:CioRptTypeDatewiseComponent},
-  {path:'ciorptpw',component:CioRptPartywiseComponent},
-  {path:'srptdw',component:ServicesRptDateWiseComponent},
-  {path:'srptsdw',component:ServicesRptServiceandDatewiseComponent},
-  {path:'rptlor',component:ListOfRoomsComponent},
-  {path:'brptpw',component:BookingRptPartywiseComponent},
+  // {path:'orptl',component:OwnersReportComponent,canActivate : [AuthGuard]},
+  {path:'CBRpt',component:CashbookComponent,canActivate : [AuthGuard]},
+  {path:'rptcust',component:ListofCustomersComponent,canActivate : [AuthGuard]},
+  {path:'bdgtng',component:BudgettingComponent,canActivate : [AuthGuard]},
+  {path:'bdgtrpt',component:BudgetReportComponent,canActivate : [AuthGuard]},
+  {path:'Dtranrpt',component:DailyTransactionRptComponent,canActivate : [AuthGuard]},
+  {path:'spv',component:VoucherSupervisionComponent,canActivate : [AuthGuard]},
+  {path:'addRoom',component:RoomComponent,canActivate : [AuthGuard]},
+  {path:'bkng',component:BookingComponent,canActivate : [AuthGuard]},
+  {path:'brptdw',component:BookingRptDateWiseComponent,canActivate : [AuthGuard]},
+  {path:'chkio',component:CheckINOUtComponent,canActivate : [AuthGuard]},
+  {path:'ciorptdw',component:CioRptDateWiseComponent,canActivate : [AuthGuard]},
+  {path:'ciorpttdw',component:CioRptTypeDatewiseComponent,canActivate : [AuthGuard]},
+  {path:'ciorptpw',component:CioRptPartywiseComponent,canActivate : [AuthGuard]},
+  {path:'srptdw',component:ServicesRptDateWiseComponent,canActivate : [AuthGuard]},
+  {path:'srptsdw',component:ServicesRptServiceandDatewiseComponent,canActivate : [AuthGuard]},
+  {path:'rptlor',component:ListOfRoomsComponent,canActivate : [AuthGuard]},
+  {path:'brptpw',component:BookingRptPartywiseComponent,canActivate : [AuthGuard]},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
@@ -78,4 +80,16 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MainRoutingModule { }
+export class MainRoutingModule { 
+  constructor(private globalData:GlobalDataModule){}
+
+
+  // canActivate(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot
+  // ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
+  //   return this.globalData.canActivate(route.params['id']);
+  // }
+}
+
+

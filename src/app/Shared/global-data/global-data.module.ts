@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/internal/Subject';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { NotificationService } from '../service/notification.service';
 import { userInterface } from '../Interfaces/login-user-interface';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -63,7 +63,7 @@ export class GlobalDataModule  implements OnInit {
 
 
   ngOnInit(): void {
-   this.getCompanyData();
+   
   }
 
     private _headerTitleSource = new Subject<string>();
@@ -179,9 +179,6 @@ getCompanyDataFromStorage(){
 
 
 
-
-
-
 ///////////////////////////////////////////////////////////
   /////////////////////login funciton///////////////////////
   ////////////////////////////////////////////////////////
@@ -190,14 +187,16 @@ getCompanyDataFromStorage(){
 
 
   login(Email:String,password:string){
+    $('.loaderDark').show();
 
     this.http.post(environment.mainApi+'_userLogin',{
       LoginName: Email,
       Password: password,
     }).subscribe({
       next:(value:any)=>{
-        //console.log(value);
-        
+        var userID = value._culId;
+        localStorage.setItem('curVal',JSON.stringify({value}));
+       
         
        
        if(value.msg == 'Logged in Successfully' ){
@@ -213,22 +212,21 @@ getCompanyDataFromStorage(){
           timerProgressBar:true,
 
         }).then((value)=>{
+
+          this.http.get(environment.mainApi+'getusermenu?userid='+atob(atob(userID))).subscribe(
+            (Response:any)=>{             
+              this.rout.navigate(["main/"+Response[0].pageLink]);            
+              $('.loaderDark').fadeOut(500);
+            }
+          )
    
-          this.rout.navigate(["main"]);
+          // this.rout.navigate(["main"]);
         })
         
-        
-        // this.curUserValue = window.btoa(value.toString());
-        // this.UserValue._encuid=window.btoa(this.curUserValue.userID);;
-        // this.UserValue._encuname= window.btoa(this.curUserValue.userName);
-        
-
-        // localStorage.setItem('_usercur',JSON.stringify(this.curUserValue));
-        localStorage.setItem('curVal',JSON.stringify({value}));
-        // this.getCompanyData();  
+       
        }else{
-        //console.log(value.msg);
         this.msg.WarnNotify('Error Occurred While Login Process');
+        $('.loaderDark').fadeOut(500);
        }
       },
       error:error=>{
@@ -248,6 +246,7 @@ getCompanyDataFromStorage(){
 
 
 logout(){
+  $('.loaderDark').show();
     this.http.post(environment.mainApi+'_userLogout',{
       UserID: this.getUserID(),
     }).subscribe(
@@ -259,13 +258,16 @@ logout(){
           localStorage.removeItem('curVal');
           // localStorage.removeItem('cmpnyVal');
            this.rout.navigate(['login']);
+           $('.loaderDark').fadeOut(500);
         }else{
           this.msg.WarnNotify(Response.msg);
+          $('.loaderDark').fadeOut(500);
         }
        
       },
       (Error)=>{
         this.msg.WarnNotify('Error Occured Check Connection!');
+        $('.loaderDark').fadeOut(500);
       }
     )
     

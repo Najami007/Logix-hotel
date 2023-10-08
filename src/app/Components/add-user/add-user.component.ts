@@ -70,6 +70,7 @@ export class AddUserComponent implements OnInit{
       (Response)=>{
         
         this.userData = Response;
+        // console.log(Response);
       }
     )
   }

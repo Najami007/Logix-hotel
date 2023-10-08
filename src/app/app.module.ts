@@ -87,6 +87,7 @@ import { CioRptPartywiseComponent } from './Reports/cio-rpt-partywise/cio-rpt-pa
 import { ListOfRoomsComponent } from './Reports/list-of-rooms/list-of-rooms.component';
 import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/booking-rpt-partywise.component';
 import { PaymentComponent } from './Components/check-inout/payment/payment.component';
+import { NotificationService } from './Shared/service/notification.service';
 
 
 
@@ -225,7 +226,7 @@ import { PaymentComponent } from './Components/check-inout/payment/payment.compo
   
 
   ],
-  providers: [{ provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }],
+  providers: [{ provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }, NotificationService,GlobalDataModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

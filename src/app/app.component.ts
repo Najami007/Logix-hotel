@@ -15,7 +15,9 @@ import { GlobalDataModule } from './Shared/global-data/global-data.module';
 })
 export class AppComponent {
   title = 'Mall Management';
-constructor( private route:Router,private global:GlobalDataModule){}
+constructor( private route:Router,private global:GlobalDataModule){
+
+}
   
 
   ngOnInit(){

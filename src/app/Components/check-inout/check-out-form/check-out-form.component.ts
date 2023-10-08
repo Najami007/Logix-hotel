@@ -121,7 +121,7 @@ export class CheckOutFormComponent implements OnInit{
       this.msg.WarnNotify('Select Check Out Date')
     }else if(this.checkOutTime == '' || this.checkOutTime == undefined){
       this.msg.WarnNotify('Enter Check Out Time')
-    }else if(this.balanceAmount == '' || this.balanceAmount == 0 || this.balanceAmount < 0 || this.balanceAmount == undefined){
+    }else if(this.balanceAmount < 0 || this.balanceAmount == undefined){
       this.msg.WarnNotify('Enter valid Balance Amount')
     }else if(this.remainingAmount - (this.balanceAmount + this.discount) != 0){
       this.msg.WarnNotify('Balance Amount is not Valid')
@@ -147,6 +147,10 @@ export class CheckOutFormComponent implements OnInit{
           //////on confirm button pressed the api will run
           if(this.discount == '' || this.discount == undefined){
             this.discount = 0;
+          }
+
+          if(this.balanceAmount == ''){
+            this.balanceAmount = 0;
           }
     
           this.http.post(environment.mainApi+'insertcheckout',{
