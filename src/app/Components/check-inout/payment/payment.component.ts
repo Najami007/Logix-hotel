@@ -141,7 +141,7 @@ export class PaymentComponent implements OnInit{
   getPaymentHistory(){
     this.http.get(environment.mainApi+'GetCioPaymentHistory?cioid='+this.editData.checkinoutID).subscribe(
       (Response)=>{
-        console.log(Response);
+        // console.log(Response);
         this.paymentHistoryList = Response;
       }
     )

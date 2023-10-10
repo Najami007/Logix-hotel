@@ -81,11 +81,15 @@
   
      <mat-toolbar-row >
       
+      <!-- <a class="list-itm" routerLink="./htldb" routerLinkActive="active">Hotel DashBoard</a> -->
+      
       <span *ngFor="let item of menuList; let i = index">
         <a *ngIf="item.haveSubMenu == 'No'" class="list-itm" routerLink="./{{item.pageLink}}" routerLinkActive="active">
           {{ item.menuTitle }}
         </a>
       </span>
+
+      
 
      
 

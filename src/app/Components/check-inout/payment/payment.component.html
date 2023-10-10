@@ -58,7 +58,8 @@
                     <td>{{item.paymentDate |date:'yyyy-MM-dd'}}</td>
                     <td>{{item.paymentAmount | number}}</td>
                     <td>{{item.cioRemarks}}</td>
-                    <td><mat-icon class="text-danger cursorPointer" (click)="deletePayment(item)">delete</mat-icon></td>
+                    <td><mat-icon *ngIf="item.approvedStatus == false " class="text-danger cursorPointer" (click)="deletePayment(item)">delete</mat-icon>
+                        <mat-icon *ngIf="item.approvedStatus == true " class="text-warning">delete_forever</mat-icon></td>
                 </tr>
             </tbody>
         </table>

@@ -1,0 +1,185 @@
+<div>
+
+    <div class=" container-fluid row">
+        <div class=" col-lg-3 p-4">
+            <mat-card class="shadow p-4 rounded card-height justify-content-center"
+                style="background-color: rgb(255, 253, 251);">
+
+                <div class="d-flex text-center justify-content-center ">
+                    <span class="text-center cardIcon "
+                        style=" background-color: rgb(247, 81, 4);">
+
+                        <mat-icon class="maticon">event</mat-icon>
+
+
+                    </span>
+                    <span class="cardText">
+                        <p    class="digitalFont">{{totalBookings|number}}</p>
+                        <h6 class=" fw-bold" style="color: rgb(84, 84, 84);"> TOTAL BOOKINGS</h6>
+                    </span>
+                </div>
+
+            </mat-card>
+        </div>
+
+        <div class=" col-lg-3 p-4 ">
+            <mat-card class="shadow rounded p-4 card-height justify-content-center"
+                style="background-color: rgb(255, 253, 251);">
+
+                <div class="d-flex text-center justify-content-center  ">
+                    <span class="text-center cardIcon"
+                        style="background-color: rgb(0, 229, 255);">
+
+                        <mat-icon  class="maticon">event</mat-icon>
+
+
+                    </span>
+                    <span class="cardText">
+                        <P class="digitalFont">
+                            {{pendingBookings |number}}</P>
+                        <h6 class=" fw-bold" style="color: rgb(115, 114, 115);"> PENDING BOOKINGS</h6>
+                    </span>
+                </div>
+
+            </mat-card>
+        </div>
+
+
+
+        <div class=" col-lg-3 p-4">
+            <mat-card class="shadow rounded card-height justify-content-center"
+                style="background-color: rgb(255, 253, 251);">
+
+                <div class="d-flex text-center justify-content-center  ">
+                    <span class="text-center cardIcon"
+                        style=" background-color: rgb(1, 43, 254);">
+
+                        <mat-icon  class="maticon">exit_to_app</mat-icon>
+
+
+                    </span>
+                    <span class="cardText">
+                        <p  class="digitalFont">{{totalCheckIn
+                            |number}}</p>
+                        <h6 class=" fw-bold" style="color: rgb(115,115,115);"> TOTAL CHECK IN</h6>
+                    </span>
+                </div>
+
+            </mat-card>
+        </div>
+
+
+
+
+        <div class=" col-lg-3 p-4">
+            <mat-card class="shadow rounded card-height justify-content-center"
+                style="background-color: rgb(255, 253, 251);">
+
+                <div class="d-flex text-center justify-content-center  ">
+                    <span class="text-center cardIcon"
+                        style=" background-color: rgb(9, 243, 5);">
+
+                        <mat-icon class="maticon">launch</mat-icon>
+
+
+                    </span>
+                    <span class="cardText">
+                        <h6 class="digitalFont">{{totalCheckOut|number}}</h6>
+                        <h5 class=" fw-bold" style="color: rgb(115, 115, 115);"> TOTAL CHECK OUT</h5>
+                    </span>
+                </div>
+
+            </mat-card>
+        </div>
+
+
+
+
+        <div class="d-flex">
+            <div class=" col-lg-9" >
+                <mat-card class="bookingTbl p-4">
+                    <div class="text-center justify-content-center border-bottom d-flex">
+                        <h4 style="letter-spacing: 5px;">EMPTY AND CHECKED IN ROOMS</h4>
+                        <div class="d-flex text-end ms-5">
+                            <span class="d-flex me-3">
+    
+                                <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: greenyellow;"></p>
+                                <h5 class="mt-2 me-1">Checked IN</h5>
+                            </span>
+                            <span class="d-flex">
+    
+                                <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(255, 255, 255);">
+                                </p>
+                                <h5 class="mt-2 me-1">Empty</h5>
+                            </span>
+                        </div>
+                    </div>
+    
+       
+                    <table>
+                        <tbody>
+    
+                            <tr style="display: inline-flex;" *ngFor="let item of roomsList">
+                                <mat-card class=" btblbtn" *ngIf="item.onRentStatus == false">{{item.roomTitle}}</mat-card>
+                                <mat-card class=" btblbtn " *ngIf="item.onRentStatus == true"style="background-color: greenyellow;">{{item.roomTitle}}</mat-card>
+    
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card>
+            </div>
+
+            <div class="col-lg-3">
+                
+                    <mat-card class=" p-4" >
+                       <div class="d-flex m-2 pt-2">
+                        <mat-card class="shadow me-2 p-4 w-50 text-center">
+                            <mat-progress-spinner 
+                            
+                            [color]="'warn'"
+                            [mode]="'determinate'"
+                            [value]="'80'">
+                        </mat-progress-spinner>
+                        <p class="fw-bold" >ARR (80%)</p>
+                           </mat-card> 
+                           <mat-card class="shadow p-4 w-50 text-center">
+                            <mat-progress-spinner  [color]="'accent'" [mode]="'determinate'" [value]="'50'"></mat-progress-spinner>
+                            <p class="fw-bold" >ARR ({{50}}%)</p>
+                           </mat-card> 
+                       </div>
+
+                       <div class="d-flex m-2 ">
+                        <mat-card class="shadow me-2 p-4 w-50 text-center">
+                        <mat-progress-spinner [color]="'primary'" [mode]="'determinate'" [value]="'80'"></mat-progress-spinner>
+                        <p class="fw-bold" >ARR (80%)</p>
+                           </mat-card> 
+                           <mat-card class="shadow p-4 w-50 text-center">
+                        <mat-progress-spinner [color]="arrColor" [mode]="arrModel" [value]="arrValue"></mat-progress-spinner>
+                        <p class="fw-bold" >ARR ({{arrValue |number}}%)</p>
+                        </mat-card> 
+                       </div>   
+                       
+
+                    
+                    </mat-card>
+                    
+             
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>

@@ -35,12 +35,14 @@ import { BookingRptPartywiseComponent } from 'src/app/Reports/booking-rpt-partyw
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { Observable } from 'rxjs';
 import { AuthGuard } from 'src/app/auth.guard';
+import { HotelDashboardComponent } from '../hotel-dashboard/hotel-dashboard.component';
 
 
 
 const routes: Routes = [
   {path:'',component:MainPageComponent, children:[
     {path:'dashBoard', component:DashBoardComponent, canActivate : [AuthGuard] },
+    {path:'htldb', component:HotelDashboardComponent},
   { path: 'coa', component: CoaformComponent,canActivate : [AuthGuard]  },
   {path:'voucher', component: VoucherformComponent,canActivate : [AuthGuard]},
   {path:'ldgrpt', component: LedgerComponent,canActivate : [AuthGuard]},

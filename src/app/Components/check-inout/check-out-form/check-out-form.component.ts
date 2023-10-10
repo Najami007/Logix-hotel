@@ -125,10 +125,10 @@ export class CheckOutFormComponent implements OnInit{
       this.msg.WarnNotify('Enter valid Balance Amount')
     }else if(this.remainingAmount - (this.balanceAmount + this.discount) != 0){
       this.msg.WarnNotify('Balance Amount is not Valid')
-    }else if(this.totalDays == '' || this.totalDays == 0 ||this.totalDays < 0 || this.totalDays == undefined){
-      this.msg.WarnNotify('Total Days are not Valid')
     }
-    else if(this.coaID == '' || this.coaID == undefined){
+    else if(this.totalDays == '' || this.totalDays == 0 ||this.totalDays < 0 || this.totalDays == undefined){
+      this.msg.WarnNotify('Total Days are not Valid')
+    }else if(this.coaID == '' || this.coaID == undefined){
       this.msg.WarnNotify('Select Payment Head')
     }else{
 

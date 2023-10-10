@@ -88,6 +88,7 @@ import { ListOfRoomsComponent } from './Reports/list-of-rooms/list-of-rooms.comp
 import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/booking-rpt-partywise.component';
 import { PaymentComponent } from './Components/check-inout/payment/payment.component';
 import { NotificationService } from './Shared/service/notification.service';
+import { HotelDashboardComponent } from './Components/hotel-dashboard/hotel-dashboard.component';
 
 
 
@@ -178,6 +179,7 @@ import { NotificationService } from './Shared/service/notification.service';
     ListOfRoomsComponent,
     BookingRptPartywiseComponent,
     PaymentComponent,
+    HotelDashboardComponent,
  
     
     
