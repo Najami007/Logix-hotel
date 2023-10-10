@@ -91,11 +91,11 @@
                         <td>{{item.checkInDate | date:'short'}}</td>
                         <td>{{item.checkOutDate | date:'short'}}</td>
                         <td ><span *ngIf="item.activeStatus == true">Check In</span> <span *ngIf="item.activeStatus == false">Check Out</span></td>
-                        <td>{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number}}</td>
+                        <td>{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number:'1.0-0'}}</td>
                     </tr>
                     <tr>
                         <th colspan="7" class="text-center">Total</th>
-                        <th>{{TotalAmount |number}}</th>
+                        <th>{{TotalAmount |number:'1.0-0'}}</th>
                     </tr>
                 </tbody>
 

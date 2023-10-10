@@ -6,7 +6,7 @@
             add</mat-icon>ADD Room</button>
             <mat-form-field class="col-lg-10" appearance="outline">
                 <mat-label>Search</mat-label>
-                <input matInput type="text">
+                <input [(ngModel)]="searchtxt" matInput type="text">
             </mat-form-field>
         </div>
             <br>
@@ -22,7 +22,7 @@
                 <th>Delete</th>
             </thead>
             <tbody >
-                <tr *ngFor="let item of RoomData index as index">
+                <tr *ngFor="let item of RoomData|filter:searchtxt index as index">
 
                     <td>{{index+1}}</td>
                     <td>{{item.roomTitle}}</td>

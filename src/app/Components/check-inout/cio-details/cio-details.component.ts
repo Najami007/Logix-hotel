@@ -53,6 +53,7 @@ export class CioDetailsComponent  implements OnInit{
   //////////////////////////////////////////////////////////////
    
   getCheckInOutDetails(row:any){
+    //console.log(row);
 
     this.lblVoucherNo = row.checkinoutID;
     this.lblBookingID = row.bookingID;

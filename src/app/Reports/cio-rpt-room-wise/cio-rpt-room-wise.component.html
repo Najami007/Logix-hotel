@@ -3,12 +3,14 @@
     <div class="row  p-2">
 
         <mat-form-field class="col-lg-6 " appearance="outline">
-            <mat-label>Select Type</mat-label>
-            <mat-select [(ngModel)]="voucherType">
-                <mat-option *ngFor="let item of Types" [value]="item.title">{{item.title}}</mat-option>
+            <mat-label>Select Room</mat-label>
+            <mat-select [(ngModel)]="roomID">
+                <mat-option><ngx-mat-select-search [(ngModel)]="roomSearch"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of roomList |filter:roomSearch" [value]="item.roomID">{{item.roomTitle}} </mat-option>
             </mat-select>
         </mat-form-field>
-
 
         <mat-form-field class="col-lg-2 " appearance="outline">
             <mat-label>From Date</mat-label>
@@ -43,12 +45,14 @@
                 <span>
                     <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                 </span>
-                <span>
+                <span >
                     
 
-                    <h1 class="companyName">{{CompanyName}}</h1>
+                    <h1 class="companyName" >{{CompanyName}}</h1>
                     <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>
-                    <p class="rptTitle" style="margin-top:-25px"> {{voucherType}} Report</p>
+
+                    <p class="rptTitle" style="margin-top:-25px">Check In Out Report ({{roomName}})</p>
+                   
                     <p style="margin-top:-20px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                   
                 </span>
@@ -71,8 +75,6 @@
                     <th>Customer Name</th>
                     <th>Check In Date</th>
                     <th>Check Out Date</th>
-                    <th>Type</th>
-                    
                     <th>Amount</th>
 
                 </thead>
@@ -87,11 +89,10 @@
                         <td>{{item.partyName}}</td>
                         <td>{{item.checkInDate | date:'short'}}</td>
                         <td>{{item.checkOutDate | date:'short'}}</td>
-                        <td ><span *ngIf="item.activeStatus == true">Check In</span> <span *ngIf="item.activeStatus == false">Check Out</span></td>
                         <td>{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number:'1.0-0'}}</td>
                     </tr>
                     <tr>
-                        <th colspan="7" class="text-center">Total</th>
+                        <th colspan="6" class="text-center">Total</th>
                         <th>{{TotalAmount |number:'1.0-0'}}</th>
                     </tr>
                 </tbody>

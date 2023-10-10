@@ -36,13 +36,14 @@ import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module'
 import { Observable } from 'rxjs';
 import { AuthGuard } from 'src/app/auth.guard';
 import { HotelDashboardComponent } from '../hotel-dashboard/hotel-dashboard.component';
+import { CioRptRoomWiseComponent } from 'src/app/Reports/cio-rpt-room-wise/cio-rpt-room-wise.component';
 
 
 
 const routes: Routes = [
   {path:'',component:MainPageComponent, children:[
     {path:'dashBoard', component:DashBoardComponent, canActivate : [AuthGuard] },
-    {path:'htldb', component:HotelDashboardComponent},
+    
   { path: 'coa', component: CoaformComponent,canActivate : [AuthGuard]  },
   {path:'voucher', component: VoucherformComponent,canActivate : [AuthGuard]},
   {path:'ldgrpt', component: LedgerComponent,canActivate : [AuthGuard]},
@@ -69,10 +70,13 @@ const routes: Routes = [
   {path:'ciorptdw',component:CioRptDateWiseComponent,canActivate : [AuthGuard]},
   {path:'ciorpttdw',component:CioRptTypeDatewiseComponent,canActivate : [AuthGuard]},
   {path:'ciorptpw',component:CioRptPartywiseComponent,canActivate : [AuthGuard]},
+ 
   {path:'srptdw',component:ServicesRptDateWiseComponent,canActivate : [AuthGuard]},
   {path:'srptsdw',component:ServicesRptServiceandDatewiseComponent,canActivate : [AuthGuard]},
   {path:'rptlor',component:ListOfRoomsComponent,canActivate : [AuthGuard]},
   {path:'brptpw',component:BookingRptPartywiseComponent,canActivate : [AuthGuard]},
+  {path:'ciorptrw',component:CioRptRoomWiseComponent,},
+  {path:'htldb', component:HotelDashboardComponent},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},

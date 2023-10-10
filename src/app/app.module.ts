@@ -89,6 +89,7 @@ import { BookingRptPartywiseComponent } from './Reports/booking-rpt-partywise/bo
 import { PaymentComponent } from './Components/check-inout/payment/payment.component';
 import { NotificationService } from './Shared/service/notification.service';
 import { HotelDashboardComponent } from './Components/hotel-dashboard/hotel-dashboard.component';
+import { CioRptRoomWiseComponent } from './Reports/cio-rpt-room-wise/cio-rpt-room-wise.component';
 
 
 
@@ -180,6 +181,7 @@ import { HotelDashboardComponent } from './Components/hotel-dashboard/hotel-dash
     BookingRptPartywiseComponent,
     PaymentComponent,
     HotelDashboardComponent,
+    CioRptRoomWiseComponent,
  
     
     

@@ -81,11 +81,11 @@
                         <td>{{item.partyName}}</td>
                         <td>{{item.checkInDate | date:'short'}}</td>
                         <td>{{item.checkOutDate | date:'short'}}</td>
-                        <td>{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number}}</td>
+                        <td>{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number:'1.0-0' }}</td>
                     </tr>
                     <tr>
                         <th colspan="6" class="text-center">Total</th>
-                        <th>{{TotalAmount |number}}</th>
+                        <th>{{TotalAmount |number:'1.0-0'}}</th>
                     </tr>
                 </tbody>
 
