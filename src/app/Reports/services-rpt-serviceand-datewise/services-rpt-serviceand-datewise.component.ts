@@ -115,6 +115,47 @@ export class ServicesRptServiceandDatewiseComponent implements OnInit{
    }
 
   }
+  getReport2(){
+
+    if(this.serviceID == '' || this.serviceID == undefined){
+     this.msg.WarnNotify('Select Service ');
+    }else{
+     this.app.startLoaderDark();
+ 
+     this.http.get(environment.mainApi+'GetSingleServicesDetail2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
+     '&todate='+this.global.dateFormater(this.toDate,'-')+'&serviceid='+this.serviceID).subscribe(
+       (Response:any)=>{
+         this.allServicesData = Response;
+       
+ 
+         this.totalQuantity =  0;
+         this.totalServiceCharges = 0;
+         this.totalAmountCharges = 0;
+         
+         this.totalAmount = 0;
+ 
+ 
+         Response.forEach((e:any) => {
+          
+           this.totalQuantity +=  e.quantity;
+           this.totalServiceCharges += e.serviceCharges;
+           this.totalAmountCharges += e.amountCharged;
+           
+           this.totalAmount += (e.quantity * e.amountCharged);
+ 
+         });
+         
+         this.app.stopLoaderDark();
+       },
+       (Error:any)=>{
+         this.app.stopLoaderDark();
+       }
+     )
+    }
+ 
+   }
+ 
+ 
 
 
   getDetails(row:any){

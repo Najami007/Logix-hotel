@@ -108,6 +108,46 @@ export class CioRptRoomWiseComponent implements OnInit {
 
   }
 
+  getReport2(){
+    if(this.roomID == '' || this.roomID == undefined){
+      this.msg.WarnNotify('Select Type')
+    }else{
+      this.app.startLoaderDark();
+
+      var curRoom = this.roomList.find((a:any)=>a.roomID == this.roomID);
+      this.roomName = curRoom.roomTitle;
+
+
+      this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
+      '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
+        (Response:any)=>{
+  
+  
+        
+          this.reportData = Response.filter((obj:any)=>obj.roomID == this.roomID);
+        
+  
+          this.TotalAmount = 0;
+  
+          this.reportData.forEach((e:any) => {
+           
+            
+            this.TotalAmount += (e.rentPerDay * e.totalDays) + (e.servicesTotalAmount);
+  
+          });
+          
+          this.app.stopLoaderDark();
+        },
+        (Error:any)=>{
+          this.app.stopLoaderDark();
+        }
+      )
+    }
+
+    
+
+  }
+
 
 
   getDetails(row:any){

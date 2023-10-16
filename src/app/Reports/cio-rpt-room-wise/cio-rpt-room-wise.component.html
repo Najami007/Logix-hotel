@@ -2,7 +2,7 @@
     <!----------------           Date Section ------------------------------->
     <div class="row  p-2">
 
-        <mat-form-field class="col-lg-6 " appearance="outline">
+        <mat-form-field class="col-lg-5 " appearance="outline">
             <mat-label>Select Room</mat-label>
             <mat-select [(ngModel)]="roomID">
                 <mat-option><ngx-mat-select-search [(ngModel)]="roomSearch"
@@ -27,11 +27,10 @@
         </mat-form-field>
 
 
-        <div class="col-lg-1 text-end">
-            <button class=" btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
-        </div>
-        <div class="col-lg-1  text-end">
-            <button class=" btn btn-primary btn-rpt" (click)="print()"> Print</button>
+        <div class="col-lg-3 d-flex text-end">
+            <button class=" btn btn-success me-2 btn-rpt" (click)="getReport()">Report 1</button>
+            <button class=" btn btn-success me-2 btn-rpt" (click)="getReport2()">Report 2</button>
+            <button class=" btn btn-primary me-2 btn-rpt" (click)="print()"> Print</button>
         </div>
     </div>
 

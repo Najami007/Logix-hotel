@@ -149,15 +149,15 @@ export class AddUserComponent implements OnInit{
           this.reset();
           this.getMenu();
           this.getUserData();
-          this.app.stopLoaderLight();
+          this.app.stopLoaderDark();
           
         }else{
           this.msg.WarnNotify(Response.msg);
-          this.app.stopLoaderLight();
+          this.app.stopLoaderDark();
         }
       },
       (Error)=>{
-        this.app.stopLoaderLight();
+        this.app.stopLoaderDark();
       }
     )
   }

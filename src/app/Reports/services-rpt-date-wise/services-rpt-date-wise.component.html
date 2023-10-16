@@ -4,14 +4,14 @@
 
 
 
-        <mat-form-field class="col-lg-5 " appearance="outline">
+        <mat-form-field class="col-lg-4 " appearance="outline">
             <mat-label>From Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="fromDate" [matDatepicker]="sDate">
             <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
             <mat-datepicker #sDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-lg-5" appearance="outline">
+        <mat-form-field class="col-lg-4" appearance="outline">
             <mat-label>To Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="toDate" [matDatepicker]="eDate">
             <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
@@ -19,11 +19,10 @@
         </mat-form-field>
 
 
-        <div class="col-lg-1 text-end">
-            <button class=" btn btn-success btn-rpt" (click)="getReport()">Get Rpt</button>
-        </div>
-        <div class="col-lg-1  text-end">
-            <button class=" btn btn-primary btn-rpt" (click)="print()"> Print</button>
+        <div class="col-lg-4 d-flex text-end">
+            <button class=" btn btn-success me-2 btn-rpt" (click)="getReport()">Report 1</button>
+            <button class=" btn btn-success me-2 btn-rpt" (click)="getReport2()" >Report 2</button>
+            <button class=" btn btn-primary me-2 btn-rpt" (click)="print()"> Print</button>
         </div>
     </div>
 

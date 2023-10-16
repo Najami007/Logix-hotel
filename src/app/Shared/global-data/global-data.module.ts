@@ -24,7 +24,7 @@ export class GlobalDataModule  implements OnInit {
   paginationDefaultTalbeSize = 50;
   paginationTableSizes : any = [10,25,50,100];
 
-  public Logo = '../assets/Images/BlackGold.jpg';
+  public Logo = '../assets/Images/BlackGold.png';
   public Logo1 = '../assets/Images/MT-logo.png';
 
   public CompanyName = 'BLACK GOLD HOTEL';

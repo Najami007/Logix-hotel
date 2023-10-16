@@ -101,6 +101,47 @@ export class CioRptTypeDatewiseComponent implements OnInit{
 
   }
 
+  
+  getReport2(){
+    if(this.voucherType == '' || this.voucherType == undefined){
+      this.msg.WarnNotify('Select Type')
+    }else{
+      this.app.startLoaderDark();
+
+      this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
+      '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
+        (Response:any)=>{
+  
+  
+         if(this.voucherType == 'Check In'){
+          this.reportData = Response.filter((obj:any)=>obj.activeStatus == true);
+         }else if(this.voucherType == 'Check Out'){
+          this.reportData = Response.filter((obj:any)=>obj.activeStatus == false);
+         }else if(this.voucherType == 'All'){
+          this.reportData = Response;
+         }
+  
+          this.TotalAmount = 0;
+  
+          this.reportData.forEach((e:any) => {
+           
+            
+            this.TotalAmount += (e.rentPerDay * e.totalDays) + (e.servicesTotalAmount);
+  
+          });
+          
+          this.app.stopLoaderDark();
+        },
+        (Error:any)=>{
+          this.app.stopLoaderDark();
+        }
+      )
+    }
+
+    
+
+  }
+
 
   getDetails(row:any){
     this.dialogue.open(CioDetailsComponent,{

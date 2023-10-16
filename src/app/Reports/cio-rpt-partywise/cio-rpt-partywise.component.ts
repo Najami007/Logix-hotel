@@ -123,6 +123,47 @@ export class CioRptPartywiseComponent implements OnInit {
 
   }
 
+  getReport2(){
+    if(this.partyID == '' || this.partyID == undefined){
+      this.msg.WarnNotify('Select Type')
+    }else{
+      this.app.startLoaderDark();
+
+      var curCutomer = this.partyList.find((a:any)=>a.partyID == this.partyID);
+      this.customerName = curCutomer.partyName;
+
+
+      this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
+      '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
+        (Response:any)=>{
+  
+  
+        
+          this.reportData = Response.filter((obj:any)=>obj.partyID == this.partyID);
+        
+  
+          this.TotalAmount = 0;
+  
+          this.reportData.forEach((e:any) => {
+           
+            
+            this.TotalAmount += (e.rentPerDay * e.totalDays) + (e.servicesTotalAmount);
+  
+          });
+          
+          this.app.stopLoaderDark();
+        },
+        (Error:any)=>{
+          this.app.stopLoaderDark();
+        }
+      )
+    }
+
+    
+
+  }
+
+
 
   getDetails(row:any){
     this.dialogue.open(CioDetailsComponent,{

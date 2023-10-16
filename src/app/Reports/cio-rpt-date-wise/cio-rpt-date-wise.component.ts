@@ -79,6 +79,32 @@ export class CioRptDateWiseComponent implements OnInit {
 
   }
 
+  getReport2(){
+
+    this.app.startLoaderDark();
+
+    this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
+    '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
+      (Response:any)=>{
+        this.reportData = Response;
+        this.TotalAmount = 0;
+        Response.forEach((e:any) => {
+         
+          
+          this.TotalAmount += (e.rentPerDay * e.totalDays) + (e.servicesTotalAmount);
+
+        });
+        
+        this.app.stopLoaderDark();
+      },
+      (Error:any)=>{
+        
+        this.app.stopLoaderDark();
+      }
+    )
+
+  }
+
 
   getDetails(row:any){
     this.dialogue.open(CioDetailsComponent,{

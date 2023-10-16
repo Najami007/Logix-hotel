@@ -500,6 +500,8 @@ export class CheckINOUtComponent implements OnInit {
         if(Response.msg == 'Data Saved Successfully'){
           this.msg.SuccessNotify(Response.msg);
           this.getSavedVouchers();
+          this.getRoom();
+          this.getBookingsList();
           this.reset();
           this.app.stopLoaderDark();
         }else{
