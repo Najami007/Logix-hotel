@@ -47,22 +47,44 @@
 
 
    .btblbtn{
-    width: 90px;
-     height: 60px;
-     border-radius: 5px;
+    width: 120px;
+     height: 90px;
+    //  border-radius: 5px;
      text-align: center;
-     justify-content: center;
+    //  justify-content:right;
      font-weight: bold;
-     font-size: 10px;
+     font-size: 15px;
      margin: 10px;
+     border: 1px solid Black;
+     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+     mat-icon{
+      font-size: 20px !important;
+      text-align: center;
+      justify-content: center;
+     }
+   
    }
 
    .bookingTbl{
     height: 450px !important;
     padding: 0px 15px 15px 15px ;
-    margin:0px 15px 15px 15px  ;
+    // margin:0px 15px 15px 15px  ;
     
     overflow: scroll;
    }
 
  
+
+   .statusTbl{
+
+    width: 100%;
+  
+    //  td{
+    //   // border:1px solid Black;
+    //   text-align: center;
+   
+    //   // background-color: orange;
+      
+    // }
+
+   }

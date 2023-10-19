@@ -10,6 +10,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/Shared/service/notification.service';
+import { RoomStatusComponent } from './room-status/room-status.component';
 
 
 
@@ -21,36 +24,58 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 export class HotelDashboardComponent implements OnInit {
 
 
+  curDate:Date = new Date();
+
   constructor(
     private globalData :GlobalDataModule,
     private http:HttpClient,
+    private dialogue: MatDialog,
+    private msg:NotificationService,
   ){}
 
   ngOnInit(): void {
+    
+
+
     this.globalData.setHeaderTitle('Hotel DashBoard');
 
     this.getBookings();
     this.getCheckInOut();
     this.getRoom();
-    this.getArrValue();
-
-   
+    this.getArrValue();   
   }
 
 
   arrColor: ThemePalette = 'accent';
   arrModel: ProgressSpinnerMode = 'determinate';
   arrValue = 70;
-
+  
+  searchRoom:any = 0;
+  statusList:any = [{id:0 ,title:'All'} ,{id:1 ,title:'On Rent'} , {id:2 ,title:'Empty'} , {id:3 ,title:'Cleaning'} , {id:4 ,title:'Personal Use'} , {id:5 ,title:'Out Of Order'}]
 
   totalBookings:any = 0;
   pendingBookings:any = 0;
   totalCheckIn:any = 0;
   totalCheckOut:any = 0;
 
+  reuseRoomList:any = [];
   roomsList:any = [];
   totalRooms:any = 0;
   checkInRooms:any = 0;
+  daysOfMonth:any;
+
+  daysList:any;
+
+  onStatusSelected(){
+    
+    if(this.searchRoom == 0){
+      this.getRoom();
+    }else{
+      this.roomsList = this.reuseRoomList.filter((e:any)=>e.roomCrntStatusID == this.searchRoom);
+    }
+
+    
+  }
 
 
   getBookings(){
@@ -66,6 +91,10 @@ export class HotelDashboardComponent implements OnInit {
     )
   }
 
+
+  daysInMonth(month:any, year:any) {
+    return new Date(year, month, 0).getDate();
+}
 
 
   
@@ -89,8 +118,22 @@ export class HotelDashboardComponent implements OnInit {
    getRoom(){
     this.http.get(environment.mainApi+'GetRoom').subscribe(
       (Response:any)=>{
+        this.reuseRoomList = Response;
         this.roomsList = Response;
         this.totalRooms = Response.length;
+        // console.log(Response);
+        
+        
+     this.daysOfMonth = this.daysInMonth(this.curDate.getMonth()+1,this.curDate.getFullYear());
+    
+      this.daysList = [];
+
+      for(var i = 1; i <= this.daysOfMonth; i++){
+
+      this.daysList.push(i);
+
+
+   }
         
       }
     )
@@ -113,4 +156,23 @@ export class HotelDashboardComponent implements OnInit {
    
   }
 
+
+
+
+
+
+
+  
+  changeRoomStatus(row:any){
+    this.dialogue.open(RoomStatusComponent,{
+      width:"40%",
+      data:row,
+
+    }).afterClosed().subscribe(val=>{
+      if(val == 'Update'){
+        this.getRoom();
+      }
+      
+    })
+  }
 }

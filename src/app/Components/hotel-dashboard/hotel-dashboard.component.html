@@ -95,40 +95,150 @@
 
 
 
-        <div class="d-flex">
-            <div class=" col-lg-9" >
-                <mat-card class="bookingTbl p-4">
-                    <div class="text-center justify-content-center border-bottom d-flex">
-                        <h4 style="letter-spacing: 5px;">EMPTY AND CHECKED IN ROOMS</h4>
-                        <div class="d-flex text-end ms-5">
-                            <span class="d-flex me-3">
-    
-                                <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: greenyellow;"></p>
-                                <h5 class="mt-2 me-1">Checked IN</h5>
-                            </span>
-                            <span class="d-flex">
-    
-                                <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(255, 255, 255);">
-                                </p>
-                                <h5 class="mt-2 me-1">Empty</h5>
-                            </span>
-                        </div>
-                    </div>
-    
-       
-                    <table>
-                        <tbody>
-    
-                            <tr style="display: inline-flex;" *ngFor="let item of roomsList">
-                                <mat-card class=" btblbtn" *ngIf="item.onRentStatus == false">{{item.roomTitle}}</mat-card>
-                                <mat-card class=" btblbtn " *ngIf="item.onRentStatus == true"style="background-color: greenyellow;">{{item.roomTitle}}</mat-card>
-    
-                            </tr>
-                        </tbody>
-                    </table>
-                </mat-card>
+        <div >
+
+            <!-------- Room Status Table ------------------->
+            <div class="col-lg-12">
+
+                <mat-card class="bookingTbl">
+                   <div class="text-center justify-content-center border-bottom d-flex">
+                       <h4 style="letter-spacing: 5px;" class="mt-2">ROOM STATUS</h4>
+                       <div class="d-flex mt-1 ms-5 w-50">
+                           <span class="d-flex me-2">
+   
+                               <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: greenyellow;"></p>
+                               <h5 class="mt-2 me-1">Checked IN</h5>
+                           </span>
+                           <span class="d-flex me-2">
+   
+                               <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(255, 255, 255);">
+                               </p>
+                               <h5 class="mt-2 me-1">Empty</h5>
+                           </span>
+                           <span class="d-flex me-2" >
+   
+                               <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(243, 194, 87);">
+                               </p>
+                               <h5 class="mt-2 me-1">Cleaning</h5>
+                           </span>
+                           <span class="d-flex me-2">
+   
+                               <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(9, 135, 246);">
+                               </p>
+                               <h5 class="mt-2 me-1">Personal Use</h5>
+                           </span>
+                           <span class="d-flex me-2">
+   
+                            <p class="mt-2 me-1 border border-dark" style="width: 15px;height: 15px;background-color: rgb(247, 3, 3);">
+                            </p>
+                            <h5 class="mt-2 me-1">Out Of Order</h5>
+                        </span>
+                       </div>
+
+                       <div class="pt-3 w-25 text-end">
+                        
+                            <!-- <input matInput [(ngModel)]="searchRoom" /> -->
+                            <select [(ngModel)]="searchRoom" (change)="onStatusSelected()">
+                                <option *ngFor="let item of  statusList" [value]="item.id">
+                                            {{item.title}}
+                                </option>
+                            </select>
+                    
+                       </div>
+                   </div>
+   
+      
+                   <table>
+                       <tbody>
+   
+                           <tr style="display: inline-flex;" *ngFor="let item of roomsList ">
+
+                               <mat-card class=" btblbtn " *ngIf="item.roomCrntStatusID == 1"
+                               style="background-color: rgb(150, 249, 3);">
+                               <span class="text-end p-1" >
+                                   <mat-icon class="text-center justify-content-center" style="width: 25px; height: 25px; font-size: 18px; background-color: white; border-radius: 50%;">hotel</mat-icon>
+                               </span>
+                              <span>
+                               {{item.roomTitle}}
+                              </span>
+                               </mat-card>
+
+                               
+                               <mat-card class=" btblbtn cursorPointer" (click)="changeRoomStatus(item)"  style="background-color: rgb(228, 219, 227);"
+                               *ngIf="item.roomCrntStatusID == 2">
+                               <span class="text-end p-1" >
+                                   <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">meeting_room</mat-icon>
+                               </span>
+                              <span>
+                               {{item.roomTitle}}
+                              </span>
+                               </mat-card>
+
+                               <mat-card class=" btblbtn cursorPointer" style="background-color: rgb(251, 172, 0);"
+                               (click)="changeRoomStatus(item)" *ngIf="item.roomCrntStatusID == 3">
+                               <span class="text-end p-1" >
+                                  <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">cleaning_services</mat-icon>
+                              </span>
+                             <span>
+                              {{item.roomTitle}}
+                             </span>
+                              </mat-card>
+
+                               <mat-card class=" btblbtn cursorPointer" style="background-color: rgb(9, 135, 246);" 
+                               (click)="changeRoomStatus(item)" *ngIf="item.roomCrntStatusID == 4">
+                               <span class="text-end p-1" >
+                                   <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">person_outline</mat-icon>
+                               </span>
+                              <span>
+                               {{item.roomTitle}}
+                              </span>
+                                   </mat-card>
+                              
+
+                           
+                               <mat-card class=" btblbtn " *ngIf="item.roomCrntStatusID == 5"
+                               style="background-color: rgb(247, 3, 3);">
+                               <span class="text-end p-1" >
+                                   <mat-icon class="text-center justify-content-center" style="width: 25px; height: 25px; font-size: 18px; background-color: white; border-radius: 50%;">no_meeting_room</mat-icon>
+                               </span>
+                              <span class="text-white">
+                               {{item.roomTitle}}
+                              </span>
+                               </mat-card>
+   
+                           </tr>
+                       </tbody>
+                   </table>
+               </mat-card>
+           
+           </div>
+ 
+            <!-------- Room Bookings Table ------------------->
+            <div class=" col-lg-12 mt-3" >
+
+                
+               
+            <mat-card class="p-4 statusTbl">
+
+                <div class="text-center justify-content-center border-bottom d-flex">
+                    <h4 style="letter-spacing: 5px;">BOOKINGS TABLE</h4>
+                    
+                </div>
+
+                <table class="w-100" style="background-color: rgb(239, 235, 234);">
+                    <tr *ngFor="let room of roomsList index as index">
+                        <th class="text-start ps-2 border-bottom" >{{index+1}} - {{room.roomTitle}}</th>
+                        <td  *ngFor="let item of daysList"><mat-card class="text-center justify-content-center" style="width:35px; height:35px;">{{item}}</mat-card></td>
+                    </tr>
+                </table>
+            </mat-card>
+
+
+            
             </div>
 
+
+     <!--     
             <div class="col-lg-3">
                 
                     <mat-card class=" p-4" >
@@ -165,7 +275,7 @@
                     
              
 
-            </div>
+            </div> -->
         </div>
 
 
