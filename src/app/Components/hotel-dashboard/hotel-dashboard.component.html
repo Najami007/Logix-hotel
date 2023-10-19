@@ -220,15 +220,178 @@
                
             <mat-card class="p-4 statusTbl">
 
-                <div class="text-center justify-content-center border-bottom d-flex">
+                <div class="text-center justify-content-between border-bottom d-flex">
                     <h4 style="letter-spacing: 5px;">BOOKINGS TABLE</h4>
+
+                    <mat-form-field class="col-lg-3" appearance="outline">
+                        <mat-label>Select Date</mat-label>
+                        <input readonly="true" matInput (dateChange)="getMonthlyBookings()"   [(ngModel)]="BookingTableDate"
+                            [matDatepicker]="picker" >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
                     
                 </div>
 
                 <table class="w-100" style="background-color: rgb(239, 235, 234);">
-                    <tr *ngFor="let room of roomsList index as index">
-                        <th class="text-start ps-2 border-bottom" >{{index+1}} - {{room.roomTitle}}</th>
-                        <td  *ngFor="let item of daysList"><mat-card class="text-center justify-content-center" style="width:35px; height:35px;">{{item}}</mat-card></td>
+                    <tr *ngFor="let item of bookingTableList index as index">
+                        <th class="text-start ps-2 border-bottom" >{{index+1}} - {{item.roomTitle}}</th>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d1 == 'E'" >1</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d1 == 'C'" >1</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d1 == 'B'" >1</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d2 == 'E'" >2</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d2 == 'C'" >2</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d2 == 'B'" >2</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d3 == 'E'" >3</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d3 == 'C'" >3</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d3 == 'B'" >3</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d4 == 'E'" >4</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d4 == 'C'" >4</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d4 == 'B'" >4</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d5 == 'E'" >5</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d5 == 'C'" >5</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d5 == 'B'" >5</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d6 == 'E'" >6</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d6 == 'C'" >6</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d6 == 'B'" >6</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d7 == 'E'" >7</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d7 == 'C'" >7</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d7 == 'B'" >7</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d8 == 'E'" >8</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d8 == 'C'" >8</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d8 == 'B'" >8</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d9 == 'E'" >9</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d9 == 'C'" >9</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d9 == 'B'" >9</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d10 == 'E'" >10</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d10 == 'C'" >10</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d10 == 'B'" >10</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d11 == 'E'" >11</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d11 == 'C'" >11</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d11 == 'B'" >11</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d12 == 'E'" >12</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d12 == 'C'" >12</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d12 == 'B'" >12</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d13 == 'E'" >13</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d13 == 'C'" >13</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d13 == 'B'" >13</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d14 == 'E'" >14</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d14 == 'C'" >14</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d14 == 'B'" >14</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d15 == 'E'" >15</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d15 == 'C'" >15</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d15 == 'B'" >15</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d16 == 'E'" >16</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d16 == 'C'" >16</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d16 == 'B'" >16</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d17 == 'E'" >17</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d17 == 'C'" >17</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d17 == 'B'" >17</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d18 == 'E'" >18</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d18 == 'C'" >18</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d18 == 'B'" >18</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d19 == 'E'" >19</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d19 == 'C'" >19</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d19 == 'B'" >19</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d20 == 'E'" >20</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d20 == 'C'" >20</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d20 == 'B'" >20</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d21 == 'E'" >21</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d21 == 'C'" >21</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d21 == 'B'" >21</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d22 == 'E'" >22</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d22 == 'C'" >22</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d22 == 'B'" >22</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d23 == 'E'" >23</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d23 == 'C'" >23</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d23 == 'B'" >23</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d24 == 'E'" >24</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d24 == 'C'" >24</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d24 == 'B'" >24</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d25 == 'E'" >25</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d25 == 'C'" >25</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d25 == 'B'" >25</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d26 == 'E'" >26</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d26 == 'C'" >26</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d26 == 'B'" >26</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d27 == 'E'" >27</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d27 == 'C'" >27</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d27 == 'B'" >27</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d28 == 'E'" >28</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d28 == 'C'" >28</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d28 == 'B'" >28</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d29 == 'E'" >29</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d29 == 'C'" >29</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d29 == 'B'" >29</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d30 == 'E'" >30</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d30 == 'C'" >30</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d30 == 'B'" >30</mat-card>
+                        </td>
+                        <td  >
+                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d31 == 'E'" >31</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d31 == 'C'" >31</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d31 == 'B'" >31</mat-card>
+                        </td>
+                        
                     </tr>
                 </table>
             </mat-card>

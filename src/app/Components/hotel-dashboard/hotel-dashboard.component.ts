@@ -43,6 +43,7 @@ export class HotelDashboardComponent implements OnInit {
     this.getCheckInOut();
     this.getRoom();
     this.getArrValue();   
+    this.getMonthlyBookings();  
   }
 
 
@@ -63,6 +64,8 @@ export class HotelDashboardComponent implements OnInit {
   totalRooms:any = 0;
   checkInRooms:any = 0;
   daysOfMonth:any;
+  BookingTableDate:any = new Date();
+  bookingTableList:any = [];
 
   daysList:any;
 
@@ -77,6 +80,17 @@ export class HotelDashboardComponent implements OnInit {
     
   }
 
+
+
+  getMonthlyBookings(){
+    // alert(this.globalData.dateFormater(this.BookingTableDate,'-'))
+    this.http.get(environment.mainApi+'monthlydashboard?todate='+this.globalData.dateFormater(this.BookingTableDate,'-')).subscribe(
+      (Response)=>{
+        this.bookingTableList = Response;
+        console.log(Response);
+      }
+    )
+  }
 
   getBookings(){
     this.http.get(environment.mainApi+'getbooking').subscribe(
