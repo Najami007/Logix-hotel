@@ -13,6 +13,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { RoomStatusComponent } from './room-status/room-status.component';
+import { AppComponent } from 'src/app/app.component';
 
 
 
@@ -31,6 +32,7 @@ export class HotelDashboardComponent implements OnInit {
     private http:HttpClient,
     private dialogue: MatDialog,
     private msg:NotificationService,
+    private app:AppComponent
   ){}
 
   ngOnInit(): void {
@@ -44,8 +46,11 @@ export class HotelDashboardComponent implements OnInit {
     this.getRoom();
     this.getArrValue();   
     this.getMonthlyBookings();  
+    
   }
 
+  bookingTableIcons:any = 'pan_tool';
+  roomStatusTableIcon:any = 'add';
 
   arrColor: ThemePalette = 'accent';
   arrModel: ProgressSpinnerMode = 'determinate';
@@ -81,15 +86,75 @@ export class HotelDashboardComponent implements OnInit {
   }
 
 
+  roomStautsTable(event:any):any{
+
+    if(event.roomCrntStatusID == 1){
+      this.roomStatusTableIcon = 'hotel';
+      return 'checkInBtn';
+
+    }
+
+    if(event.roomCrntStatusID == 2){
+      this.roomStatusTableIcon = 'meeting_room';
+      return 'emptyBtn';
+
+    }
+
+    if(event.roomCrntStatusID == 3){
+      this.roomStatusTableIcon = 'cleaning_services';
+      return 'cleanBtn';
+
+    }
+
+    if(event.roomCrntStatusID == 4){
+      this.roomStatusTableIcon = 'person_outline';
+      return 'personalUseBtn';
+
+    }
+
+    if(event.roomCrntStatusID == 5){
+      this.roomStatusTableIcon = 'no_meeting_room';
+      return 'outOfOrderBtn';
+
+    }
+
+  }
 
   getMonthlyBookings(){
+
+    // this.app.startLoaderDark();
+    
     // alert(this.globalData.dateFormater(this.BookingTableDate,'-'))
     this.http.get(environment.mainApi+'monthlydashboard?todate='+this.globalData.dateFormater(this.BookingTableDate,'-')).subscribe(
       (Response)=>{
         this.bookingTableList = Response;
-        console.log(Response);
+        // console.log(Response);
+        this.getRoom();
+        this.app.stopLoaderDark();
       }
     )
+  }
+
+  BookingTableClass(event:string):any{
+
+    if(event == 'E'){
+      this.bookingTableIcons = 'indeterminate_check_box';
+      return 'eColor';
+      
+    }
+
+    if(event == 'C'){
+      this.bookingTableIcons = 'hotel';
+      return 'cColor';
+    }
+
+    if(event == 'B'){
+      this.bookingTableIcons = 'contact_phone';
+      return 'bColor';
+    }
+
+    
+
   }
 
   getBookings(){
@@ -138,7 +203,7 @@ export class HotelDashboardComponent implements OnInit {
         // console.log(Response);
         
         
-     this.daysOfMonth = this.daysInMonth(this.curDate.getMonth()+1,this.curDate.getFullYear());
+     this.daysOfMonth = this.daysInMonth(this.BookingTableDate.getMonth()+1,this.BookingTableDate.getFullYear());
     
       this.daysList = [];
 
@@ -147,7 +212,8 @@ export class HotelDashboardComponent implements OnInit {
       this.daysList.push(i);
 
 
-   }
+    }
+ 
         
       }
     )
@@ -164,29 +230,19 @@ export class HotelDashboardComponent implements OnInit {
 
 
 
-
-
-  getDonutChart(){
-   
-  }
-
-
-
-
-
-
-
   
   changeRoomStatus(row:any){
-    this.dialogue.open(RoomStatusComponent,{
-      width:"40%",
-      data:row,
-
-    }).afterClosed().subscribe(val=>{
-      if(val == 'Update'){
-        this.getRoom();
-      }
-      
-    })
-  }
+    if(row.roomCrntStatusID != 1 ){
+      this.dialogue.open(RoomStatusComponent,{
+        width:"40%",
+        data:row,
+  
+      }).afterClosed().subscribe(val=>{
+        if(val == 'Update'){
+          this.getRoom();
+        }
+        
+      })
+    }
+    }
 }

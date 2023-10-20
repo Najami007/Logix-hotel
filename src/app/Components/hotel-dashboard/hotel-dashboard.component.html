@@ -153,59 +153,15 @@
    
                            <tr style="display: inline-flex;" *ngFor="let item of roomsList ">
 
-                               <mat-card class=" btblbtn " *ngIf="item.roomCrntStatusID == 1"
-                               style="background-color: rgb(150, 249, 3);">
-                               <span class="text-end p-1" >
-                                   <mat-icon class="text-center justify-content-center" style="width: 25px; height: 25px; font-size: 18px; background-color: white; border-radius: 50%;">hotel</mat-icon>
+                               <mat-card class=" btblbtn " (click)="changeRoomStatus(item)"  [ngClass]="roomStautsTable(item)"  >
+                               <span class="text-end p-1"  >
+                                   <mat-icon class="text-center justify-content-center" style="width: 25px; height: 25px; font-size: 18px;; border-radius: 50%;">{{roomStatusTableIcon}}</mat-icon>
                                </span>
                               <span>
                                {{item.roomTitle}}
                               </span>
                                </mat-card>
 
-                               
-                               <mat-card class=" btblbtn cursorPointer" (click)="changeRoomStatus(item)"  style="background-color: rgb(228, 219, 227);"
-                               *ngIf="item.roomCrntStatusID == 2">
-                               <span class="text-end p-1" >
-                                   <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">meeting_room</mat-icon>
-                               </span>
-                              <span>
-                               {{item.roomTitle}}
-                              </span>
-                               </mat-card>
-
-                               <mat-card class=" btblbtn cursorPointer" style="background-color: rgb(251, 172, 0);"
-                               (click)="changeRoomStatus(item)" *ngIf="item.roomCrntStatusID == 3">
-                               <span class="text-end p-1" >
-                                  <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">cleaning_services</mat-icon>
-                              </span>
-                             <span>
-                              {{item.roomTitle}}
-                             </span>
-                              </mat-card>
-
-                               <mat-card class=" btblbtn cursorPointer" style="background-color: rgb(9, 135, 246);" 
-                               (click)="changeRoomStatus(item)" *ngIf="item.roomCrntStatusID == 4">
-                               <span class="text-end p-1" >
-                                   <mat-icon style="width: 25px; height: 25px; background-color: white; border-radius: 50%;">person_outline</mat-icon>
-                               </span>
-                              <span>
-                               {{item.roomTitle}}
-                              </span>
-                                   </mat-card>
-                              
-
-                           
-                               <mat-card class=" btblbtn " *ngIf="item.roomCrntStatusID == 5"
-                               style="background-color: rgb(247, 3, 3);">
-                               <span class="text-end p-1" >
-                                   <mat-icon class="text-center justify-content-center" style="width: 25px; height: 25px; font-size: 18px; background-color: white; border-radius: 50%;">no_meeting_room</mat-icon>
-                               </span>
-                              <span class="text-white">
-                               {{item.roomTitle}}
-                              </span>
-                               </mat-card>
-   
                            </tr>
                        </tbody>
                    </table>
@@ -233,164 +189,111 @@
                     
                 </div>
 
-                <table class="w-100" style="background-color: rgb(239, 235, 234);">
+                <table class="w-100" >
+                    
+                    <tr class="fixedrow">
+                        <th class="fw-bold bg-white text-start ps-2 border-bottom border-dark">Room Title</th>
+                        <th *ngFor="let item of daysList"><mat-card  class="dateCard">{{item}}</mat-card></th>
+                    </tr>
+                    
                     <tr *ngFor="let item of bookingTableList index as index">
-                        <th class="text-start ps-2 border-bottom" >{{index+1}} - {{item.roomTitle}}</th>
+                        <td class="fw-bold text-start ps-2 border-bottom" >{{index+1}} - {{item.roomTitle}}</td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d1 == 'E'" >1</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d1 == 'C'" >1</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d1 == 'B'" >1</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d1) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d2 == 'E'" >2</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d2 == 'C'" >2</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d2 == 'B'" >2</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d2) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d3 == 'E'" >3</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d3 == 'C'" >3</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d3 == 'B'" >3</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d3) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d4 == 'E'" >4</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d4 == 'C'" >4</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d4 == 'B'" >4</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d4) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d5 == 'E'" >5</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d5 == 'C'" >5</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d5 == 'B'" >5</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d5) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d6 == 'E'" >6</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d6 == 'C'" >6</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d6 == 'B'" >6</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d6) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d7 == 'E'" >7</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d7 == 'C'" >7</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d7 == 'B'" >7</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d7) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d8 == 'E'" >8</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d8 == 'C'" >8</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d8 == 'B'" >8</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d8) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d9 == 'E'" >9</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d9 == 'C'" >9</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d9 == 'B'" >9</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d9) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d10 == 'E'" >10</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d10 == 'C'" >10</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d10 == 'B'" >10</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d10) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
+                           
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d11 == 'E'" >11</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d11 == 'C'" >11</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d11 == 'B'" >11</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d11) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d12 == 'E'" >12</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d12 == 'C'" >12</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d12 == 'B'" >12</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d12) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d13 == 'E'" >13</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d13 == 'C'" >13</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d13 == 'B'" >13</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d13) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d14 == 'E'" >14</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d14 == 'C'" >14</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d14 == 'B'" >14</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d14) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d15 == 'E'" >15</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d15 == 'C'" >15</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d15 == 'B'" >15</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d15) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d16 == 'E'" >16</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d16 == 'C'" >16</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d16 == 'B'" >16</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d16) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d17 == 'E'" >17</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d17 == 'C'" >17</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d17 == 'B'" >17</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d17) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d18 == 'E'" >18</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d18 == 'C'" >18</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d18 == 'B'" >18</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d18) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d19 == 'E'" >19</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d19 == 'C'" >19</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d19 == 'B'" >19</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d19) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d20 == 'E'" >20</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d20 == 'C'" >20</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d20 == 'B'" >20</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d20) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d21 == 'E'" >21</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d21 == 'C'" >21</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d21 == 'B'" >21</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d21) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d22 == 'E'" >22</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d22 == 'C'" >22</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d22 == 'B'" >22</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d22) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d23 == 'E'" >23</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d23 == 'C'" >23</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d23 == 'B'" >23</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d23) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d24 == 'E'" >24</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d24 == 'C'" >24</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d24 == 'B'" >24</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d24) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d25 == 'E'" >25</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d25 == 'C'" >25</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d25 == 'B'" >25</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d25) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d26 == 'E'" >26</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d26 == 'C'" >26</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d26 == 'B'" >26</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d26) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
                         <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d27 == 'E'" >27</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d27 == 'C'" >27</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d27 == 'B'" >27</mat-card>
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d27) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
-                        <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d28 == 'E'" >28</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d28 == 'C'" >28</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d28 == 'B'" >28</mat-card>
+                        <td >
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d28) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
-                        <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d29 == 'E'" >29</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d29 == 'C'" >29</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d29 == 'B'" >29</mat-card>
+                        <td  *ngIf="daysList.length >= 29">
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d29) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
-                        <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d30 == 'E'" >30</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d30 == 'C'" >30</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d30 == 'B'" >30</mat-card>
+
+                        <td  *ngIf="daysList.length >= 30">
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d30) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
-                        <td  >
-                            <mat-card class="text-center justify-content-center dateCard eColor" *ngIf="item.d31 == 'E'" >31</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard cColor" *ngIf="item.d31 == 'C'" >31</mat-card>
-                            <mat-card class="text-center justify-content-center dateCard bColor" *ngIf="item.d31 == 'B'" >31</mat-card>
+                        <td  *ngIf="daysList.length == 31">
+                            <mat-card class="text-center justify-content-center dateCard" [ngClass]="BookingTableClass(item.d31) "><mat-icon class="text-center ">{{bookingTableIcons}}</mat-icon></mat-card>
                         </td>
+                        
                         
                     </tr>
                 </table>

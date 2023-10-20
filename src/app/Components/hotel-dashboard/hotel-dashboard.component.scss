@@ -93,16 +93,52 @@
    .dateCard{
     width:35px;
      height:35px;
+     text-align: center;
+     justify-content: center;
+     align-items: center;
    }
 
 
    .eColor{
-    background-color: white;
+    // background-color: white;
+    color: rgb(255, 7, 7);
    }
 
    .bColor{
-    background-color: rgb(100, 243, 5);
+    // background-color: rgb(100, 243, 5);
+    color: rgb(253, 236, 1);
    }
    .cColor{
-    background-color: rgb(5, 147, 242);
+    // background-color: rgb(5, 147, 242);
+    color: rgb(3, 20, 255);
    }
+
+
+   .fixedrow {
+    // background: white;
+    position: sticky;
+    top: 128px;
+    z-index: 100;
+    // box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+  }
+
+
+  .emptyBtn{
+    background-color:  white;
+  }
+
+  .checkInBtn{
+    background-color:  greenyellow;
+  }
+
+  .cleanBtn{
+    background-color:  rgb(243, 194, 87);
+  }
+
+  .outOfOrderBtn{
+    background-color:  rgb(247, 3, 3);
+  }
+
+  .personalUseBtn{
+    background-color:  rgb(9, 135, 246);
+  }
