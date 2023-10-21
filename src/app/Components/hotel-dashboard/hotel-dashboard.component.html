@@ -59,8 +59,7 @@
 
                     </span>
                     <span class="cardText">
-                        <p  class="digitalFont">{{totalCheckIn
-                            |number}}</p>
+                        <p  class="digitalFont">{{totalCheckIn|number}}</p>
                         <h6 class=" fw-bold" style="color: rgb(115,115,115);"> TOTAL CHECK IN</h6>
                     </span>
                 </div>
@@ -176,8 +175,20 @@
                
             <mat-card class="p-4 statusTbl">
 
-                <div class="text-center justify-content-between border-bottom d-flex">
+                <div class="text-center justify-content-between border-bottom mb-2 d-flex">
                     <h4 style="letter-spacing: 5px;">BOOKINGS TABLE</h4>
+                    
+                    <div class="justify-content-center text-start d-flex">
+                        <span class="d-flex me-2">
+                            <mat-icon class="eColor">indeterminate_check_box</mat-icon> <p class="m-1">Empty</p> 
+                        </span>
+                        <span class="d-flex me-2">
+                            <mat-icon class="cColor">hotel</mat-icon> <p class="m-1">Checked IN</p>
+                         </span>
+                         <span class="d-flex me-2">
+                            <mat-icon class="bColor">contact_phone</mat-icon> <p class="m-1">Booked</p> 
+                         </span>
+                    </div>
 
                     <mat-form-field class="col-lg-3" appearance="outline">
                         <mat-label>Select Date</mat-label>

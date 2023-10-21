@@ -41,8 +41,8 @@ export class HotelDashboardComponent implements OnInit {
 
     this.globalData.setHeaderTitle('Hotel DashBoard');
 
-    this.getBookings();
-    this.getCheckInOut();
+    // this.getBookings();
+    // this.getCheckInOut();
     this.getRoom();
     this.getArrValue();   
     this.getMonthlyBookings();  
@@ -74,6 +74,9 @@ export class HotelDashboardComponent implements OnInit {
 
   daysList:any;
 
+
+  ////////////////////////////////////////////////////
+
   onStatusSelected(){
     
     if(this.searchRoom == 0){
@@ -85,6 +88,7 @@ export class HotelDashboardComponent implements OnInit {
     
   }
 
+  ////////////////////////////////////////////////////
 
   roomStautsTable(event:any):any{
 
@@ -120,9 +124,11 @@ export class HotelDashboardComponent implements OnInit {
 
   }
 
+  ////////////////////////////////////////////////////
+
   getMonthlyBookings(){
 
-    // this.app.startLoaderDark();
+    this.app.startLoaderDark();
     
     // alert(this.globalData.dateFormater(this.BookingTableDate,'-'))
     this.http.get(environment.mainApi+'monthlydashboard?todate='+this.globalData.dateFormater(this.BookingTableDate,'-')).subscribe(
@@ -130,10 +136,14 @@ export class HotelDashboardComponent implements OnInit {
         this.bookingTableList = Response;
         // console.log(Response);
         this.getRoom();
+        this.getBookings();
+        this.getCheckInOut();
         this.app.stopLoaderDark();
       }
     )
   }
+
+  ////////////////////////////////////////////////////
 
   BookingTableClass(event:string):any{
 
@@ -157,34 +167,41 @@ export class HotelDashboardComponent implements OnInit {
 
   }
 
+  ////////////////////////////////////////////////////
+
   getBookings(){
     this.http.get(environment.mainApi+'getbooking').subscribe(
     (Response:any)=>{
+      
+    
+      var bookings = Response.filter((e:any)=>e.bookingDate.substring(5,7) == this.BookingTableDate.getMonth()+1  );
+      var bookedRooms = Response.filter((e:any)=> e.bookingStatus == 'pending' && e.bookingDate.substring(5,7) == this.BookingTableDate.getMonth()  );
 
-      var bookedRooms = Response.filter((e:any)=>e.bookingStatus == 'pending');
-     
-    this.totalBookings = Response.length;
+    this.totalBookings = bookings.length;
     this.pendingBookings = bookedRooms.length;
      
     }
     )
   }
 
+  ////////////////////////////////////////////////////
 
   daysInMonth(month:any, year:any) {
     return new Date(year, month, 0).getDate();
 }
 
+////////////////////////////////////////////////////
 
   
   getCheckInOut(){
     this.http.get(environment.mainApi+'GetCIOHistory').subscribe(
       (Response:any)=>{
 
-        var checkOutList = Response.filter((e:any)=>e.activeStatus == false);
-        var checkInList = Response.filter((e:any)=>e.activeStatus == true);
+        
+        var checkOutList = Response.filter((e:any)=>e.activeStatus == false && e.checkInDate.substring(5,7) ==  this.BookingTableDate.getMonth()+1);
+        var checkInList = Response.filter((e:any)=>e.checkInDate.substring(5,7) ==  this.BookingTableDate.getMonth()+1);
        
-        this.totalCheckIn = Response.length;
+        this.totalCheckIn = checkInList.length;
         this.totalCheckOut = checkOutList.length;
         this.checkInRooms = checkInList.length;
         
@@ -193,6 +210,7 @@ export class HotelDashboardComponent implements OnInit {
    }
 
 
+   ////////////////////////////////////////////////////
 
    getRoom(){
     this.http.get(environment.mainApi+'GetRoom').subscribe(
@@ -220,6 +238,7 @@ export class HotelDashboardComponent implements OnInit {
 
   }
 
+  ////////////////////////////////////////////////////
 
   getArrValue(){
    setTimeout(() => {
@@ -228,7 +247,7 @@ export class HotelDashboardComponent implements OnInit {
   }
 
 
-
+////////////////////////////////////////////////////
 
   
   changeRoomStatus(row:any){

@@ -76,7 +76,7 @@ const routes: Routes = [
   {path:'rptlor',component:ListOfRoomsComponent,canActivate : [AuthGuard]},
   {path:'brptpw',component:BookingRptPartywiseComponent,canActivate : [AuthGuard]},
   {path:'ciorptrw',component:CioRptRoomWiseComponent,canActivate:[AuthGuard]},
-  {path:'htldb', component:HotelDashboardComponent},
+  {path:'htldb', component:HotelDashboardComponent,canActivate:[AuthGuard]},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
