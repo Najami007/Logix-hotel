@@ -37,7 +37,7 @@ export class DashBoardComponent implements OnInit{
 
   budget_Chart:Chart | undefined;
   Income_Detail_Chart:Chart | undefined;
-  prvious_Income_Detail_Chart:Chart | undefined;
+  Expense_Chart:Chart | undefined;
   room_Booking_Chart:Chart | undefined;
 
   
@@ -47,7 +47,7 @@ export class DashBoardComponent implements OnInit{
     this.getBudget();
     this.GetIncExp();
     this.getIncome();
-    this.getPrviousMonthIncome();
+    this.getExpense();
     this.getBookings();
     this.globalData.setHeaderTitle('DashBoard');
   
@@ -85,8 +85,8 @@ export class DashBoardComponent implements OnInit{
    IncomeHeadsList:any = [];
    IncomeHeadsAmountList:any = [];
 
-   prevMonthIncomeHeadsList:any = [];
-   prevMonthIncomeAmountList:any = []
+   ExpenseHeadsList:any = [];
+   ExpeseDetailList:any = []
    
   
 
@@ -293,7 +293,7 @@ export class DashBoardComponent implements OnInit{
     this.IncomeHeadsAmountList = [];
   
 
-    this.http.get(environment.mainApi+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.firstDay,'-')+'&todate='
+    this.http.get(environment.mainApi+'getIncomeChart?fromdate='+this.globalData.dateFormater(this.firstDay,'-')+'&todate='
       +this.globalData.dateFormater(this.lastDay,'-')).subscribe(
         (Response:any)=>{
 
@@ -319,7 +319,7 @@ export class DashBoardComponent implements OnInit{
         if(Response != null){
           Response.forEach((obj:any) => {
 
-            var amount = (obj.credit - obj.debit).toFixed();
+            var amount = (obj.credit).toFixed();
             this.IncomeHeadsList.push(obj.coaTitle);
             var tmpArry:any = [];
             tmpArry.push(obj.coaTitle, parseFloat(amount), false);
@@ -373,15 +373,15 @@ export class DashBoardComponent implements OnInit{
   ///////////////////////////////////////////////////////
 
 
-  getPrviousMonthIncome(){
+  getExpense(){
    
-    this.prevMonthIncomeHeadsList = [];
-    this.prevMonthIncomeAmountList = [];
+    this.ExpenseHeadsList = [];
+    this.ExpeseDetailList = [];
     
 
 
-    this.http.get(environment.mainApi+'GetProfitDetailRpt?fromdate='+this.globalData.dateFormater(this.priviousMonthFirstDay,'-')+'&todate='
-      +this.globalData.dateFormater(this.priviousMonthLastDay,'-')).subscribe(
+    this.http.get(environment.mainApi+'getExpenseChart?fromdate='+this.globalData.dateFormater(this.firstDay,'-')+'&todate='
+      +this.globalData.dateFormater(this.lastDay,'-')).subscribe(
         (Response:any)=>{
 
           // this.IncomeHeadsList = [
@@ -404,16 +404,16 @@ export class DashBoardComponent implements OnInit{
            Response.forEach((obj:any) => {
 
 
-            var amount = (obj.credit - obj.debit).toFixed();
-            this.prevMonthIncomeHeadsList.push(obj.coaTitle);
+            var amount = (obj.debit).toFixed();
+            this.ExpenseHeadsList.push(obj.coaTitle);
             var tmpArry:any = [];
             tmpArry.push(obj.coaTitle, parseFloat(amount), false);
-            this.prevMonthIncomeAmountList.push(tmpArry);
+            this.ExpeseDetailList.push(tmpArry);
             
           });
           
          }
-            this.previousIncomeDetailPieChart();
+            this.expensePieChart();
 
         },
         (Error)=>{
@@ -422,22 +422,22 @@ export class DashBoardComponent implements OnInit{
       )
   }
 
-  previousIncomeDetailPieChart() {
+  expensePieChart() {
     let chart = new Chart({
       chart: {
         styledMode: false,
       },
 
       title: {
-        text: 'INCOME ANALYSIS',
+        text: 'EXPENSE ANALYSIS',
       },
       subtitle: {
-        text: 'PREVIOUS MONTH'
+        text: 'CURRENT MONTH'
            
     },
 
       xAxis: {
-        categories: this.prevMonthIncomeHeadsList,
+        categories: this.ExpenseHeadsList,
       },
 
       series: [
@@ -447,12 +447,12 @@ export class DashBoardComponent implements OnInit{
           
           keys: ['name', 'y', 'selected', 'sliced'],
           //keys: ['y', 'selected', 'sliced'],
-          data: this.prevMonthIncomeAmountList ,   
+          data: this.ExpeseDetailList ,   
            showInLegend: true,
         },
       ],
     });
-    this.prvious_Income_Detail_Chart = chart;
+    this.Expense_Chart = chart;
   }
 
 

@@ -91,6 +91,8 @@ import { NotificationService } from './Shared/service/notification.service';
 import { HotelDashboardComponent } from './Components/hotel-dashboard/hotel-dashboard.component';
 import { CioRptRoomWiseComponent } from './Reports/cio-rpt-room-wise/cio-rpt-room-wise.component';
 import { RoomStatusComponent } from './Components/hotel-dashboard/room-status/room-status.component';
+import { CustomerCheckInRptComponent } from './Reports/customer-check-in-rpt/customer-check-in-rpt.component';
+import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-comparison-rpt.component';
 
 
 
@@ -184,6 +186,8 @@ import { RoomStatusComponent } from './Components/hotel-dashboard/room-status/ro
     HotelDashboardComponent,
     CioRptRoomWiseComponent,
     RoomStatusComponent,
+    CustomerCheckInRptComponent,
+    RoomComparisonRptComponent,
  
     
     

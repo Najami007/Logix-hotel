@@ -21,8 +21,7 @@
 //  }
 
  .digitalFont{
-  font-family:  'digital';
-  font-size: 40px;
+  font-family:  'digital' !important;
  }
 
  .cardIcon{
@@ -36,6 +35,15 @@
  .cardText{
   margin-top: 10px;
   margin-left: 10px;
+  h6{
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(115, 114, 115);
+  }
+  p{
+    font-family:  'digital';
+    font-size: 40px;
+  }
  }
 
  .maticon{

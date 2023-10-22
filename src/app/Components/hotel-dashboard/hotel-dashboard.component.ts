@@ -57,7 +57,12 @@ export class HotelDashboardComponent implements OnInit {
   arrValue = 70;
   
   searchRoom:any = 0;
-  statusList:any = [{id:0 ,title:'All'} ,{id:1 ,title:'On Rent'} , {id:2 ,title:'Empty'} , {id:3 ,title:'Cleaning'} , {id:4 ,title:'Personal Use'} , {id:5 ,title:'Out Of Order'}]
+  statusList:any = [{id:0 ,title:'All'} ,
+   {id:1 ,title:'On Rent'} ,
+   {id:2 ,title:'Empty'} , 
+   {id:3 ,title:'Cleaning'} , 
+   {id:4 ,title:'Personal Use'} ,
+    {id:5 ,title:'Out Of Order'}]
 
   totalBookings:any = 0;
   pendingBookings:any = 0;
@@ -78,13 +83,17 @@ export class HotelDashboardComponent implements OnInit {
   ////////////////////////////////////////////////////
 
   onStatusSelected(){
+    this.app.startLoaderDark();
     
     if(this.searchRoom == 0){
-      this.getRoom();
+      this.roomsList = this.reuseRoomList;
+      this.app.stopLoaderDark();
     }else{
-      this.roomsList = this.reuseRoomList.filter((e:any)=>e.roomCrntStatusID == this.searchRoom);
-    }
 
+      this.roomsList = this.reuseRoomList.filter((e:any)=>e.roomCrntStatusID == this.searchRoom);
+      this.app.stopLoaderDark();
+    }
+    this.app.stopLoaderDark();
     
   }
 

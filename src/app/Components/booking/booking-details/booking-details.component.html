@@ -114,11 +114,11 @@
                 <tbody>
                     <tr>
                         <td>{{lblRoomTitle}}</td>
-                        <td>{{lblRentPerDay |number}}</td>
+                        <td>{{lblRentPerDay |number:'1.0-0'}}</td>
                         <td>{{lblTotalDays}}</td>
-                        <td>{{lblTotalDays * lblRentPerDay |number}}</td>
-                        <td>{{lblPaidAmount |number}}</td>
-                        <td>{{(lblTotalDays * lblRentPerDay) -lblPaidAmount |number}}</td>
+                        <td>{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
+                        <td>{{lblPaidAmount |number:'1.0-0'}}</td>
+                        <td>{{(lblTotalDays * lblRentPerDay) -lblPaidAmount |number:'1.0-0'}}</td>
                     </tr>
                 </tbody>
                

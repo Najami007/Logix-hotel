@@ -75,17 +75,17 @@
                         <td>{{item.serviceTitle}}</td>
                         <td>{{item.serviceDate | date:'short'}}</td>
                         <td class="text-end">{{item.quantity |number}}</td>
-                        <td class="text-end">{{item.serviceCharges |number}}</td>
-                        <td class="text-end">{{item.amountCharged |number}}</td>
-                        <td class="text-end">{{item.quantity * item.amountCharged |number}}</td>
+                        <td class="text-end">{{item.serviceCharges |number:'1.0-0'}}</td>
+                        <td class="text-end">{{item.amountCharged |number:'1.0-0'}}</td>
+                        <td class="text-end">{{item.quantity * item.amountCharged |number:'1.0-0'}}</td>
                     </tr>
                   
                     <tr >
                         <th colspan="4" class="text-center">Total</th>
                         <th class="text-end">{{totalQuantity |number}}</th>
-                        <th class="text-end">{{totalServiceCharges |number}}</th>
-                        <th class="text-end">{{totalAmountCharges |number}}</th>
-                        <th class="text-end">{{totalAmount |number}}</th>
+                        <th class="text-end">{{totalServiceCharges |number:'1.0-0'}}</th>
+                        <th class="text-end">{{totalAmountCharges |number:'1.0-0'}}</th>
+                        <th class="text-end">{{totalAmount |number:'1.0-0'}}</th>
                     </tr>
                 </tbody>
 

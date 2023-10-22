@@ -97,16 +97,16 @@
                         <td>{{item.dateOfDeparture | date:'yyyy-MM-dd'}} </td>
 
                         <td>{{item.bookingStatus}} </td>
-                        <td>{{item.rentPerDay * item.totalDays |number}}</td>
-                        <td>{{item.advancePaid | number}}</td>
+                        <td>{{item.rentPerDay * item.totalDays |number:'1.0-0'}}</td>
+                        <td>{{item.advancePaid | number:'1.0-0'}}</td>
 
 
                     </tr>
                     <tr *ngIf="rentTotal != 0">
                         <td colspan="7"></td>
                         <td class="fw-bold">Total</td>
-                        <td class="fw-bold">{{rentTotal |number}}</td>
-                        <td class="fw-bold">{{advanceTotal |number}}</td>
+                        <td class="fw-bold">{{rentTotal |number:'1.0-0'}}</td>
+                        <td class="fw-bold">{{advanceTotal |number:'1.0-0'}}</td>
                     </tr>
 
                 </tbody>

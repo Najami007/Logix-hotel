@@ -144,7 +144,7 @@
                             <h1 class="text-center text-dark" style="font-size: 50px;">Total</h1>
 
                             <h1 class="text-center text-danger pt-5" style="font-size: 50px;">{{billTotal
-                                |number:'1.0-0'}}</h1>
+                                |number:'1.0-1'}}</h1>
                         </mat-card>
 
                     </div>
@@ -217,16 +217,16 @@
                                 <tr *ngFor="let item of serviceTableList index as index">
                                     <td>{{index+1}}</td>
                                     <td>{{item.serviceTitle}}</td>
-                                    <td>{{item.AmountCharged |number}}</td>
+                                    <td>{{item.AmountCharged |number:'1.0-1'}}</td>
                                     <td>{{item.Quantity |number}}</td>
-                                    <td>{{item.AmountCharged * item.Quantity |number}}</td>
+                                    <td>{{item.AmountCharged * item.Quantity |number:'1.0-1'}}</td>
                                     <td>{{item.ServiceDate | date:'yyyy-MM-dd'}} ({{item.ServiceTime}})</td>
                                     <td (click)="deleteService(item)"><mat-icon
                                             class="text-danger cursorPointer">delete</mat-icon></td>
                                 </tr>
                                 <tr *ngIf="serviceTableList != ''">
                                     <th colspan="4"> Total</th>
-                                    <th>{{servicesTotalAmount | number}}</th>
+                                    <th>{{servicesTotalAmount | number:'1.0-1'}}</th>
                                     <td colspan="2"></td>
                                 </tr>
                             </tbody>
@@ -296,6 +296,7 @@
             <hr>
 
             <div>
+                <mat-progress-bar mode="indeterminate" *ngIf="loadingBar == 'start'"></mat-progress-bar>
                 <table class="table">
                     <thead>
                         <th>S#</th>
@@ -327,7 +328,7 @@
                             <td>{{item.checkInDate | date:'short'}}</td>
                             <td *ngIf="item.activeStatus == false">{{item.checkOutDate | date:'short'}}</td>
 
-                            <td>{{(item.rentPerDay * item.totalDays) + (item.servicesTotalAmount) |number}}</td>
+                            <td>{{(item.rentPerDay * item.totalDays) + (item.servicesTotalAmount) |number:'1.0-0'}}</td>
                             <td>{{item.cioRemarks}}</td>
                             <td *ngIf="item.activeStatus == true" class="text-success text-center cursorPointer "
                                 (click)="addNewService(item)"><mat-icon>add_box</mat-icon></td>
@@ -466,8 +467,8 @@
                                 <td>1</td>
                                 <td>{{lblRoomNo}}</td>
                                 <td class="text-end">{{lblTotalDays |number}}</td>
-                                <td class="text-end">{{lblRentPerDay |number}}</td>
-                                <td class="text-end"> {{lblTotalDays * lblRentPerDay |number}}</td>
+                                <td class="text-end">{{lblRentPerDay |number:'1.0-0'}}</td>
+                                <td class="text-end"> {{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -499,14 +500,14 @@
                                 <td>{{item.serviceTitle}}</td>
                                 <td>{{item.serviceDate |date:'short'}}</td>
                                 <td class="text-end">{{item.quantity |number}}</td>
-                                <td class="text-end">{{item.amountCharged |number}}</td>
-                                <td class="text-end">{{item.amountCharged * item.quantity |number}}</td>
+                                <td class="text-end">{{item.amountCharged |number:'1.0-0'}}</td>
+                                <td class="text-end">{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
                             
 
                             </tr>
                             <tr>
                                 <td class="fw-bold text-center" colspan="5">Total</td>     
-                                <td class="fw-bold text-end">{{lblServicesAmount |number}}</td>
+                                <td class="fw-bold text-end">{{lblServicesAmount |number:'1.0-0'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -517,20 +518,20 @@
 
                 <span class="row text-end  border-bottom border-dark mb-1 ">
                     <h4 class="w-75 fw-bold">Total</h4>
-                    <h4 class="w-25 text-end">{{lblRentPerDay * lblTotalDays + lblServicesAmount |number}}</h4>
+                    <h4 class="w-25 text-end">{{lblRentPerDay * lblTotalDays + lblServicesAmount |number:'1.0-0'}}</h4>
                 </span>
 
                 <div *ngIf=" lblDiscount != 0">
                     <span class="row text-end  border-bottom border-dark mb-1" *ngIf="lblActiveStatus == false">
                         <h4 class="w-75 fw-bold ">Discount</h4>
-                        <h4 class="w-25 text-end">{{lblDiscount|number}}</h4>
+                        <h4 class="w-25 text-end">{{lblDiscount|number:'1.0-0'}}</h4>
                     </span>
                 </div>
 
                 <span class="row text-end   border-bottom border-dark mb-1" *ngIf="lblActiveStatus == false">
                     <h4 class="w-75 fw-bold ">Net Total</h4>
                     <h4 class="w-25 text-end">{{(lblRentPerDay * lblTotalDays + lblServicesAmount) -
-                        lblDiscount|number}}</h4>
+                        lblDiscount|number:'1.0-0'}}</h4>
                 </span>
 
 
@@ -614,7 +615,7 @@
 
                         <tr>
                             <td class="fw-bold">Charges:</td>
-                            <td>{{lblRentPerDay * lblTotalDays + lblServicesAmount |number}}</td>
+                            <td>{{lblRentPerDay * lblTotalDays + lblServicesAmount |number:'1.0-0'}}</td>
                         </tr>
                        </tbody>
                     </table>

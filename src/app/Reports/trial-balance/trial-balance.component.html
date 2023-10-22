@@ -106,23 +106,23 @@
                      <td class=" ps-2 ">{{index+1}}</td>
                      <td class=" ps-2 ">{{item.accountCode}}</td>
                      <td class=" fw-bold ps-2 ">{{item.coaTitle}}</td>
-                     <td class=" text-end" >{{item.oDebit |number}}</td>
-                     <td class=" text-end">{{item.oCredit |number}}</td>
-                     <td class=" text-end">{{item.debit |number}}</td>
-                     <td class=" text-end" >{{item.credit |number}}</td>
-                     <td class=" text-end">{{item.cDebit |number}}</td>
-                     <td class=" text-end">{{item.cCredit |number}}</td>
+                     <td class=" text-end" >{{item.oDebit |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{item.oCredit |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{item.debit |number:'1.0-0'}}</td>
+                     <td class=" text-end" >{{item.credit |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{item.cDebit |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{item.cCredit |number:'1.0-0'}}</td>
 
                  </tr>
                  <br>
                  <tr class="fw-bold">
                      <td  colspan="3">Total</td>
-                     <td class=" text-end">{{oDebitTotal|number}}</td>
-                     <td class=" text-end">{{oCreditTotal |number}}</td>
-                     <td class=" text-end">{{debitTotal |number}}</td>
-                     <td class="  text-end">{{creditTotal |number}}</td>
-                     <td class=" text-end">{{cDebitTotal |number}}</td>
-                     <td class=" text-end">{{cCreditTotal |number}}</td>
+                     <td class=" text-end">{{oDebitTotal|number:'1.0-0'}}</td>
+                     <td class=" text-end">{{oCreditTotal |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{debitTotal |number:'1.0-0'}}</td>
+                     <td class="  text-end">{{creditTotal |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{cDebitTotal |number:'1.0-0'}}</td>
+                     <td class=" text-end">{{cCreditTotal |number:'1.0-0'}}</td>
 
                  </tr>
 
@@ -170,8 +170,8 @@
                 <thead > 
                     <tr class="text-center">
                         <th colspan="8" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{row.noteTitle}}</th>
-                        <!-- <th colspan="1" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{row.debitTotal | number}}</th>
-                        <th colspan="1" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{row.creditTotal | number}}</th> -->
+                        <!-- <th colspan="1" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{row.debitTotal | number:'1.0-0'}}</th>
+                        <th colspan="1" class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{row.creditTotal | number:'1.0-0'}}</th> -->
                     </tr>
                 </thead>
             
@@ -180,12 +180,12 @@
 
                             <td class=" ps-2 col-lg-2">{{item.accountCode}}</td>
                             <td class=" fw-bold ps-2 col-lg-2 ">{{item.coaTitle}}</td>
-                            <td class=" text-end col-lg-1 " >{{item.oDebit |number}}</td>
-                            <td class=" text-end col-lg-1 ">{{item.oCredit |number}}</td>
-                            <td class=" text-end col-lg-1 ">{{item.debit |number}}</td>
-                            <td class=" text-end col-lg-1 " >{{item.credit |number}}</td>
-                            <td class=" text-end col-lg-1 ">{{item.cDebit |number}}</td>
-                            <td class=" text-end col-lg-1 ">{{item.cCredit |number}}</td>
+                            <td class=" text-end col-lg-1 " >{{item.oDebit |number:'1.0-0'}}</td>
+                            <td class=" text-end col-lg-1 ">{{item.oCredit |number:'1.0-0'}}</td>
+                            <td class=" text-end col-lg-1 ">{{item.debit |number:'1.0-0'}}</td>
+                            <td class=" text-end col-lg-1 " >{{item.credit |number:'1.0-0'}}</td>
+                            <td class=" text-end col-lg-1 ">{{item.cDebit |number:'1.0-0'}}</td>
+                            <td class=" text-end col-lg-1 ">{{item.cCredit |number:'1.0-0'}}</td>
                         </tr>
 
 
@@ -197,8 +197,8 @@
 
                     <tr>
                         <td colspan="6" class=" ps-2 text-center "><b> TOTAL </b></td>
-                        <td class=" text-end"><b>{{row.debitTotal |number}}</b></td>
-                        <td class=" text-end"><b>{{row.creditTotal |number}}</b></td>
+                        <td class=" text-end"><b>{{row.debitTotal |number:'1.0-0'}}</b></td>
+                        <td class=" text-end"><b>{{row.creditTotal |number:'1.0-0'}}</b></td>
                     </tr>
                     
                 </tbody>
@@ -208,12 +208,12 @@
             <table class="table-logix table">
                 <tr class="fw-bold">
                     <td  colspan="3">Total</td>
-                    <td class="col-lg-1 ">{{oDebitTotal|number}}</td>
-                    <td class="col-lg-1 ">{{oCreditTotal |number}}</td>
-                    <td class="col-lg-1 ">{{debitTotal |number}}</td>
-                    <td class="col-lg-1  ">{{creditTotal |number}}</td>
-                    <td class="col-lg-1 ">{{cDebitTotal |number}}</td>
-                    <td class="col-lg-1 ">{{cCreditTotal |number}}</td>
+                    <td class="col-lg-1 ">{{oDebitTotal|number:'1.0-0'}}</td>
+                    <td class="col-lg-1 ">{{oCreditTotal |number:'1.0-0'}}</td>
+                    <td class="col-lg-1 ">{{debitTotal |number:'1.0-0'}}</td>
+                    <td class="col-lg-1  ">{{creditTotal |number:'1.0-0'}}</td>
+                    <td class="col-lg-1 ">{{cDebitTotal |number:'1.0-0'}}</td>
+                    <td class="col-lg-1 ">{{cCreditTotal |number:'1.0-0'}}</td>
 
                 </tr>
             </table>

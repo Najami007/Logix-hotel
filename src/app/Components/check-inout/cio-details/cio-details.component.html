@@ -1,4 +1,4 @@
-<div class="container-fluid p-3" style="overflow-y: scroll;">
+<div class="container-fluid  p-3" style="overflow: scroll; height: 600px;">
     
     <div class="d-flex justify-content-between cursorPointer p-2 border-bottom">
         <p class="dialogueTitle">CIO Voucher Details</p>
@@ -67,8 +67,8 @@
                 <td>1</td>
                 <td>{{lblRoomNo}}</td>
                 <td>{{lblTotalDays |number}}</td>
-                <td>{{lblRentPerDay |number}}</td>
-                <td>{{lblTotalDays * lblRentPerDay |number}}</td>
+                <td>{{lblRentPerDay |number:'1.0-0'}}</td>
+                <td>{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
             </tr>
         </tbody>
     </table>
@@ -96,14 +96,14 @@
                 <td>{{index+1}}</td>
                 <td>{{item.serviceTitle}}</td>
                 <td>{{item.quantity |number}}</td>
-                <td>{{item.amountCharged |number}}</td>
-                <td>{{item.amountCharged * item.quantity |number}}</td>
+                <td>{{item.amountCharged |number:'1.0-0'}}</td>
+                <td>{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
                 <td>{{item.serviceDate |date:'short'}}</td>
                 
             </tr>
             <tr>
                 <td class="fw-bold" colspan="4">Total</td>
-                <td class="fw-bold" >{{lblServicesAmount |number}}</td>
+                <td class="fw-bold" >{{lblServicesAmount |number:'1.0-0'}}</td>
                 <td></td>
             </tr>
         </tbody>
@@ -131,12 +131,12 @@
                 <td>{{item.invoiceNo}}</td>
                 <td>{{item.paymentDate |date:'yyyy-MM-dd'}}</td>
                 <td>{{item.cioRemarks}}</td>
-                <td>{{item.paymentAmount | number}}</td>
+                <td>{{item.paymentAmount | number:'1.0-0'}}</td>
                 
             </tr>
             <tr>
                 <td colspan="4"></td>
-                <th>{{paymentAmountTotal |number}}</th>
+                <th>{{paymentAmountTotal |number:'1.0-0'}}</th>
             </tr>
         </tbody>
     </table>
@@ -149,24 +149,24 @@
    
     <span class="w-100 text-end row border-bottom border-dark mb-1 ">
         <h4 class="w-75 fw-bold border-dark">Total</h4>
-        <h4 class="w-25 text-end">{{lblRentPerDay * lblTotalDays + lblServicesAmount |number}}</h4>
+        <h4 class="w-25 text-end">{{lblRentPerDay * lblTotalDays + lblServicesAmount |number:'1.0-0'}}</h4>
     </span>
 
    
 
     <span class="w-100 text-end row border-bottom border-dark mb-1" *ngIf="lblActiveStatus == false" >
         <h4 class="w-75 fw-bold border-dark">Discount</h4>
-        <h4 class="w-25 text-end">{{lblDiscount|number}}</h4>
+        <h4 class="w-25 text-end">{{lblDiscount|number:'1.0-0'}}</h4>
     </span>
 
     <span class="w-100 text-end row  border-bottom border-dark mb-1" *ngIf="lblActiveStatus == false">
         <h4 class="w-75 fw-bold border-dark">Net Total</h4>
-        <h4 class="w-25 text-end">{{(lblRentPerDay * lblTotalDays + lblServicesAmount) - lblDiscount|number}}</h4>
+        <h4 class="w-25 text-end">{{(lblRentPerDay * lblTotalDays + lblServicesAmount) - lblDiscount|number:'1.0-0'}}</h4>
     </span>
 
     <span class="w-100 text-end row border-bottom border-dark mb-1" *ngIf="lblActiveStatus == true" >
         <h4 class="w-75 fw-bold border-dark">Received</h4>
-        <h4 class="w-25 text-end">{{paymentAmountTotal|number}}</h4>
+        <h4 class="w-25 text-end">{{paymentAmountTotal|number:'1.0-0'}}</h4>
     </span>
     
 </div>

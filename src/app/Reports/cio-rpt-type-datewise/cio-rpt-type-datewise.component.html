@@ -80,7 +80,7 @@
                     <tr *ngFor="let item of reportData index as index">
                         <td>{{index+1}}</td>
                         <td (click)="getDetails(item)"><span
-                                class="text-primary cursorPointer border-bottom border-primary">{{item.checkinoutID}}</span>
+                                class="text-primary cursorPointer border-bottom border-primary">{{item.checkinoutID |number}}</span>
                         </td>
                         <td>{{item.roomTitle}}</td>
                         <td>{{item.partyName}}</td>

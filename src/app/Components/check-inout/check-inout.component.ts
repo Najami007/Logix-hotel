@@ -19,7 +19,7 @@ import { PaymentComponent } from './payment/payment.component';
   styleUrls: ['./check-inout.component.scss']
 })
 export class CheckINOUtComponent implements OnInit {
-
+  loadingBar= "start";
   today = new Date();
 
   page:number = 1;
@@ -539,6 +539,7 @@ export class CheckINOUtComponent implements OnInit {
 
         this.savedVoucherList = Response;
         this.checkInOutList = Response.filter((e:any)=>e.activeStatus == true);
+        this.loadingBar = 'Stop';
        
 
        // console.log(Response);

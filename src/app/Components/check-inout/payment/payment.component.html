@@ -56,7 +56,7 @@
                 <tr *ngFor="let item of paymentHistoryList index as index">
                     <td>{{index+1}}</td>
                     <td>{{item.paymentDate |date:'yyyy-MM-dd'}}</td>
-                    <td>{{item.paymentAmount | number}}</td>
+                    <td>{{item.paymentAmount | number:'1.0-0'}}</td>
                     <td>{{item.cioRemarks}}</td>
                     <td><mat-icon *ngIf="item.approvedStatus == false " class="text-danger cursorPointer" (click)="deletePayment(item)">delete</mat-icon>
                         <mat-icon *ngIf="item.approvedStatus == true " class="text-warning">delete_forever</mat-icon></td>

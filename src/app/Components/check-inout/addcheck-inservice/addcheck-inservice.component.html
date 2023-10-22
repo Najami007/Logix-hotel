@@ -63,10 +63,10 @@
                 <tr *ngFor="let item of savedServicesList index as index">
                     <td>{{index+1}}</td>
                     <td>{{item.serviceTitle}}</td>
-                    <td>{{item.serviceCharges |number}}</td>
-                    <td>{{item.quantity |number}}</td>
-                    <td>{{item.amountCharged |number}}</td>
-                    <td>{{item.amountCharged * item.quantity |number}}</td>
+                    <td>{{item.serviceCharges |number:'1.0-0'}}</td>
+                    <td>{{item.quantity |number:'1.0-0'}}</td>
+                    <td>{{item.amountCharged |number:'1.0-0'}}</td>
+                    <td>{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
                     <td>{{item.serviceDate |date:'short'}}</td>
                     <td class="text-danger cursorPointer" (click)="deleteService(item)"><mat-icon>delete</mat-icon></td>
                    

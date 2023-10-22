@@ -62,7 +62,7 @@
                                 <tr *ngFor="let item of budgetData;index as index">
                                     <td>{{index+1}}</td>
                                     <td>{{item.coaTitle}}</td>
-                                    <td>{{item.budgetAmount |number}}</td>
+                                    <td>{{item.budgetAmount |number:'1.0-0'}}</td>
                                     <td (click)="delRow(item)" class="text-danger cursorPointer"><mat-icon>delete</mat-icon></td>
                                 </tr>
                                
@@ -75,7 +75,7 @@
                     <mat-card class="p-3  shadow bg-light text-center m-1" style="height: 500px;">
                           <h1 class=" mt-5 ">Total</h1>
 
-                          <span class="mt-4 text-danger"  style="font-size: 50px;">{{TotalAmount | number}}</span>
+                          <span class="mt-4 text-danger"  style="font-size: 50px;">{{TotalAmount | number:'1.0-0'}}</span>
 
 
                           <mat-form-field class="w-100 mt-5" appearance="outline">
@@ -114,7 +114,7 @@
                             <td>{{index+1}}</td>
                             <td>{{item.budgetDate |date:'yyyy-MM'}}</td>
                             <td>{{item.description}}</td>
-                            <td>{{item.budgetAmount |number}}</td>
+                            <td>{{item.budgetAmount |number:'1.0-0'}}</td>
                            
                             <td class="cursorPointer">
                                 <mat-icon class="text-danger" *ngIf="item.approvedStatus == false" (click)="approveBudget(item)">check</mat-icon>
@@ -189,12 +189,12 @@
                             <tr *ngFor="let item of lblBudgetData;index as index">
                                 <td>{{index+1}}</td>
                                 <td>{{item.coaTitle}}</td>
-                                <td>{{item.budgetAmount|number}}</td>
+                                <td>{{item.budgetAmount|number:'1.0-0'}}</td>
                             </tr>
 
                             <tr>
                                 <th colspan="2" class="text-center">Total</th>
-                                <th>{{lblBudgetTotal |number}}</th>
+                                <th>{{lblBudgetTotal |number:'1.0-0'}}</th>
                             </tr>
                         </tbody>
                     </table>

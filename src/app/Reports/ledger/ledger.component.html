@@ -93,12 +93,12 @@
                         <th class="fw-normal text-center">{{i+1}}</th>
                         <th class="fw-normal text-center">{{item.invoiceDate | date:'yyyy-MM-dd'}}</th>
                         <th class="fw-normal text-center cursorPointer text-primary " data-bs-toggle="modal" data-bs-target="#invoiceDetailModel" 
-                        (click)="getInvoiceDetail(item.invoiceNo)"><span class="border-bottom">{{item.invoiceNo}}</span></th>
+                        (click)="getInvoiceDetail(item.invoiceNo)"><span class="border-bottom">{{item.invoiceNo |number}}</span></th>
                         <th class="fw-normal text-start">{{item.particular}}</th>
                         <th class="fw-normal text-start">{{item.invoiceRemarks}}</th>
-                        <th class="fw-normal text-end">{{item.debit |number}}</th>
-                        <th class="fw-normal text-end">{{item.credit |number}}</th>
-                        <th class="fw-normal text-end">{{item.balance |number}}</th>
+                        <th class="fw-normal text-end">{{item.debit |number:'1.0-0'}}</th>
+                        <th class="fw-normal text-end">{{item.credit |number:'1.0-0'}}</th>
+                        <th class="fw-normal text-end">{{item.balance |number:'1.0-0'}}</th>
                         
                         
 
@@ -106,9 +106,9 @@
                     <br>
                     <tr class="fw-bold">
                         <td class="text-end text-center" colspan="5">Total</td>
-                        <td class="text-end">{{debitTotal |number}}</td>
-                        <td class="text-end">{{creditTotal |number}}</td>
-                        <td class="text-end">{{debitTotal - creditTotal |number}}</td>
+                        <td class="text-end">{{debitTotal |number:'1.0-0'}}</td>
+                        <td class="text-end">{{creditTotal |number:'1.0-0'}}</td>
+                        <td class="text-end">{{debitTotal - creditTotal |number:'1.0-0'}}</td>
 
                     </tr>
 

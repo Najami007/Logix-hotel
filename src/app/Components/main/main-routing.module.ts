@@ -37,6 +37,8 @@ import { Observable } from 'rxjs';
 import { AuthGuard } from 'src/app/auth.guard';
 import { HotelDashboardComponent } from '../hotel-dashboard/hotel-dashboard.component';
 import { CioRptRoomWiseComponent } from 'src/app/Reports/cio-rpt-room-wise/cio-rpt-room-wise.component';
+import { RoomComparisonRptComponent } from 'src/app/Reports/room-comparison-rpt/room-comparison-rpt.component';
+import { CustomerCheckInRptComponent } from 'src/app/Reports/customer-check-in-rpt/customer-check-in-rpt.component';
 
 
 
@@ -77,6 +79,8 @@ const routes: Routes = [
   {path:'brptpw',component:BookingRptPartywiseComponent,canActivate : [AuthGuard]},
   {path:'ciorptrw',component:CioRptRoomWiseComponent,canActivate:[AuthGuard]},
   {path:'htldb', component:HotelDashboardComponent,canActivate:[AuthGuard]},
+  {path:'rcrpt', component:RoomComparisonRptComponent,canActivate:[AuthGuard]},
+  {path:'ccdrpt', component:CustomerCheckInRptComponent,canActivate:[AuthGuard]},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},
