@@ -324,7 +324,7 @@
                             <td>{{index+1}}</td>
                             <td>{{item.checkinoutID}}</td>
                             <td>{{item.roomTitle}}</td>
-                            <td>{{item.partyName}}</td>
+                            <td>{{item.partyName}} ({{item.partyCNIC}})</td>
                             <td>{{item.checkInDate | date:'short'}}</td>
                             <td *ngIf="item.activeStatus == false">{{item.checkOutDate | date:'short'}}</td>
 

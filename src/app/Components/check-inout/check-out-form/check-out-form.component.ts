@@ -28,7 +28,7 @@ export class CheckOutFormComponent implements OnInit{
   ngOnInit(): void {
 
     
-
+    this.roleID = this.global.getRoleId();
     this.getCoaList();
     this.getTotalDays();
     if(this.rowData){
@@ -40,6 +40,7 @@ export class CheckOutFormComponent implements OnInit{
   }
 
   coaSearch:any;
+  roleID:any;
 
   remainingAmount:any = 0;
 
@@ -81,13 +82,6 @@ export class CheckOutFormComponent implements OnInit{
    this.remainingAmount = (this.rowData.rentPerDay * this.totalDays) - this.rowData.advancePaid + this.rowData.servicesTotalAmount;
    this.balanceAmount = this.remainingAmount;
 
-   //console.log( secondNumber - firstNumber);
-
-
-
-   
-
-   
 
   }
 

@@ -28,6 +28,7 @@ export class RoomComparisonRptComponent implements OnInit {
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Room Income Detial Report');
+    
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
     this.CompanyName = this.global.CompanyName;
@@ -42,7 +43,9 @@ export class RoomComparisonRptComponent implements OnInit {
   fromDate:Date = new Date();
   toDate:Date = new Date();
   searchCustomer:any;
- 
+  DaysInMonth:any;
+  totalIncomeTotal:any = 0;
+  estimatedIncomeTotal:any = 0;
 
 
   ReportData:any = [];
@@ -53,9 +56,15 @@ export class RoomComparisonRptComponent implements OnInit {
 
     this.http.get(environment.mainApi+'GetRoomIncBetweenDate?fromdate='+this.global.dateFormater(this.fromDate,'-')
     +'&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
-      (Response)=>{
+      (Response:any)=>{
+        this.DaysInMonth = this.global.calculateDaysBetweenDates(this.global.dateFormater(this.fromDate,'-'),this.global.dateFormater(this.toDate,'-'));
         this.ReportData = Response;
-        console.log(Response);
+
+        Response.forEach((e:any) => {
+          this.totalIncomeTotal += e.totalIncome;
+          this.estimatedIncomeTotal += e.rentPerDay * this.DaysInMonth;
+        });
+
         this.app.stopLoaderDark();
       }
     )

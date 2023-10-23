@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
     <!----------------           Date Section ------------------------------->
     <div class="row  p-2">
 
@@ -19,7 +19,7 @@
 
 
         <div class="col-lg-4 d-flex text-end">
-            <button class=" btn btn-success me-2 btn-rpt" (click)="getReport()">Get Report</button>
+            <button class=" btn w-50 btn-success me-2 btn-rpt" (click)="getReport()">Get Report</button>
             <!-- <button class=" btn btn-success me-2 btn-rpt" (click)="getReport2()">Report 2</button> -->
             <button class=" btn btn-primary me-2 btn-rpt" (click)="print()"> Print</button>
         </div>
@@ -39,6 +39,7 @@
 
                    <h1 class="companyName">{{CompanyName}}</h1>
                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>      
+                   <p class="rptTitle" style="margin-top:-25px">Room Income Report</p>
                    <p style="margin-top:-20px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                  
                </span>
@@ -49,6 +50,30 @@
 
            </div>
        </div>
+
+       <table class="table">
+        <thead>
+            <th>S#</th>
+            <th>Room Title</th>
+            <th>Room Status</th>
+            <th>Total Income</th>
+            <th>Estimated Income</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of ReportData index as index">
+                <td>{{index+1}}</td>
+                <td>{{item.roomTitle}}</td>
+                <td>{{item.roomCrntStatus}}</td>
+                <td>{{item.totalIncome |number:'0.0-0'}}</td>
+                <td>{{item.rentPerDay|number:'0.0-0'}} x {{DaysInMonth}} = {{item.rentPerDay * DaysInMonth |number:'0.0-0'}}</td>
+            </tr>
+            <tr>
+                <th class="text-center" colspan="3">Total</th>
+                <th>{{totalIncomeTotal |number:'0.0-0'}}</th>
+                <th>{{estimatedIncomeTotal |number:'0.0-0'}}</th>
+            </tr>
+        </tbody>
+       </table>
 
    </div>
 </div>

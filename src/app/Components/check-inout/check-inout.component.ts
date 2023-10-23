@@ -298,16 +298,9 @@ export class CheckINOUtComponent implements OnInit {
 
    //////////////////////////////////////////////////////////////
 
-   addService(){
-
-   
-    
+   addService(){ 
     var curRow = this.serviceTableList.find((obj:any)=> obj.ServiceID == this.serviceID);
-
- 
-    if(curRow == undefined){
-
-         
+    if(curRow == undefined){       
       var curService = this.servicesList.find((e:any)=>e.serviceID == this.serviceID);
       var serviceTitle = curService.serviceTitle;
       var serviceCharges = curService.serviceCharges;
@@ -326,8 +319,7 @@ export class CheckINOUtComponent implements OnInit {
       this.serviceCharges = '';
       this.quantity = '';
       this.amountCharged = '' ;
-      this.serviceDate = '';
-      this.serviceTime = '';
+
 
     
 

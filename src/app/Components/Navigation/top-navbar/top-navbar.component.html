@@ -101,7 +101,7 @@
 
           <a class="list-itm" >{{ item.menuTitle }}<mat-icon class="sideicon mb-1">arrow_drop_down</mat-icon></a>
 
-          <div class="dropdown-content" >
+          <div class="dropdown-content">
 
             <span *ngFor="let row of menuList; let i = index">
               <a *ngIf="item.menuTitle == row.subMenuHead  " class="list-itm" routerLink="./{{row.pageLink}}" routerLinkActive="active">{{row.subMenuTitle}}</a>

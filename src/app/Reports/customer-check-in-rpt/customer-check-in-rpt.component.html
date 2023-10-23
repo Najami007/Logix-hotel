@@ -38,7 +38,8 @@
                     
 
                     <h1 class="companyName">{{CompanyName}}</h1>
-                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>      
+                    <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p> 
+                    <p class="rptTitle" style="margin-top:-25px">Customer Check In Detail Report</p>     
                     <p style="margin-top:-20px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                   
                 </span>
@@ -52,13 +53,19 @@
 
         <table class="table">
             <thead>
-                <th>S#</th>
-                <th>Name</th>
-                <th>City</th>
-                <th class="col-lg-3">Address</th>
-                <th>Mobile no</th>
-                <th>Periodic CheckIn</th>
-                <th>Total Check IN</th>
+                <tr>
+                    <th rowspan="2">S#</th>
+                    <th  rowspan="2">Name</th>
+                    <th  rowspan="2">City</th>
+                    <th  rowspan="2" class="col-lg-3">Address</th>
+                    <th  rowspan="2">Mobile no</th>
+                    <th class="text-center" colspan="2">Check In</th>
+                </tr>
+               <tr>
+               
+                <th class="text-center">Periodic</th>
+                <th class="text-center">Total</th>
+               </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of ReportData index as index">
@@ -67,8 +74,8 @@
                     <td>{{item.cityName}}</td>
                     <td>{{item.partyAddress}}</td>
                     <td>{{item.partyMobileNo}}</td>
-                    <td>{{item.periodicCheckIn}}</td>
-                    <td>{{item.totalCheckIn}}</td>
+                    <td class="text-center">{{item.periodicCheckIn}}</td>
+                    <td class="text-center">{{item.totalCheckIn}}</td>
                 </tr>
             </tbody>
         </table>

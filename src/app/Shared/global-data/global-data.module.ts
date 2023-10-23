@@ -274,9 +274,29 @@ logout(){
   }
 
 
+  ////////////////////////////////////////////////////
+
+  getDaysInMonth(month:any, year:any) {
+    return new Date(year, month, 0).getDate();
+}
 
 
+///////////////////////////////////////////////////
 
+calculateDaysBetweenDates(startDate:any, endDate:any) {
+  // Create two Date objects from the start and end dates.
+  const startDateObj = new Date(startDate);
+  const endDateObj = new Date(endDate);
+
+  // Calculate the time difference between the two dates in milliseconds.
+  const timeDifference = endDateObj.getTime() - startDateObj.getTime();
+
+  // Divide the time difference by the number of milliseconds in a day.
+  const daysBetweenDates = timeDifference / (1000 * 60 * 60 * 24);
+
+  // Round the result to the nearest integer.
+  return Math.round(daysBetweenDates+1);
+}
 
   //////////////sets the header title ////////////////////////
   setHeaderTitle(title: string) {
@@ -314,9 +334,9 @@ logout(){
     // );
 
     //Append the external CSS file. <link rel="stylesheet" href="../../../styles.scss" /> <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    frameDoc.document.write(
-      '<style type="text/css" media="print">@page { size: portrait; }</style>'
-    );
+    // frameDoc.document.write(
+    //   '<style type="text/css" media="print">@page { size: portrait; }</style>'
+    // );
     frameDoc.document.write(
       
       '<link rel="stylesheet" href="../../assets/style/ownStyle.css" type="text/css" media="print"/>'
