@@ -63,19 +63,21 @@
            </div>
 
            <div>
-            <table class="table">
+            <table class="table table-logix">
                 <thead>
+                   <tr>
                     <th>S#</th>
                     <th>Invoice No</th>
                     <th>Date</th>
                     <th>Narration</th>
-                    <th class="text-end">Amount</th>
+                    <th >Amount</th>
+                   </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of reportData;index as index">
-                        <td>{{index+1}}</td>
+                        <td class="text-center">{{index+1}}</td>
                         <td class="cursorPointer" data-bs-toggle="modal" data-bs-target="#invoiceDetailModel" 
-                        (click)="getInvoiceDetail(item.invoiceNo)"><span style="color: blue;border-bottom: 1px solid blue;">{{item.invoiceNo|number}}</span></td>
+                        (click)="getInvoiceDetail(item.invoiceNo)"><span style="color: blue;border-bottom: 1px solid blue;">{{item.invoiceNo}}</span></td>
                         <td>{{item.invoiceDate |date:'yyyy-MM-dd'}}</td>
                         <td class="col-lg-4">{{item.invoiceRemarks}}</td>
                         <td class="text-end">{{item.amount |number:'1.0-0'}}</td>
@@ -104,7 +106,7 @@
 
        <div>
         <table class="table">
-            <thead class="border-bottom">
+            <thead class="border-bottom ">
                 
                 <th>S#</th>
                 <th>Description</th>

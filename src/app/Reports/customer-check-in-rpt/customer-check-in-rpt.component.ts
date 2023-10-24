@@ -29,12 +29,15 @@ export class CustomerCheckInRptComponent implements OnInit {
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Customer Check In Detail Report');
+    this.getCity();
+    this.getCountry();
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
     this.CompanyName = this.global.CompanyName;
     this.CompanyName2 = this.global.CompanyName2;
     this.companyAddress = this.global.Address;
     this.companyPhone = this.global.Phone;
+
 
   }
 
@@ -44,28 +47,77 @@ export class CustomerCheckInRptComponent implements OnInit {
   fromDate:any = new Date();
   toDate:any = new Date();
   searchCustomer:any;
+  countrySearch:any;
+  citySearch:any;
+  cityName:any;
+  countryName:any;
+  
  
   ReportData:any = [];
+  citiesList:any = [];
+  countryList:any = [];
 
-  getReport(){
 
-    this.app.startLoaderDark();
-    this.http.get(environment.mainApi+'GetCustomerCheckInDetail?fromdate='+this.global.dateFormater(this.fromDate,'-')
-    +'&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
-      (Response)=>{
-        this.ReportData = Response;
+  getReport(item:any){
+    
+    if(item == 'country' && (this.countryName == '' || this.countryName == undefined)){
+      this.msg.WarnNotify('Select Country')
+    }else if(item == 'city' && (this.cityName == '' || this.cityName == undefined)){
+      this.msg.WarnNotify('Select City')
+    }else{
+      this.app.startLoaderDark();
+      this.http.get(environment.mainApi+'GetCustomerCheckInDetail?fromdate='+this.global.dateFormater(this.fromDate,'-')
+      +'&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
+        (Response:any)=>{
+          // console.log(Response);
+          if(item == 'all'){
+            this.ReportData = Response;
+          }
+  
+          if(item == 'country'){
+            this.ReportData = Response.filter((e:any)=>e.countryName == this.countryName);
+          }
+          if(item == 'city'){
+            this.ReportData = Response.filter((e:any)=>e.cityName == this.cityName);
+          }
+          this.app.stopLoaderDark();
+        },
+        (Error)=>{
+          this.app.stopLoaderDark();
+        }
+  
         
-        this.app.stopLoaderDark();
-      },
-      (Error)=>{
-        this.app.stopLoaderDark();
-      }
+      )
+    }
 
-      
-    )
+  
 
   }
 
+
+  getCity(){
+    this.http.get(environment.mainApi+'getcity').subscribe({
+      next:value=>{
+    
+        this.citiesList = value;
+      },
+      error:error=>{
+        console.log(error);
+      }
+    })
+  }
+
+
+  getCountry(){
+    this.http.get(environment.mainApi+'getcountry').subscribe(
+      (Response)=>{
+        this.countryList = Response;
+      },
+      (Error)=>{
+        this.msg.WarnNotify('Error Occured while Loading Countries List')
+      }
+    )
+  }
 
   print(){
     this.global.printData('#printDiv');

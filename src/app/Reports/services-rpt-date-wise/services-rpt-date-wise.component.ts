@@ -48,10 +48,10 @@ export class ServicesRptDateWiseComponent  implements OnInit{
   fromDate:any = new Date();
   toDate:any = new Date();
 
-  totalQuantity:any;
-  totalServiceCharges:any;
-  totalAmountCharges:any;
-  totalAmount:any;
+  totalQuantity:any = 0;
+  totalServiceCharges:any = 0;
+  totalAmountCharges:any = 0;
+  totalAmount:any = 0;
 
   
   

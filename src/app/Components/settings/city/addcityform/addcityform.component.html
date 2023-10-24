@@ -4,13 +4,18 @@
 
     <div class="text-center container-fluid " >
 
-        <mat-form-field class="w-100" appearance="outline">
+        <mat-form-field class="col-lg-10" appearance="outline">
             <mat-label>Select Country</mat-label>
             <mat-select [(ngModel)]="countryID">
-                <mat-option *ngFor="let item of countryList" [value]="item.countryID">{{item.countryName}}</mat-option>
+                <mat-option><ngx-mat-select-search [(ngModel)]="countrySearch"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of countryList | filter:countrySearch" [value]="item.countryID">{{item.countryName}}</mat-option>
             </mat-select>
            
             </mat-form-field>
+         
+            <button class="ms-1 col-lg-4 btn btn-primary btn-rpt" (click)="addCountry()"><mat-icon>add</mat-icon></button>
 
 
         <mat-form-field class="w-100" appearance="outline">

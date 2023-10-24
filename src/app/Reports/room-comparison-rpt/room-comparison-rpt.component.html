@@ -50,27 +50,29 @@
 
            </div>
        </div>
-
-       <table class="table">
+<hr>
+       <table class="table table-logix">
         <thead>
+           <tr>
             <th>S#</th>
             <th>Room Title</th>
             <th>Room Status</th>
             <th>Total Income</th>
             <th>Estimated Income</th>
+           </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of ReportData index as index">
-                <td>{{index+1}}</td>
+                <td class="text-center">{{index+1}}</td>
                 <td>{{item.roomTitle}}</td>
                 <td>{{item.roomCrntStatus}}</td>
-                <td>{{item.totalIncome |number:'0.0-0'}}</td>
-                <td>{{item.rentPerDay|number:'0.0-0'}} x {{DaysInMonth}} = {{item.rentPerDay * DaysInMonth |number:'0.0-0'}}</td>
+                <td class="text-end">{{item.totalIncome |number:'0.0-0'}}</td>
+                <td class="text-end">{{item.rentPerDay|number:'0.0-0'}} x {{DaysInMonth}} = {{item.rentPerDay * DaysInMonth |number:'0.0-0'}}</td>
             </tr>
             <tr>
-                <th class="text-center" colspan="3">Total</th>
-                <th>{{totalIncomeTotal |number:'0.0-0'}}</th>
-                <th>{{estimatedIncomeTotal |number:'0.0-0'}}</th>
+                <td class="text-center fw-bold" colspan="3">Total</td>
+                <td class="text-end fw-bold">{{totalIncomeTotal |number:'0.0-0'}}</td>
+                <td class="text-end fw-bold">{{estimatedIncomeTotal |number:'0.0-0'}}</td>
             </tr>
         </tbody>
        </table>

@@ -200,28 +200,37 @@ getCompanyDataFromStorage(){
         
        
        if(value.msg == 'Logged in Successfully' ){
-        Swal.fire({
-          title:'',
-          text:"Login Successful",
-          position:'center',
-          icon:'success',
-          showConfirmButton:true,
-          confirmButtonText:'OK',
-          confirmButtonColor:'Green',
-          timer:2000,
-          timerProgressBar:true,
 
-        }).then((value)=>{
 
-          this.http.get(environment.mainApi+'getusermenu?userid='+atob(atob(userID))).subscribe(
-            (Response:any)=>{             
-              this.rout.navigate(["main/"+Response[0].pageLink]);            
-              $('.loaderDark').fadeOut(500);
-            }
-          )
+        this.http.get(environment.mainApi+'getusermenu?userid='+atob(atob(userID))).subscribe(
+          (Response:any)=>{             
+            this.rout.navigate(["main/"+Response[0].pageLink]);            
+            $('.loaderDark').fadeOut(500);
+          }
+        )
+
+        // Swal.fire({
+        //   title:'',
+        //   text:"Login Successful",
+        //   position:'center',
+        //   icon:'success',
+        //   showConfirmButton:true,
+        //   confirmButtonText:'OK',
+        //   confirmButtonColor:'Green',
+        //   timer:2000,
+        //   timerProgressBar:true,
+
+        // }).then((value)=>{
+
+        //   this.http.get(environment.mainApi+'getusermenu?userid='+atob(atob(userID))).subscribe(
+        //     (Response:any)=>{             
+        //       this.rout.navigate(["main/"+Response[0].pageLink]);            
+        //       $('.loaderDark').fadeOut(500);
+        //     }
+        //   )
    
-          // this.rout.navigate(["main"]);
-        })
+        //   // this.rout.navigate(["main"]);
+        // })
         
        
        }else{
@@ -252,7 +261,7 @@ logout(){
     }).subscribe(
       (Response:any)=>{
         if(Response.msg = 'Logged Out Successfully'){
-          this.msg.SuccessNotify(Response.msg);
+          // this.msg.SuccessNotify(Response.msg);
 
           
           localStorage.removeItem('curVal');

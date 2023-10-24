@@ -38,7 +38,7 @@ export class BookingRptPartywiseComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.global.setHeaderTitle('Check In OUt Rpt DateWise');
+    this.global.setHeaderTitle('Booking Report Customerwise');
     this.getParty();
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;

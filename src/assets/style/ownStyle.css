@@ -81,6 +81,11 @@
   border: 1px solid #000 !important;
 }
 
+.table-logix > tbody > tr > th {
+  border: 1px solid #000 !important;
+  font-weight: bold;  
+  text-align: center;
+}
 
 
 
@@ -103,3 +108,6 @@
 }
 
 
+.wide{
+  width: 120px;
+}

@@ -37,7 +37,7 @@
             <p class="w-50">{{lblPartyCNIC }}</p>
         </span>
         <span class="w-50 row ">
-            <h5 class="w-50 fw-bold border-dark">Customer CNIC:</h5>
+            <h5 class="w-50 fw-bold border-dark">Mobile No:</h5>
             <p class="w-50">{{lblPartyMobileno }}</p>
         </span>
 
@@ -52,23 +52,25 @@
    
    <div>
     <div class="text-center border border-dark">
-        <h3 >Room Details</h3>
+        <h3 class="fw-bold">Room Details</h3>
     </div>
-    <table class="table">
+    <table class="table table-logix">
         <thead>
+          <tr>
             <th>S#</th>
             <th>Description</th>
             <th>Days</th>
             <th>Rent</th>
             <th>Total</th>
+          </tr>
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
+                <td class="text-center">1</td>
                 <td>{{lblRoomNo}}</td>
-                <td>{{lblTotalDays |number}}</td>
-                <td>{{lblRentPerDay |number:'1.0-0'}}</td>
-                <td>{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
+                <td class="text-center ">{{lblTotalDays |number}}</td>
+                <td class="text-end"> {{lblRentPerDay |number:'1.0-0'}}</td>
+                <td class="text-end">{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
             </tr>
         </tbody>
     </table>
@@ -80,30 +82,32 @@
 
 <div *ngIf="lblServiceList != ''">
     <div class="text-center border border-dark">
-        <h3 >Service Details</h3>
+        <h3 class="fw-bold" >Service Details</h3>
     </div>
-    <table class="table">
+    <table class="table table-logix">
         <thead>
+        <tr>
             <th>S#</th>
             <th>Description</th>
             <th>Qty</th>
             <th>Amount</th>
             <th>Total</th>
             <th>Date</th>
+        </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of lblServiceList index as index">
-                <td>{{index+1}}</td>
+                <td class="text-center">{{index+1}}</td>
                 <td>{{item.serviceTitle}}</td>
-                <td>{{item.quantity |number}}</td>
-                <td>{{item.amountCharged |number:'1.0-0'}}</td>
-                <td>{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
+                <td class="text-center">{{item.quantity |number}}</td>
+                <td class="text-end"> {{item.amountCharged |number:'1.0-0'}}</td>
+                <td class="text-end">{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
                 <td>{{item.serviceDate |date:'short'}}</td>
                 
             </tr>
             <tr>
                 <td class="fw-bold" colspan="4">Total</td>
-                <td class="fw-bold" >{{lblServicesAmount |number:'1.0-0'}}</td>
+                <td class="fw-bold text-end" >{{lblServicesAmount |number:'1.0-0'}}</td>
                 <td></td>
             </tr>
         </tbody>
@@ -112,31 +116,33 @@
 
 <div *ngIf="paymentHistoryList != []">
     <div class="text-center border border-dark">
-        <h3 >Payment Details</h3>
+        <h3 class="fw-bold">Payment Details</h3>
     </div>
 
-    <table class="table">
+    <table class="table table-logix">
   
         <thead>
+           <tr>
             <th>S#</th>
             <th>Inv #</th>
             <th>Date</th>
             <th class="col-lg-4">Remarks</th>
             <th>Amount</th>
+           </tr>
             
         </thead>
         <tbody>
             <tr *ngFor="let item of paymentHistoryList index as index">
-                <td>{{index+1}}</td>
-                <td>{{item.invoiceNo}}</td>
+                <td class="text-center">{{index+1}}</td>
+                <td class="text-center">{{item.invoiceNo}}</td>
                 <td>{{item.paymentDate |date:'yyyy-MM-dd'}}</td>
                 <td>{{item.cioRemarks}}</td>
-                <td>{{item.paymentAmount | number:'1.0-0'}}</td>
+                <td class="text-end">{{item.paymentAmount | number:'1.0-0'}}</td>
                 
             </tr>
             <tr>
                 <td colspan="4"></td>
-                <th>{{paymentAmountTotal |number:'1.0-0'}}</th>
+                <th class="text-end">{{paymentAmountTotal |number:'1.0-0'}}</th>
             </tr>
         </tbody>
     </table>

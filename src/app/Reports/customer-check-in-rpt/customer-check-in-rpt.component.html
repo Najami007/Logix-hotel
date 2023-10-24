@@ -2,15 +2,37 @@
     <!----------------           Date Section ------------------------------->
     <div class="row  p-2">
 
+        <mat-form-field class="col-lg-2 " appearance="outline">
+            <mat-label>Select Country</mat-label>
+            <mat-select [(ngModel)]="countryName">
+                <mat-option><ngx-mat-select-search [(ngModel)]="countrySearch"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of countryList |filter:countrySearch" [value]="item.countryName">{{item.countryName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
 
-        <mat-form-field class="col-lg-4 " appearance="outline">
+
+        <mat-form-field class="col-lg-2 " appearance="outline">
+            <mat-label>Select City</mat-label>
+            <mat-select [(ngModel)]="cityName">
+                <mat-option><ngx-mat-select-search [(ngModel)]="citySearch"
+                    [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                    name="search"></ngx-mat-select-search></mat-option>
+                <mat-option *ngFor="let item of citiesList |filter:citySearch" [value]="item.cityName">{{item.cityName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+
+        <mat-form-field class="col-lg-2 " appearance="outline">
             <mat-label>From Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="fromDate" [matDatepicker]="sDate">
             <mat-datepicker-toggle matSuffix [for]="sDate"></mat-datepicker-toggle>
             <mat-datepicker #sDate></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="col-lg-4" appearance="outline">
+        <mat-form-field class="col-lg-2" appearance="outline">
             <mat-label>To Date</mat-label>
             <input matInput type="text" readonly="true" [(ngModel)]="toDate" [matDatepicker]="eDate">
             <mat-datepicker-toggle matSuffix [for]="eDate"></mat-datepicker-toggle>
@@ -19,7 +41,9 @@
 
 
         <div class="col-lg-4 d-flex text-end">
-            <button class=" btn btn-success w-50 me-2 btn-rpt" (click)="getReport()">Get Report</button>
+            <button class=" btn btn-success w-50 me-2 btn-rpt" (click)="getReport('all')">Overall Report</button>
+            <button class=" btn btn-success w-50 me-2 btn-rpt" (click)="getReport('country')">CountryWise</button>
+            <button class=" btn btn-success w-50 me-2 btn-rpt" (click)="getReport('city')">CityWise</button>
             <!-- <button class=" btn btn-success me-2 btn-rpt" (click)="getReport2()">Report 2</button> -->
             <button class=" btn btn-primary me-2 btn-rpt" (click)="print()"> Print</button>
         </div>
@@ -30,7 +54,7 @@
          <!-------------- logo Section ----------------->
 
          <div class="hide">
-            <div class="text-center border-bottom d-flex justify-content-between">
+            <div class="text-center d-flex justify-content-between">
                 <span>
                     <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                 </span>
@@ -50,27 +74,30 @@
 
             </div>
         </div>
+        <hr>
 
-        <table class="table">
+        <table class="table table-logix">
             <thead>
                 <tr>
                     <th rowspan="2">S#</th>
                     <th  rowspan="2">Name</th>
+                    <th  rowspan="2">Country</th>
                     <th  rowspan="2">City</th>
                     <th  rowspan="2" class="col-lg-3">Address</th>
                     <th  rowspan="2">Mobile no</th>
-                    <th class="text-center" colspan="2">Check In</th>
+                    <th  colspan="2">Check In</th>
                 </tr>
                <tr>
                
-                <th class="text-center">Periodic</th>
-                <th class="text-center">Total</th>
+                <th >Periodic</th>
+                <th >Total</th>
                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of ReportData index as index">
-                    <td>{{index+1}}</td>
+                    <td class="text-center">{{index+1}}</td>
                     <td>{{item.partyName}}</td>
+                    <td>{{item.countryName}}</td>
                     <td>{{item.cityName}}</td>
                     <td>{{item.partyAddress}}</td>
                     <td>{{item.partyMobileNo}}</td>

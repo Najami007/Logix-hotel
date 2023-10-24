@@ -33,13 +33,20 @@
                 <mat-label>Telephone no.</mat-label>
                 <input  [(ngModel)]="partyTelephoneno" (keyup)="setPhoneno()" maxlength="11" matInput type="text">
             </mat-form-field>
-            <mat-form-field class="col-lg-5 me-5" appearance="outline"> 
-                <mat-label>City</mat-label>
-                <mat-select [(ngModel)]="City">
-                    <mat-option *ngFor="let item of CitiesNames" value="{{item.cityID}}">{{item.cityName}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+
+                    <mat-form-field  class="col-lg-4 me-1" appearance="outline"> 
+                        <mat-label>City</mat-label>
+                        <mat-select [(ngModel)]="City">
+                            <mat-option><ngx-mat-select-search [(ngModel)]="citySearch"
+                                [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
+                                name="search"></ngx-mat-select-search></mat-option>
+                            <mat-option *ngFor="let item of CitiesNames |filter:citySearch" value="{{item.cityID}}">{{item.cityName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button class="col-lg-1 btn btn-primary me-5" style="height: 55px;width: 65px;" (click)="addCity()"><mat-icon>add</mat-icon></button>
+
            
+                    
             
             <mat-form-field class="col-lg-5 me-5" appearance="outline">
                 <mat-label>Address</mat-label>

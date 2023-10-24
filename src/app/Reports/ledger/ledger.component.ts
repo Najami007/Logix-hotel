@@ -137,7 +137,7 @@ export class LedgerComponent {
       this.http.get(environment.mainApi+'GetLedgerRpt?coaid='+this.coaID +'&fromdate='
       +this.globalData.dateFormater(this.startDate,'-') +'&todate='+this.globalData.dateFormater(this.EndDate,'-')).subscribe(
         (Response)=>{
-          // console.log(Response);
+          console.log(Response);
           this.tableData = Response;
           this.getTotal();
           this.app.stopLoaderDark();

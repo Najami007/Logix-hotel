@@ -98,15 +98,17 @@
            <!-----------------------   Print Table Area --------------------->
 
            <div>
-            <table class="table">
+            <table class="table table-logix">
                 <thead>
                     
+                    <tr>
                     <th>Description</th>
                     <th>Rent</th>
                     <th>Days</th>
                     <th>Total Rent</th>
                     <th>Advance</th>
                     <th>Remaining</th>
+                    </tr>
                     
                 
                 </thead>
@@ -114,11 +116,11 @@
                 <tbody>
                     <tr>
                         <td>{{lblRoomTitle}}</td>
-                        <td>{{lblRentPerDay |number:'1.0-0'}}</td>
-                        <td>{{lblTotalDays}}</td>
-                        <td>{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
-                        <td>{{lblPaidAmount |number:'1.0-0'}}</td>
-                        <td>{{(lblTotalDays * lblRentPerDay) -lblPaidAmount |number:'1.0-0'}}</td>
+                        <td class="text-end">{{lblRentPerDay |number:'1.0-0'}}</td>
+                        <td class="text-center">{{lblTotalDays}}</td>
+                        <td class="text-end">{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
+                        <td class="text-end"> {{lblPaidAmount |number:'1.0-0'}}</td>
+                        <td class="text-end">{{(lblTotalDays * lblRentPerDay) -lblPaidAmount |number:'1.0-0'}}</td>
                     </tr>
                 </tbody>
                

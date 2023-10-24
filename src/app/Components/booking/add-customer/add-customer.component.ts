@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environments/environment.development';
 
 import * as $ from 'jquery';
+import { AddcityformComponent } from '../../settings/city/addcityform/addcityform.component';
 
 @Component({
   selector: 'app-add-customer',
@@ -23,6 +24,7 @@ export class AddCustomerComponent implements OnInit {
  
     private http : HttpClient,
     private msg : NotificationService,
+    private dialogue:MatDialog
   
   ){}
 
@@ -35,7 +37,7 @@ export class AddCustomerComponent implements OnInit {
   }
 
 
-
+  citySearch:any
   searchtxt:any;
   btnType = "Save";
   curPartyId:any;
@@ -70,6 +72,21 @@ export class AddCustomerComponent implements OnInit {
       }
     )
   }
+
+
+
+  
+addCity(){
+  this.dialogue.open(AddcityformComponent,{
+    width:"40%",
+
+  }).afterClosed().subscribe(val=>{
+    if(val == 'Update'){
+      this.getCityNames();
+    }
+  })
+}
+
 
 
   

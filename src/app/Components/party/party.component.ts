@@ -10,8 +10,10 @@ import { __values } from 'tslib';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import Swal from 'sweetalert2';
 import { AppComponent } from 'src/app/app.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { BookingComponent } from '../booking/booking.component';
+import { AddCountryComponent } from '../settings/country/add-country/add-country.component';
+import { AddcityformComponent } from '../settings/city/addcityform/addcityform.component';
 
 @Component({
   selector: 'app-party',
@@ -25,7 +27,8 @@ export class PartyComponent implements OnInit{
  
     private http : HttpClient,
     private msg : NotificationService,
-    private app:AppComponent
+    private app:AppComponent,
+    private dialogue:MatDialog
     ){
 
   }
@@ -60,6 +63,21 @@ export class PartyComponent implements OnInit{
 
 
 
+
+addCity(){
+  this.dialogue.open(AddcityformComponent,{
+    width:"40%",
+
+  }).afterClosed().subscribe(val=>{
+    if(val == 'Update'){
+      this.getCityNames();
+    }
+  })
+}
+
+
+
+
 ///////getting City Name for the table//////
   getCityName(id:any){
 
@@ -70,7 +88,7 @@ export class PartyComponent implements OnInit{
 
 
 
-
+citySearch:any;
   searchtxt:any;
   btnType = "Save";
   curPartyId:any;

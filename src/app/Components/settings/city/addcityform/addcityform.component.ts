@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import {  Component, Inject, OnInit } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog'
 import { error } from 'jquery';
 import { GlobalDataModule } from 'src/app/Shared/global-data/global-data.module';
 import { NotificationService } from 'src/app/Shared/service/notification.service';
 import { environment } from 'src/environments/environment.development';
+import { AddCountryComponent } from '../../country/add-country/add-country.component';
 
 @Component({
   selector: 'app-addcityform',
@@ -19,7 +20,8 @@ export class AddcityformComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) public editData : any,
     private dialogRef: MatDialogRef<AddcityformComponent>,
     private global:GlobalDataModule,
-    private msg:NotificationService
+    private msg:NotificationService,
+    private dialogue:MatDialog
   ){
 
   }
@@ -36,13 +38,24 @@ export class AddcityformComponent implements OnInit{
 
   }
 
-
+  countrySearch:any;
   actionbtn = 'Save';
   cityName :any;
   countryID:any;
 
   countryList:any;
 
+
+  
+
+  addCountry(){
+    this.dialogue.open(AddCountryComponent,{
+      width:"40%",
+
+    }).afterClosed().subscribe(val=>{
+      this.getCountry();
+    })
+  }
 
 
   getCountry(){

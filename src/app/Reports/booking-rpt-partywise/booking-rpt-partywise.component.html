@@ -1,4 +1,4 @@
-<div>
+<div class="container-fluid">
     <!----------------           Date Section ------------------------------->
     <div class="row  p-2">
 
@@ -41,7 +41,7 @@
         <!-------------------------    Top Logo Section -------------------->
 
         <div class="hide">
-            <div class="text-center border-bottom d-flex justify-content-between">
+            <div class="text-center d-flex justify-content-between">
                 <span>
                     <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                 </span>
@@ -66,11 +66,13 @@
 
             </div>
         </div>
+        <hr>
 
 
-        <div class="text-center">
-            <table class="table table-hover">
+        <div >
+            <table class="table table-logix">
                 <thead>
+                   <tr>
                     <th>S#</th>
                     <th>B ID</th>
                     <th>Booking Date</th>
@@ -82,10 +84,11 @@
                     <th>Rent</th>
                     <th>Advance</th>
 
+                   </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of reportData  ; index as index">
-                        <td>{{index+1}}</td>
+                        <td class="text-center">{{index+1}}</td>
                         <td (click)="getBookingDetail(item)"><span
                                 class="text-primary border-bottom border-primary cursorPointer ">{{item.bookingID}}</span>
                         </td>
@@ -97,16 +100,16 @@
                         <td>{{item.dateOfDeparture | date:'yyyy-MM-dd'}} </td>
 
                         <td>{{item.bookingStatus}} </td>
-                        <td>{{item.rentPerDay * item.totalDays |number:'1.0-0'}}</td>
-                        <td>{{item.advancePaid | number:'1.0-0'}}</td>
+                        <td class="text-end">{{item.rentPerDay * item.totalDays |number:'1.0-0'}}</td>
+                        <td class="text-end">{{item.advancePaid | number:'1.0-0'}}</td>
 
 
                     </tr>
                     <tr *ngIf="rentTotal != 0">
                         <td colspan="7"></td>
-                        <td class="fw-bold">Total</td>
-                        <td class="fw-bold">{{rentTotal |number:'1.0-0'}}</td>
-                        <td class="fw-bold">{{advanceTotal |number:'1.0-0'}}</td>
+                        <td class="fw-bold text-end">Total</td>
+                        <td class="fw-bold text-end">{{rentTotal |number:'1.0-0'}}</td>
+                        <td class="fw-bold text-end">{{advanceTotal |number:'1.0-0'}}</td>
                     </tr>
 
                 </tbody>

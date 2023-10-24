@@ -41,7 +41,7 @@
        <!-------------- logo Section ----------------->
 
        <div class="hide">
-           <div class="text-center border-bottom d-flex justify-content-between">
+           <div class="text-center d-flex justify-content-between">
                <span>
                    <img src="{{logo}}" style="color: black;" alt="" srcset="" height="100" width="100">
                </span>
@@ -61,41 +61,41 @@
 
            </div>
        </div>
-
+<hr>
 
 
        <div>
-           <table class="table">
+           <table class="table table-logix">
                <thead>
                    <th>S#</th>
                    <th>Voucher No</th>
                    <th>Service Title</th>
                    <th>Date</th>
-                   <th class="text-end">Quantity</th>
-                   <th class="text-end">Service Charges</th>
-                   <th class="text-end">Amount Charged</th>
-                   <th class="text-end">Total</th>
+                   <th >Quantity</th>
+                   <th >Service Charges</th>
+                   <th >Amount Charged</th>
+                   <th >Total</th>
 
                </thead>
 
                <tbody>
                    <tr *ngFor="let item of allServicesData index as index">
-                       <td>{{index +1}}</td>
+                       <td class="text-center">{{index +1}}</td>
                        <td (click)="getDetails(item)" ><span class=" cursorPointer text-primary border-bottom border-primary">{{item.checkinoutID}}</span></td>
                        <td>{{item.serviceTitle}}</td>
                        <td>{{item.serviceDate | date:'short'}}</td>
-                       <td class="text-end">{{item.quantity |number}}</td>
+                       <td class="text-center">{{item.quantity |number}}</td>
                        <td class="text-end">{{item.serviceCharges |number:'1.0-0'}}</td>
                        <td class="text-end">{{item.amountCharged |number:'1.0-0'}}</td>
                        <td class="text-end">{{item.quantity * item.amountCharged |number:'1.0-0'}}</td>
                    </tr>
                  
                    <tr >
-                       <th colspan="4" class="text-center">Total</th>
-                       <th class="text-end">{{totalQuantity |number}}</th>
-                       <th class="text-end">{{totalServiceCharges |number:'1.0-0'}}</th>
-                       <th class="text-end">{{totalAmountCharges |number:'1.0-0'}}</th>
-                       <th class="text-end">{{totalAmount |number:'1.0-0'}}</th>
+                       <td colspan="4" class="text-center fw-bold">Total</td>
+                       <td class="text-center fw-bold">{{totalQuantity |number}}</td>
+                       <td class="text-end fw-bold">{{totalServiceCharges |number:'1.0-0'}}</td>
+                       <td class="text-end fw-bold">{{totalAmountCharges |number:'1.0-0'}}</td>
+                       <td class="text-end fw-bold">{{totalAmount |number:'1.0-0'}}</td>
                    </tr>
                </tbody>
 
