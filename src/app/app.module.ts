@@ -93,6 +93,10 @@ import { CioRptRoomWiseComponent } from './Reports/cio-rpt-room-wise/cio-rpt-roo
 import { RoomStatusComponent } from './Components/hotel-dashboard/room-status/room-status.component';
 import { CustomerCheckInRptComponent } from './Reports/customer-check-in-rpt/customer-check-in-rpt.component';
 import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-comparison-rpt.component';
+import { CompanyProfileComponent } from './Components/company-profile/company-profile.component';
+import { PromoRatesComponent } from './Components/settings/promo-rates/promo-rates.component';
+import { AddPromoComponent } from './Components/settings/promo-rates/add-promo/add-promo.component';
+
 
 
 
@@ -111,10 +115,8 @@ import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-c
 
 
 @NgModule({
-  declarations: [
-    
-    AppComponent,
-    
+  declarations: [   
+    AppComponent, 
     HeaderComponent,
     SideNavbarComponent,
     VoucherformComponent,
@@ -133,23 +135,13 @@ import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-c
     AddcityformComponent,
     TopNavbarComponent,
     BankComponent,
-
-
-
-
-
-
-  
     OwnerProfileComponent,
     OwnersReportComponent,
-
     CashbookComponent,
-  
     CoaNotesComponent,
     AddNoteComponent,
     UpdateCoaComponent,
     ChangePinComponent,
-
     ListofCustomersComponent,
     BudgettingComponent,
     BudgetReportComponent,
@@ -188,17 +180,13 @@ import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-c
     RoomStatusComponent,
     CustomerCheckInRptComponent,
     RoomComparisonRptComponent,
- 
-    
-    
-    
-
+    CompanyProfileComponent,
+    PromoRatesComponent,
+    AddPromoComponent,
 
  
-
     
-   
-
+    
 
     
     // FilterPipe,
