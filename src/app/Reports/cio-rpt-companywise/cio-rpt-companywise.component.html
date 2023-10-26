@@ -3,12 +3,12 @@
     <div class="row  p-2">
 
         <mat-form-field class="col-lg-5 " appearance="outline">
-            <mat-label>Select Customer</mat-label>
-            <mat-select [(ngModel)]="partyID">
-                <mat-option><ngx-mat-select-search [(ngModel)]="searchCustomer"
+            <mat-label>Select Company</mat-label>
+            <mat-select [(ngModel)]="companyID">
+                <mat-option><ngx-mat-select-search [(ngModel)]="searchCompany"
                     [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
                     name="search"></ngx-mat-select-search></mat-option>
-                <mat-option *ngFor="let item of partyList |filter:searchCustomer" [value]="item.partyID">{{item.partyName}} - ({{item.partyCNIC}})</mat-option>
+                <mat-option *ngFor="let item of companyList |filter:searchCompany" [value]="item.companyName">{{item.companyName}} - ({{item.managerName}})</mat-option>
             </mat-select>
         </mat-form-field>
 
@@ -50,7 +50,7 @@
 
                     <h1 class="companyName">{{CompanyName}}</h1>
                     <p style="margin-top: -15px;" class="companyName2">{{CompanyName2}}</p>
-                    <p class="rptTitle" style="margin-top:-25px">Check In Out Report({{customerName}})</p>         
+                    <p class="rptTitle" style="margin-top:-25px">Check In Out Report({{companyName}})</p>         
                     <p style="margin-top:-20px"><b>From:</b> {{fromDate | date:'yyyy-MM-dd'}} <b>To:</b> {{toDate | date:'yyyy-MM-dd'}}</p>
                   
                 </span>
@@ -72,6 +72,8 @@
                     <th>ID</th>
                     <th>Room Title</th>
                     <th>Customer Name</th>
+                    <th>Company</th>
+                    <th>Promo</th>
                     <th>Check In Date</th>
                     <th>Check Out Date</th>
                     <th>Type</th>
@@ -89,13 +91,15 @@
                         </td>
                         <td>{{item.roomTitle}}</td>
                         <td>{{item.partyName}}</td>
+                        <td>{{item.companyName}}</td>
+                        <td>{{item.promoTitle}} ({{item.discountPercentage}}%)</td>
                         <td>{{item.checkInDate | date:'short'}}</td>
                         <td>{{item.checkOutDate | date:'short'}}</td>
                         <td ><span *ngIf="item.activeStatus == true">Check In</span> <span *ngIf="item.activeStatus == false">Check Out</span></td>
                         <td class="text-end">{{item.rentPerDay * item.totalDays + item.servicesTotalAmount |number:'1.0-0'}}</td>
                     </tr>
                     <tr>
-                        <th colspan="7" class="text-center">Total</th>
+                        <th colspan="9" class="text-center">Total</th>
                         <th class="text-end">{{TotalAmount |number:'1.0-0'}}</th>
                     </tr>
                 </tbody>
@@ -104,4 +108,5 @@
         </div>
     </div>
 </div>
+
 

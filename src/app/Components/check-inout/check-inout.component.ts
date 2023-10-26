@@ -70,8 +70,10 @@ export class CheckINOUtComponent implements OnInit {
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Check IN OUt');
+    this.RoleID = this.global.getRoleId();
    
     this.getBookingsList();
+    this.getCompanyPromo();
     this.getRoom();
     this.getParty();
     this.getServices();
@@ -100,7 +102,7 @@ export class CheckINOUtComponent implements OnInit {
   }
 
 
-
+  RoleID:any;
 
   searchText:any;
 
@@ -123,6 +125,9 @@ export class CheckINOUtComponent implements OnInit {
   familyInfo:any;
   cioRemarks:any;
   coaID:number = 0;
+  discountPercentage:number = 0;
+  companyPromoID:number = 0;
+  discountedRPD:number = 0;
 
 
   billTotal:number = 0;
@@ -146,6 +151,10 @@ export class CheckINOUtComponent implements OnInit {
   lblRentPerDay:any;
   lblActiveStatus:any;
   lblCIORemarks:any;
+  lblCompanyName:any;
+  lblPromoTitle:any;
+  lblDiscountPercentage:any;
+  lblrpDwithoutDP:any;
 
   lblServiceList:any = [];
 
@@ -186,6 +195,40 @@ export class CheckINOUtComponent implements OnInit {
   savedCheckOutData:any = [];
 
 
+
+  promoSearch:any;
+  companyPromoList:any = [];
+
+
+
+  onPromoChange(){
+    
+    const curpromo = this.companyPromoList.find((e:any)=>e.companyPromoID == this.companyPromoID);
+    this.discountPercentage = curpromo.discountPercentage;
+
+
+    this.discountedRPD = (this.rentPerDay - (this.rentPerDay * this.discountPercentage)/100);
+
+  }
+
+  /////////////////////////////////////////////////////////////
+
+  getCompanyPromo(){
+    this.app.startLoaderDark();
+    
+    this.http.get(environment.mainApi+'getcompanypromo ').subscribe(
+      (Response)=>{
+
+        this.companyPromoList = Response;
+        this.app.stopLoaderDark();
+      
+
+      },
+      (error:any)=>{
+        this.app.stopLoaderDark();
+      }
+    )
+  }
 
 //////////////////////////////////////////////////////////////
 
@@ -264,7 +307,8 @@ export class CheckINOUtComponent implements OnInit {
   //////////////////////////////////////////////////////////////
 
   getTotal(){
-    this.billTotal = (this.rentPerDay * this.totalDays ) + this.servicesTotalAmount;
+
+    this.billTotal = ((this.rentPerDay - (this.rentPerDay * this.discountPercentage /100) ) * this.totalDays ) + this.servicesTotalAmount;
     
   }
   
@@ -369,8 +413,8 @@ export class CheckINOUtComponent implements OnInit {
     this.partyID = 0;
     this.rentPerDay = 0;
     this.checkInDate = new Date();
-    this.checkInTime = '';
-    this.checkOutTime = '';
+    this.checkInTime = this.today.getHours() + ":" + this.today.getMinutes();
+    this.checkOutTime = this.today.getHours() + ":" + this.today.getMinutes();
     this.checkOutDate = new Date();
     this.totalDays = 0;
     this.estimatedDays = 0;
@@ -382,6 +426,9 @@ export class CheckINOUtComponent implements OnInit {
     this.billTotal = 0;
     this.servicesTotalAmount = '';
     this.serviceTableList = [];
+    this.discountPercentage = 0;
+    this.companyPromoID = 0;
+    this.discountedRPD = 0;
 
   }
 
@@ -477,7 +524,7 @@ export class CheckINOUtComponent implements OnInit {
       CheckInTime: this.checkInTime,
       CheckOutTime:this.checkOutTime,
       CheckOutDate:this.checkOutDate,
-      RentPerDay: this.rentPerDay,
+      RentPerDay: this.discountedRPD,
       TotalDays:this.totalDays,
       EstimatedDays:this.estimatedDays,
       CioRemarks: this.cioRemarks,
@@ -485,6 +532,9 @@ export class CheckINOUtComponent implements OnInit {
       AdvancePaid: this.advanceAmount,
       BookingAdvancePaid: this.bookingAdvance,
       COAID:this.coaID,
+      CompanyPromoID:this.companyPromoID,	
+      DiscountPercentage:this.discountPercentage,		
+      RPDwithoutDP:this.rentPerDay,	
       CioDetail:JSON.stringify(this.serviceTableList),
       UserID: this.global.getUserID()
     }).subscribe(
@@ -530,6 +580,7 @@ export class CheckINOUtComponent implements OnInit {
       (Response:any)=>{
 
         this.savedVoucherList = Response;
+        console.log(Response);
         this.checkInOutList = Response.filter((e:any)=>e.activeStatus == true);
         this.loadingBar = 'Stop';
        
@@ -606,6 +657,10 @@ export class CheckINOUtComponent implements OnInit {
     this.lblRentPerDay = row.rentPerDay;
     this.lblActiveStatus = row.activeStatus;
     this.lblCIORemarks = row.cioRemarks;
+    this.lblCompanyName =  row.companyName;
+    this.lblPromoTitle = row.promoTitle;
+    this.lblDiscountPercentage =  row.discountPercentage;
+    this.lblrpDwithoutDP = row.rpDwithoutDP;
 
     this.http.get(environment.mainApi+'GetRoomServices?cioid='+row.checkinoutID).subscribe(
       (Response)=>{

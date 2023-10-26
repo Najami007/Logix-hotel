@@ -83,7 +83,7 @@
             <input [(ngModel)]="searchtxt" matInput type="search" class="text-secondary">
             <mat-icon matPrefix class="text-secondary">search</mat-icon>
         </mat-form-field>
-        
+        <mat-progress-bar mode="indeterminate" *ngIf="loadingBar == 'start'"></mat-progress-bar>
             <table class="table">
                 <thead>
                     <th >S.#</th>
@@ -96,7 +96,7 @@
                 <th  colspan="2 ">Action</th>
                 </thead>
                 <tbody>
-                    <tr  *ngFor="let item of partyData |filter : searchtxt index as index">
+                    <tr  *ngFor="let item of partyData |filter : searchtxt |paginate:{ id:'voucherData', itemsPerPage : tableSize,currentPage : page, totalItems : count, } index as index">
                         <td>{{index+1}}</td>
                         <td>{{item.partyName}}  </td>
                         <td >{{item.partyType}}</td>
@@ -114,6 +114,25 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="d-flex" >
+                <mat-hint class="me-1 text-secondary">Total Rows : ({{partyData.length}})    </mat-hint>
+                <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+                ></pagination-controls>
+                
+
+                <mat-hint class=" me-1 text-secondary">Rows Per Page </mat-hint>
+                <select class="text-white" style="width: 50px; height: 25px;background-color: rgb(75, 164, 248);" (change)="onTableSizeChange($event)">
+                    <option *ngFor=" let item of tableSizes">{{item}}</option>
+                </select>
+                
+            </div>
+
+
+
         </div>
     </div>
 </div>

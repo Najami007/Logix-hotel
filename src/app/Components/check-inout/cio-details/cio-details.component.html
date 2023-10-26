@@ -28,14 +28,25 @@
             <p class="w-50">{{lblDepartureDate | date:'short'}}</p>
         </span>
 
-        <span class="w-50 row ">
-            <h5 class="w-50 fw-bold border-dark">Customer Name:</h5>
-            <p class="w-50">{{lblPartyName }}</p>
+        <span class="w-50 row " *ngIf="lblCompanyName !== '-'">
+            <h5 class="w-50 fw-bold border-dark">Company Name:</h5>
+            <p class="w-50">{{lblCompanyName }}</p>
         </span>
+        <span class="w-50 row " *ngIf="lblPromoTitle !== '-'">
+            <h5 class="w-50 fw-bold border-dark">Promo:</h5>
+            <p class="w-50">{{lblPromoTitle }}  </p>
+        </span>
+        <span class="w-50 row " *ngIf="lblDiscountPercentage !== 0">
+            <h5 class="w-50 fw-bold border-dark">Discount:</h5>
+            <p class="w-50">{{lblDiscountPercentage}}%  </p>
+        </span>
+    
         <span class="w-50 row ">
             <h5 class="w-50 fw-bold border-dark">Customer CNIC:</h5>
             <p class="w-50">{{lblPartyCNIC }}</p>
         </span>
+
+
         <span class="w-50 row ">
             <h5 class="w-50 fw-bold border-dark">Mobile No:</h5>
             <p class="w-50">{{lblPartyMobileno }}</p>
@@ -60,7 +71,8 @@
             <th>S#</th>
             <th>Description</th>
             <th>Days</th>
-            <th>Rent</th>
+            <th >Rent</th>
+            <th *ngIf="lblrpDwithoutDP !== 0">Charged</th>
             <th>Total</th>
           </tr>
         </thead>
@@ -69,6 +81,7 @@
                 <td class="text-center">1</td>
                 <td>{{lblRoomNo}}</td>
                 <td class="text-center ">{{lblTotalDays |number}}</td>
+                <td class="text-end" *ngIf="lblrpDwithoutDP !== 0"> {{lblrpDwithoutDP |number:'1.0-0'}}</td>
                 <td class="text-end"> {{lblRentPerDay |number:'1.0-0'}}</td>
                 <td class="text-end">{{lblTotalDays * lblRentPerDay |number:'1.0-0'}}</td>
             </tr>
@@ -89,20 +102,22 @@
         <tr>
             <th>S#</th>
             <th>Description</th>
+            <th>Date</th>
             <th>Qty</th>
             <th>Amount</th>
             <th>Total</th>
-            <th>Date</th>
+          
         </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of lblServiceList index as index">
                 <td class="text-center">{{index+1}}</td>
                 <td>{{item.serviceTitle}}</td>
+                <td>{{item.serviceDate |date:'short'}}</td>
                 <td class="text-center">{{item.quantity |number}}</td>
                 <td class="text-end"> {{item.amountCharged |number:'1.0-0'}}</td>
                 <td class="text-end">{{item.amountCharged * item.quantity |number:'1.0-0'}}</td>
-                <td>{{item.serviceDate |date:'short'}}</td>
+               
                 
             </tr>
             <tr>
@@ -114,7 +129,7 @@
     </table>
 </div>
 
-<div *ngIf="paymentHistoryList != []">
+<div *ngIf="paymentHistoryList != ''">
     <div class="text-center border border-dark">
         <h3 class="fw-bold">Payment Details</h3>
     </div>

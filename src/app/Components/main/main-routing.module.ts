@@ -40,6 +40,12 @@ import { CioRptRoomWiseComponent } from 'src/app/Reports/cio-rpt-room-wise/cio-r
 import { RoomComparisonRptComponent } from 'src/app/Reports/room-comparison-rpt/room-comparison-rpt.component';
 import { CustomerCheckInRptComponent } from 'src/app/Reports/customer-check-in-rpt/customer-check-in-rpt.component';
 import { CompanyProfileComponent } from '../company-profile/company-profile.component';
+import { MapPromoWthCmpnyComponent } from '../map-promo-wth-cmpny/map-promo-wth-cmpny.component';
+import { ListOfPromoComponent } from 'src/app/Reports/list-of-promo/list-of-promo.component';
+import { ListOfCompanyPromoComponent } from 'src/app/Reports/list-of-company-promo/list-of-company-promo.component';
+import { ListOfCompaniesComponent } from 'src/app/Reports/list-of-companies/list-of-companies.component';
+import { CioRptCompanywiseComponent } from 'src/app/Reports/cio-rpt-companywise/cio-rpt-companywise.component';
+import { CioRptPromowiseComponent } from 'src/app/Reports/cio-rpt-promowise/cio-rpt-promowise.component';
 
 
 
@@ -82,7 +88,13 @@ const routes: Routes = [
   {path:'htldb', component:HotelDashboardComponent,canActivate:[AuthGuard]},
   {path:'rcrpt', component:RoomComparisonRptComponent,canActivate:[AuthGuard]},
   {path:'ccdrpt', component:CustomerCheckInRptComponent,canActivate:[AuthGuard]},
-  {path:'cmpprof', component:CompanyProfileComponent,},
+  {path:'cmpprof', component:CompanyProfileComponent,canActivate:[AuthGuard]},
+  {path:'mpwc', component:MapPromoWthCmpnyComponent,canActivate:[AuthGuard]},
+  {path:'locom', component:ListOfCompaniesComponent,canActivate:[AuthGuard]},
+  {path:'lop', component:ListOfPromoComponent,canActivate:[AuthGuard]},
+  {path:'locp', component:ListOfCompanyPromoComponent,canActivate:[AuthGuard]},
+  {path:'ciorptcomw', component:CioRptCompanywiseComponent,canActivate:[AuthGuard]},
+  {path:'ciorptpmw', component:CioRptPromowiseComponent,canActivate:[AuthGuard]},
   
   {path:'', redirectTo:'/main/dashBoard',pathMatch:'full'}
   ]},

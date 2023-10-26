@@ -8,11 +8,11 @@ import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
-  selector: 'app-cio-rpt-partywise',
-  templateUrl: './cio-rpt-partywise.component.html',
-  styleUrls: ['./cio-rpt-partywise.component.scss']
+  selector: 'app-cio-rpt-companywise',
+  templateUrl: './cio-rpt-companywise.component.html',
+  styleUrls: ['./cio-rpt-companywise.component.scss']
 })
-export class CioRptPartywiseComponent implements OnInit {
+export class CioRptCompanywiseComponent implements OnInit {
 
 
   
@@ -38,7 +38,7 @@ export class CioRptPartywiseComponent implements OnInit {
 
   ngOnInit(): void {
     this.global.setHeaderTitle('Check In OUt Rpt Customerwise');
-    this.getParty();
+    this.getCompanies();
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
     this.CompanyName = this.global.CompanyName;
@@ -49,57 +49,61 @@ export class CioRptPartywiseComponent implements OnInit {
 
 
 
-  searchCustomer:any;
+  searchCompany:any;
   fromDate:any = new Date();
   toDate:any = new Date();
-  partyID:any;
-  customerName:any = '';
+  companyID:any;
+  companyName:any = '';
 
 
   TotalAmount:any;
 
   reportData:any = [];
-  partyList:any = [];
 
 
   
-  getParty(){
-    this.http.get(environment.mainApi+'getparty').subscribe(
-    {
-      next:value =>{
-        this.partyList = value;
-        
-      
-      },
-      error: error=>{
-        this.msg.WarnNotify('Error Occured While Loading Data')
+  companyList:any;
+
+
+
+  ///////////////////////////////////////////////////////
+
+  getCompanies(){
+    this.app.startLoaderDark();
+    this.http.get(environment.mainApi+'GetCompany').subscribe(
+      (Response:any)=>{
+        this.companyList = Response;
+        // console.log(Response);
+        this.app.stopLoaderDark();
        
-      }        
-      
-      
-    }
+      },
+      (error:any)=>{
+        this.app.stopLoaderDark();
+      }
     )
+
   }
 
 
 
+
   getReport(){
-    if(this.partyID == '' || this.partyID == undefined){
-      this.msg.WarnNotify('Select Type')
+    if(this.companyID == '' || this.companyID == undefined){
+      this.msg.WarnNotify('Select Company')
     }else{
       this.app.startLoaderDark();
 
-      var curCutomer = this.partyList.find((a:any)=>a.partyID == this.partyID);
-      this.customerName = curCutomer.partyName;
+      var curCompany = this.companyList.find((a:any)=>a.companyName == this.companyID);
+      this.companyName = curCompany.companyName;
 
 
       this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate?fromdate='+this.global.dateFormater(this.fromDate,'-')+
       '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
-        (Response:any)=>{
+        (Response:any)=>{console.log(Response);
   
   
         
-          this.reportData = Response.filter((obj:any)=>obj.partyID == this.partyID);
+          this.reportData = Response.filter((obj:any)=>obj.companyName == this.companyID);
         
   
           this.TotalAmount = 0;
@@ -124,13 +128,13 @@ export class CioRptPartywiseComponent implements OnInit {
   }
 
   getReport2(){
-    if(this.partyID == '' || this.partyID == undefined){
-      this.msg.WarnNotify('Select Customer')
+    if(this.companyID == '' || this.companyID == undefined){
+      this.msg.WarnNotify('Select Company')
     }else{
       this.app.startLoaderDark();
 
-      var curCutomer = this.partyList.find((a:any)=>a.partyID == this.partyID);
-      this.customerName = curCutomer.partyName;
+      var curCompany = this.companyList.find((a:any)=>a.companyName == this.companyID);
+      this.companyName = curCompany.companyName;
 
 
       this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
@@ -139,7 +143,7 @@ export class CioRptPartywiseComponent implements OnInit {
   
   
         
-          this.reportData = Response.filter((obj:any)=>obj.partyID == this.partyID);
+          this.reportData = Response.filter((obj:any)=>obj.companyName == this.companyID);
         
   
           this.TotalAmount = 0;

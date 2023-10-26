@@ -35,7 +35,7 @@
                             <mat-option><ngx-mat-select-search [(ngModel)]="citySearch"
                                 [placeholderLabel]="'Search...'" [noEntriesFoundLabel]="'Not found'"
                                 name="search"></ngx-mat-select-search></mat-option>
-                            <mat-option *ngFor="let item of CitiesNames |filter:citySearch" value="{{item.cityID}}">{{item.cityName}}</mat-option>
+                            <mat-option *ngFor="let item of CitiesNames |filter:citySearch" [value]="item.cityID">{{item.cityName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <button class=" btn btn-primary me-5 justify-content-center" style="height: 55px;width: 60px;" (click)="addCity()"><mat-icon>add</mat-icon></button>
@@ -57,7 +57,7 @@
         </div>
 
        <div class="d-flex justify-content-center">
-        <Button class="btn btn-success btn-save m-2 w-25" >{{btnType}}</Button>
+        <Button class="btn btn-success btn-save m-2 w-25" (click)="save()">{{btnType}}</Button>
         <Button class="btn btn-danger btn-reset m-2 w-25" (click)="reset()">Reset</Button>
        </div>
     </div>
@@ -74,36 +74,55 @@
             <input [(ngModel)]="searchtxt" matInput type="search" class="text-secondary">
             <mat-icon matPrefix class="text-secondary">search</mat-icon>
         </mat-form-field>
-        
+        <mat-progress-bar mode="indeterminate" *ngIf="loadingBar == 'start'"></mat-progress-bar>
+
             <table class="table">
                 <thead>
                 <th >S.#</th>
                 <th >Company Name</th>
                 <th >Manager</th>
                 <th >Mobile</th>
-                <th >Telephone</th>
-                <th >Address</th>
+                <!-- <th >Telephone</th> -->
+                <th>City</th>
+                <th class="col-lg-2">Address</th>
                 <th  colspan="2 ">Action</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of companyList index as index" >
+                    <tr *ngFor="let item of companyList |filter:searchtxt |paginate:{ id:'voucherData', itemsPerPage : tableSize,currentPage : page, totalItems : count, }  index as index" >
                         <td>{{index+1}}</td>
                         <td>{{item.companyName}}  </td>
                         <td >{{item.managerName}}</td>
                         <td>{{item.mobileNo}}</td>
-                        <td>{{item.telephoneNo}}</td>
-                        <!-- <td>{{item.cityID}}</td> -->
+                        <!-- <td>{{item.telephoneNo}}</td> -->
+                        <td>{{item.cityName}}</td>
                         <td>{{item.address}}</td>
                         <td >
                             <div >
-                                <mat-icon class="text-success cursorPointer">edit</mat-icon>
-                            <mat-icon class="text-danger cursorPointer" > delete</mat-icon>
+                                <mat-icon class="text-success cursorPointer" (click)="editCompany(item)">edit</mat-icon>
+                            <mat-icon class="text-danger cursorPointer" (click)="deleteCompany(item)" > delete</mat-icon>
                             </div>
                         </td>
                      
                     </tr>
                 </tbody>
             </table>
+
+            
+            <div class="d-flex" >
+                <mat-hint class="me-1 text-secondary">Total Rows : ({{companyList.length}})    </mat-hint>
+                <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+                ></pagination-controls>
+                
+
+                <mat-hint class=" me-1 text-secondary">Rows Per Page </mat-hint>
+                <select class="text-white" style="width: 50px; height: 25px;background-color: rgb(75, 164, 248);" (change)="onTableSizeChange($event)">
+                    <option *ngFor=" let item of tableSizes">{{item}}</option>
+                </select>
+                
+            </div>
         </div>
     </div>
 </div>

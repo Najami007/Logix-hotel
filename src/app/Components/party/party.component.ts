@@ -21,6 +21,29 @@ import { AddcityformComponent } from '../settings/city/addcityform/addcityform.c
   styleUrls: ['./party.component.scss']
 })
 export class PartyComponent implements OnInit{
+  loadingBar = 'start';
+
+  
+  page:number = 1;
+  count: number = 0;
+ 
+  tableSize: number = 10;
+  tableSizes : any = [];
+
+  onTableDataChange(event:any){
+
+    this.page = event;
+    this.getParty();
+  }
+
+  onTableSizeChange(event:any):void{
+    this.tableSize = event.target.value;
+    this.page =1 ;
+    this.getParty();
+  }
+
+
+
 
 
   constructor(private globalData: GlobalDataModule,
@@ -36,6 +59,8 @@ export class PartyComponent implements OnInit{
    this.globalData.setHeaderTitle('Add Party');
    this.getParty();
    this.getCityNames();
+  //  this.tableSize = this.globalData.paginationDefaultTalbeSize;
+   this.tableSizes = this.globalData.paginationTableSizes;
   }
 
 
@@ -114,6 +139,7 @@ citySearch:any;
     {
       next:value =>{
         this.partyData = value;
+        this.loadingBar = 'Stop';
         
       
       },

@@ -96,6 +96,13 @@ import { RoomComparisonRptComponent } from './Reports/room-comparison-rpt/room-c
 import { CompanyProfileComponent } from './Components/company-profile/company-profile.component';
 import { PromoRatesComponent } from './Components/settings/promo-rates/promo-rates.component';
 import { AddPromoComponent } from './Components/settings/promo-rates/add-promo/add-promo.component';
+import { MapPromoWthCmpnyComponent } from './Components/map-promo-wth-cmpny/map-promo-wth-cmpny.component';
+import { MappingFormComponent } from './Components/map-promo-wth-cmpny/mapping-form/mapping-form.component';
+import { ListOfPromoComponent } from './Reports/list-of-promo/list-of-promo.component';
+import { ListOfCompaniesComponent } from './Reports/list-of-companies/list-of-companies.component';
+import { CioRptCompanywiseComponent } from './Reports/cio-rpt-companywise/cio-rpt-companywise.component';
+import { CioRptPromowiseComponent } from './Reports/cio-rpt-promowise/cio-rpt-promowise.component';
+import { ListOfCompanyPromoComponent } from './Reports/list-of-company-promo/list-of-company-promo.component';
 
 
 
@@ -183,6 +190,13 @@ import { AddPromoComponent } from './Components/settings/promo-rates/add-promo/a
     CompanyProfileComponent,
     PromoRatesComponent,
     AddPromoComponent,
+    MapPromoWthCmpnyComponent,
+    MappingFormComponent,
+    ListOfPromoComponent,
+    ListOfCompaniesComponent,
+    CioRptCompanywiseComponent,
+    CioRptPromowiseComponent,
+    ListOfCompanyPromoComponent,
 
  
     

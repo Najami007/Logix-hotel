@@ -45,6 +45,10 @@ export class CioDetailsComponent  implements OnInit{
   lblActiveStatus:any;
   lblPartyCNIC:any;
   lblPartyMobileno:any;
+  lblCompanyName:any;
+  lblPromoTitle:any;
+  lblDiscountPercentage:any;
+  lblrpDwithoutDP:any;
 
   lblServiceList:any = [];
   paymentHistoryList:any = [];
@@ -70,6 +74,10 @@ export class CioDetailsComponent  implements OnInit{
     this.lblTotalDays = row.totalDays;
     this.lblRentPerDay = row.rentPerDay;
     this.lblActiveStatus = row.activeStatus;
+    this.lblCompanyName =  row.companyName;
+    this.lblPromoTitle = row.promoTitle;
+    this.lblDiscountPercentage =  row.discountPercentage;
+    this.lblrpDwithoutDP = row.rpDwithoutDP;
 
     this.http.get(environment.mainApi+'GetRoomServices?cioid='+row.checkinoutID).subscribe(
       (Response)=>{

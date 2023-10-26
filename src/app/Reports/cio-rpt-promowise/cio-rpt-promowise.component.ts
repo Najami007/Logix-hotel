@@ -7,12 +7,13 @@ import { NotificationService } from 'src/app/Shared/service/notification.service
 import { AppComponent } from 'src/app/app.component';
 import { environment } from 'src/environments/environment.development';
 
+
 @Component({
-  selector: 'app-cio-rpt-partywise',
-  templateUrl: './cio-rpt-partywise.component.html',
-  styleUrls: ['./cio-rpt-partywise.component.scss']
+  selector: 'app-cio-rpt-promowise',
+  templateUrl: './cio-rpt-promowise.component.html',
+  styleUrls: ['./cio-rpt-promowise.component.scss']
 })
-export class CioRptPartywiseComponent implements OnInit {
+export class CioRptPromowiseComponent implements OnInit {
 
 
   
@@ -37,8 +38,8 @@ export class CioRptPartywiseComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.global.setHeaderTitle('Check In OUt Rpt Customerwise');
-    this.getParty();
+    this.global.setHeaderTitle('Check In Out Report Promowise');
+    this.getPromo();
     this.logo = this.global.Logo;
     this.logo1 = this.global.Logo1;
     this.CompanyName = this.global.CompanyName;
@@ -49,57 +50,49 @@ export class CioRptPartywiseComponent implements OnInit {
 
 
 
-  searchCustomer:any;
+  searchPromo:any;
   fromDate:any = new Date();
   toDate:any = new Date();
-  partyID:any;
-  customerName:any = '';
+  promoTitle:any;
 
 
   TotalAmount:any;
 
   reportData:any = [];
-  partyList:any = [];
+
+ 
+  promoList:any = [];
 
 
-  
-  getParty(){
-    this.http.get(environment.mainApi+'getparty').subscribe(
-    {
-      next:value =>{
-        this.partyList = value;
-        
-      
-      },
-      error: error=>{
-        this.msg.WarnNotify('Error Occured While Loading Data')
-       
-      }        
-      
-      
+  getPromo(){
+    
+
+    this.http.get(environment.mainApi+'getpromo').subscribe(
+    (Response)=>{
+      this.promoList = Response;
+      // console.log(Response);
     }
     )
   }
 
 
 
+
   getReport(){
-    if(this.partyID == '' || this.partyID == undefined){
-      this.msg.WarnNotify('Select Type')
+    if(this.promoTitle == '' || this.promoTitle == undefined){
+      this.msg.WarnNotify('Select Company')
     }else{
       this.app.startLoaderDark();
 
-      var curCutomer = this.partyList.find((a:any)=>a.partyID == this.partyID);
-      this.customerName = curCutomer.partyName;
 
 
       this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate?fromdate='+this.global.dateFormater(this.fromDate,'-')+
       '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
-        (Response:any)=>{
+        (Response:any)=>{console.log(Response);
   
   
         
-          this.reportData = Response.filter((obj:any)=>obj.partyID == this.partyID);
+          this.reportData = Response.filter((obj:any)=>obj.promoTitle == this.promoTitle);
         
   
           this.TotalAmount = 0;
@@ -124,14 +117,10 @@ export class CioRptPartywiseComponent implements OnInit {
   }
 
   getReport2(){
-    if(this.partyID == '' || this.partyID == undefined){
-      this.msg.WarnNotify('Select Customer')
+    if(this.promoTitle == '' || this.promoTitle == undefined){
+      this.msg.WarnNotify('Select Company')
     }else{
       this.app.startLoaderDark();
-
-      var curCutomer = this.partyList.find((a:any)=>a.partyID == this.partyID);
-      this.customerName = curCutomer.partyName;
-
 
       this.http.get(environment.mainApi+'GetCIOHistoryBetweenDate2?fromdate='+this.global.dateFormater(this.fromDate,'-')+
       '&todate='+this.global.dateFormater(this.toDate,'-')).subscribe(
@@ -139,7 +128,7 @@ export class CioRptPartywiseComponent implements OnInit {
   
   
         
-          this.reportData = Response.filter((obj:any)=>obj.partyID == this.partyID);
+          this.reportData = Response.filter((obj:any)=>obj.promoTitle == this.promoTitle);
         
   
           this.TotalAmount = 0;
