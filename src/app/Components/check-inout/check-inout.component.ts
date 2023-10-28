@@ -496,6 +496,8 @@ export class CheckINOUtComponent implements OnInit {
     }
     else if(this.advanceAmount > 0 && this.coaID == 0){
       this.msg.WarnNotify('Select Payment Head')
+    }else if(this.discountedRPD == 0 || this.discountedRPD == undefined){
+      this.msg.WarnNotify('Enter DRPD');
     }
     else{
 
@@ -515,7 +517,11 @@ export class CheckINOUtComponent implements OnInit {
   //////////////////////////////////////////////////////////////
 
    insertCheckIn(){    
+
     this.app.startLoaderDark();
+    if(this.companyPromoID == 0 || this.companyPromoID == undefined){
+      this.discountedRPD = this.rentPerDay;
+    }
     this.http.post(environment.mainApi+'insertcheckin',{
       RoomID:this.roomID,
       PartyID:this.partyID,
